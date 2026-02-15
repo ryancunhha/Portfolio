@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import Slug from "../../data/slugs/slugs.json";
 import Header from "../../components/header/header";
 import Contatos from "../../components/bar/contact/contact";
 
@@ -31,7 +30,7 @@ function Sobre() {
     }
 
     useEffect(() => {
-        document.title = Slug.sobre
+        document.title = "Sobre Mim"
     })
 
     return (

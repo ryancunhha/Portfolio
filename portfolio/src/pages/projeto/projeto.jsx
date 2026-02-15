@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Header from "../../components/header/header";
 import Introducao from "./section/intro/intro";
 import Conteudo from "./section/conteudo/conteudo";
-import Slug from "../../data/slugs/slugs.json";
 import Erro from "../404/404";
 
 import dadosProjeto from "../../data/projetos.json";
@@ -30,9 +29,9 @@ function ProjetoDetalhe() {
         if (projetoAtual?.nome) {
             document.title = `${projetoAtual.nome}`
         } else {
-            document.title = Slug.projeto
+            document.title = slug.projeto
         }
-    }, [projetoAtual])
+    },)
 
     if (!projetoAtual) return <Erro />
 
@@ -41,7 +40,7 @@ function ProjetoDetalhe() {
             <Header />
 
             <div className="pt-14 pb-8 flex justify-center">
-                
+
                 <div className="w-[95%] md:w-[45%]">
                     <Introducao projeto={projetoAtual} categoria={categoriaAtual} />
 

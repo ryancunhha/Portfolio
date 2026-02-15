@@ -147,7 +147,7 @@ function Chamados() {
                     ?
                 </button>
 
-                <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-12 md:w-17 py-2 px-1 bg-zinc-900 text-white text-[8.5px] md:text-[10px] rounded shadow-xl border border-zinc-700 transition-opacity z-50 pointer-events-none ${visivel ? 'opacity-100' : 'opacity-0'}`}>
+                <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-24 py-2 px-1 bg-zinc-900 text-white text-[8.5px] md:text-[10px] rounded shadow-xl border border-zinc-700 transition-opacity z-50 pointer-events-none ${visivel ? 'opacity-100' : 'opacity-0'}`}>
                     {texto}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-zinc-900"></div>
                 </div>

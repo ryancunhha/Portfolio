@@ -30,10 +30,13 @@ function Shortcut({ onClose }) {
                         <a title="Currículo" target="_blank" rel="noreferrer" href={dadosContatos.cv} className="hover:underline cursor-pointer">CV</a>
                     </li>
 
+                    <li title="Faça sua solicitação">
+                        <Link to={"/solicitacao"} onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} rel="noreferrer" className="hover:underline cursor-pointer">Solicitação</Link>
+                    </li>
                 </ul>
             </div>
 
-        </div >
+        </div>
     )
 }
 

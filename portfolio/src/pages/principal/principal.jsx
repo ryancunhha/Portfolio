@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import Slug from "../../data/slugs/slugs.json";
 import Dataehora from "./section/dataehora/Dataehora";
 import Projetos from "./section/projetos/projetos";
 import Header from "../../components/header/header";
@@ -8,7 +7,7 @@ import Header from "../../components/header/header";
 function Intro() {
 
     useEffect(() => {
-        document.title = Slug.principal
+        document.title = "Home | Portfólio"
     }, [])
 
     return (

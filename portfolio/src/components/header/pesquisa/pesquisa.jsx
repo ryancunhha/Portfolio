@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PesquisaModal from "./PesquisaModal/PesquisaModal";
 
-function Pesquisa(params) {
+function Pesquisa() {
     const [MenuAberto, setMenuAberto] = useState(false)
 
     return (

@@ -10,7 +10,7 @@ function Comentarios({ comentarios }) {
         }, 3200)
 
         return () => clearTimeout(timer)
-    }, [3200])
+    }, [])
 
     function EsqueletoTexto() {
         return (

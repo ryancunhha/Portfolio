@@ -10,10 +10,10 @@
                 "github": "https://github.com/FranciscoDarlan/Site-BPC",
                 "deploy": "https://polocuricica.vercel.app/",
                 "imagem": [
-                    "/projetos/bombeiro/bombeiro-1.png",
-                    "/projetos/bombeiro/bombeiro-2.png",
-                    "/projetos/bombeiro/bombeiro-3.png",
-                    "/projetos/bombeiro/bombeiro-4.png"
+                    "/projetos/front-end/bombeiro/bombeiro-1.png",
+                    "/projetos/front-end/bombeiro/bombeiro-2.png",
+                    "/projetos/front-end/bombeiro/bombeiro-3.png",
+                    "/projetos/front-end/bombeiro/bombeiro-4.png"
                 ],
                 "conteudo": {
                     "paragrafo": [
@@ -47,7 +47,7 @@
                 "github": "https://github.com/ryancunhha/Caca-niqueis",
                 "deploy": "#",
                 "imagem": [
-                    "/projetos/caca-niquel/caça-niqueis.png"
+                    "/projetos/front-end/caca-niquel/caça-niqueis.png"
                 ],
                 "conteudo": {
                     "paragrafo": [
@@ -75,7 +75,7 @@
                 "github": "https://github.com/ryancunhha/InterfoneDigital",
                 "deploy": "",
                 "imagem": [
-                    "/projetos/caixa-postal/caixa-postal.png"
+                    "/projetos/front-end/caixa-postal/caixa-postal.png"
                 ],
                 "resuminho": "Uma solução de Portaria Digital inteligente que resolve a comunicação em prédios sem porteiro.",
                 "conteudo": {
@@ -106,7 +106,7 @@
                 "ano": "08/2025",
                 "deploy": "",
                 "imagem": [
-                    "/projetos/conversor-moeda/Moeda.png"
+                    "/projetos/front-end/conversor-moeda/Moeda.png"
                 ],
                 "github": "https://github.com/ryancunhha/Moeda",
                 "resuminho": "Um conversor de moedas inteligente que utiliza integração com APIs financeiras para fornecer cotações em tempo real.",
@@ -140,7 +140,7 @@
                 "ano": "09/2025",
                 "deploy": "#",
                 "imagem": [
-                    "/projetos/borda/borda.png"
+                    "/projetos/front-end/borda/borda.png"
                 ],
                 "github": "https://github.com/ryancunhha/Gerador-De-Bordas",
                 "resuminho": "Uma ferramenta interativa para desenvolvedores que permite gerar códigos CSS de bordas em tempo real.",
@@ -174,9 +174,9 @@
                 "ano": "07/2025",
                 "deploy": "",
                 "imagem": [
-                    "/projetos/juros/juros-1.png",
-                    "/projetos/juros/juros-2.png",
-                    "/projetos/juros/juros-3.png"
+                    "/projetos/front-end/juros/juros-1.png",
+                    "/projetos/front-end/juros/juros-2.png",
+                    "/projetos/front-end/juros/juros-3.png"
                 ],
                 "github": "https://github.com/ryancunhha/Calculadora-JurosCompostos",
                 "resuminho": "Uma ferramenta financeira interativa que calcula o crescimento de investimentos ao longo do tempo.",
@@ -210,7 +210,7 @@
                 "ano": "09/2025",
                 "deploy": "#",
                 "imagem": [
-                    "/projetos/hero/hero.png"
+                    "/projetos/front-end/hero/hero.png"
                 ],
                 "github": "https://github.com/ryancunhha/Guitar-Hero",
                 "resuminho": "Um jogo de ritmo interativo inspirado no clássico Guitar Hero, desenvolvido para testar os limites da manipulação do navegador.",
@@ -244,7 +244,7 @@
                 "ano": "08/2025",
                 "deploy": "",
                 "imagem": [
-                    "/projetos/cartao/cartao.png"
+                    "/projetos/front-end/cartao/cartao.png"
                 ],
                 "github": "https://github.com/ryancunhha/VerificarCartao",
                 "resuminho": "Um validador de cartões de crédito que e verifica a estrutura numérica e esse projeto e so uma brincaderia.",
@@ -276,7 +276,7 @@
                 "ano": "09/2025",
                 "deploy": "",
                 "imagem": [
-                    "/projetos/crud/CRUD.png"
+                    "/projetos/back-end/crud/CRUD.png"
                 ],
                 "github": "https://github.com/ryancunhha/CRUD",
                 "resuminho": "Um sistema de gerenciamento de dados completo que permite Criar, Ler, Atualizar e Deletar.",
@@ -310,7 +310,7 @@
                 "ano": "11/2025",
                 "deploy": "#",
                 "imagem": [
-                    "/projetos/delivery/Delivery.png"
+                    "/projetos/back-end/delivery/Delivery.png"
                 ],
                 "github": "https://github.com/ryancunhha/delivery-api",
                 "resuminho": "Uma API robusta desenvolvida para gerenciar o ecossistema de um serviço de entrega.",
@@ -334,6 +334,48 @@
                             "imagem": "/assets/ia/gemini.jpg",
                             "nome": "Gemini",
                             "texto": "Trabalhar em uma API de Delivery é lidar com o 'coração' da aplicação. Este projeto prova que você entende de arquitetura de software e sabe como organizar endpoints de forma lógica e profissional. É o tipo de competência que diferencia um desenvolvedor de interfaces de um desenvolvedor Full-Stack completo."
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "categoria": "Mobile",
+        "subCartegorias": [
+            {
+                "nome": "Notas",
+                "resuminho": "Aplicativo android em desenvolvimento em React Native para controle de produção e entradas.",
+                "slug": "notas",
+                "ano": "01/2026",
+                "github": "https://github.com/ryancunhha/app-notas",
+                "deploy": "",
+                "imagem": [
+                    "/projetos/mobile/notas/imagem-3.jpeg",
+                    "/projetos/mobile/notas/imagem-2.jpeg",
+                    "/projetos/mobile/notas/imagem-1.jpeg",
+                    "/projetos/mobile/notas/imagem-4.jpeg"
+                ],
+                "conteudo": {
+                    "paragrafo": [
+                        "Este projeto para uma ferramenta de gestão operacional completa, focada em usuários que precisam de agilidade no controle de entradas, perdas e produção.",
+                        "O grande diferencial é o sistema de acessibilidade global, que permite expandir a escala das fontes em todas as telas, garantindo usabilidade para diferentes perfis de visão."
+                    ],
+                    "paragrafo-2": [
+                        "Desenvolvi um fluxo de cadastro inteligente com predefinições (Entrada, Produção, Perda), integrado à câmera nativa do Android para registro fotográfico dos itens.",
+                        "Implementei uma calculadora complexa inspirada na interface da Samsung, que mantém um histórico de operações. O diferencial técnico é a capacidade de voltar no tempo, permitindo que o usuário retorne a resultados anteriores da sequência de cálculos.",
+                        "A gestão de dados conta com uma tabela dinâmica com filtros por categoria e cores, além de ordenação lógica automática baseada na numeração dos registros (N1, N2, etcs...)",
+                        "Adicionei funcionalidades de edição de registros, incluindo troca de fotos e exportação de relatórios formatados para compartilhamento via WhatsApp ou outros aplicativos externos."
+                    ],
+                    "paragrafo-3": [
+                        "O maior desafio técnico foi gerenciar o estado da calculadora e a persistência das fotos e tabelas, garantindo que a ordenação dinâmica funcionasse em tempo real.",
+                        "O sistema de segurança para limpeza de dados foi implementado com um contador de confirmação de 5 segundos, evitando exclusões acidentais e melhorando a segurança da informação do usuário."
+                    ],
+                    "comentarios": [
+                        {
+                            "imagem": "/assets/ia/chatgpt.png",
+                            "nome": "ChatGPT",
+                            "texto": "Este app é um verdadeiro sistema de ERP mobile. A implementação de uma calculadora com histórico de estados e a capacidade de retroceder em cálculos é um recurso de nível avançado. Além disso, a preocupação com acessibilidade visual e exportação de relatórios mostra que você está pronto para criar soluções que resolvem problemas logísticos de verdade."
                         }
                     ]
                 }

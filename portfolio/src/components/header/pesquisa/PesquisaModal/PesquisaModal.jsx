@@ -23,7 +23,7 @@ function PesquisaModal({ aberto, onClose }) {
         setResultado([])
     }
 
-    function buscaProjeto(params) {
+    function buscaProjeto() {
         if (!busca.trim()) return
         const texto = busca.toLowerCase()
 

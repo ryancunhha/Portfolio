@@ -1,6 +1,19 @@
 import { useEffect, useState } from "react";
 
-function Slide({ imagens = [], intervalo = 3000 }) {
+function ModalImagem({ index, imagens, onClose, onNavigate }) {
+    if (index === null) return null
+
+    return (
+        <div className="fixed inset-0 z-30 bg-black/80 flex items-center justify-center" onClick={onClose}>
+            <img src={imagens[index]} onClick={(e) => e.stopPropagation()} className="max-w-[90vw] max-h-[95vh] object-contain" />
+            <button onClick={onClose} className="cursor-pointer absolute top-6 right-6 text-white" title="Fechar">✕</button>
+            <button onClick={(e) => { e.stopPropagation(), onNavigate(-1) }} className="absolute left-4 text-white cursor-pointer text-5xl">‹</button>
+            <button onClick={(e) => { e.stopPropagation(), onNavigate(1) }} className="absolute right-4 text-white cursor-pointer text-5xl">›</button>
+        </div>
+    )
+}
+
+export default function Slide({ imagens = [], intervalo = 3000 }) {
     const [indexAtual, setIndexAtual] = useState(0);
     const [autoPlay, setAutoPlay] = useState(true);
     const [imagemAberta, setImagemAberta] = useState(null)
@@ -8,7 +21,7 @@ function Slide({ imagens = [], intervalo = 3000 }) {
     const imagensSlide = imagens.slice(1)
 
     useEffect(() => {
-        if (!autoPlay || imagens.length === 0) return;
+        if (!autoPlay || imagensSlide.length === 0) return;
 
         const id = setInterval(() => {
             setIndexAtual((prev) =>
@@ -17,7 +30,7 @@ function Slide({ imagens = [], intervalo = 3000 }) {
         }, intervalo);
 
         return () => clearInterval(id);
-    }, [autoPlay, imagensSlide, intervalo]);
+    }, [autoPlay, imagensSlide.length, intervalo]);
 
     if (!imagensSlide.length) return null;
 
@@ -28,19 +41,6 @@ function Slide({ imagens = [], intervalo = 3000 }) {
 
     function play() {
         setAutoPlay(true);
-    }
-
-    function ModalImagem({ index, imagens, onClose, onNavigate }) {
-        if (index === null) return null
-
-        return (
-            <div className="fixed inset-0 z-30 bg-black/80 flex items-center justify-center" onClick={onClose}>
-                <img src={imagens[index]} onClick={(e) => e.stopPropagation()} className="max-w-[90vw] max-h-[95vh] object-contain" />
-                <button onClick={onClose} className="cursor-pointer absolute top-6 right-6 text-white" title="Fechar">✕</button>
-                <button onClick={(e) => { e.stopPropagation(), onNavigate(-1) }} className="absolute left-4 text-white cursor-pointer text-5xl">‹</button>
-                <button onClick={(e) => { e.stopPropagation(), onNavigate(1) }} className="absolute right-4 text-white cursor-pointer text-5xl">›</button>
-            </div>
-        )
     }
 
     return (
@@ -82,5 +82,3 @@ function Slide({ imagens = [], intervalo = 3000 }) {
         </>
     )
 }
-
-export default Slide

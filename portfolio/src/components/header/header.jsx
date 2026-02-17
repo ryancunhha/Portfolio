@@ -7,7 +7,7 @@ import Pesquisa from "./pesquisa/pesquisa";
 
 import dadosResumo from "../../data/resumo.json";
 
-function Header(params) {
+function Header() {
     const [abertura, setAberta] = useState(false)
 
     return (

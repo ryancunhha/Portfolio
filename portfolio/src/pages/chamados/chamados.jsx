@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 
 import Notificacao from "../../components/notificacao/notificacao";
@@ -11,6 +12,35 @@ function Chamados() {
     const [canSend, setCanSend] = useState(true)
     const [currency, setCurrency] = useState("BRL")
     const [message, setMessage] = useState("")
+    const [links, setLinks] = useState([""])
+
+    const addLink = () => {
+        if (links.length < 3) {
+            setLinks([...links, ""])
+        }
+    }
+
+    const sanitizeInput = (value) => {
+        return value.replace(/<[^>]*>?/gm, "")
+    }
+
+    const handleLinkChange = (index, value) => {
+        const cleanValue = sanitizeInput(value)
+        if (cleanValue.length > 300) return
+
+        const newLinks = [...links]
+        newLinks[index] = cleanValue
+        setLinks(newLinks)
+    }
+
+    const removeLink = (index) => {
+        if (links.length > 1) {
+            const newLinks = links.filter((_, i) => i !== index);
+            setLinks(newLinks)
+        } else {
+            handleLinkChange(0, "")
+        }
+    }
 
     const currencySymbols = {
         BRL: "R$",
@@ -82,6 +112,9 @@ function Chamados() {
     const sendEmail = async (e) => {
         e.preventDefault()
 
+        const formData = new FormData(e.target)
+        if (formData.get("honeypot")) return
+
         if (!canSend) {
             notificacao.mostrarNotificacao("Você já enviou uma solicitação hoje. Tente novamente mais tarde!")
             return
@@ -89,21 +122,27 @@ function Chamados() {
 
         setLoading(true)
 
+        const cleanName = sanitizeInput(form.current.user_name.value)
+        const cleanEmail = sanitizeInput(form.current.user_email.value)
+        const cleanMessage = sanitizeInput(form.current.message.value)
+
         const formattedBudget = price ? `${price} ${currencySymbols[currency]}` : `0,00 ${currencySymbols[currency]}`;
+        const linksFormatados = links.filter(link => link.trim() !== "").join(", ")
 
         const templateParams = {
-            user_name: form.current.user_name.value,
-            user_email: form.current.user_email.value,
+            user_name: cleanName,
+            user_email: cleanEmail,
             user_phone: phone || "(00) 00000-0000",
             budget: formattedBudget,
-            message: form.current.message.value,
+            message: cleanMessage,
+            user_links: linksFormatados || "Nenhum link.",
             date: new Date().toLocaleDateString("pt-BR")
         }
 
-        const SERVICE_ID = "service_i5bowcl"
-        const PUBLIC_KEY = "fUCCha7tvt4h_XuHQ"
-        const TEMPLATE_NOTIFICACAO_ID = "template_0huqcys"
-        const TEMPLATE_AUTOREPLY_ID = "template_95qa7no"
+        const SERVICE_ID = import.meta.env.VITE_SERVICE_ID
+        const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY
+        const TEMPLATE_NOTIFICACAO_ID =  import.meta.env.VITE_TEMPLATE_NOTIFICACAO_ID
+        const TEMPLATE_AUTOREPLY_ID =  import.meta.env.VITE_TEMPLATE_AUTOREPLY_ID
 
         try {
             await emailjs.send(SERVICE_ID, TEMPLATE_NOTIFICACAO_ID, templateParams, PUBLIC_KEY)
@@ -117,6 +156,8 @@ function Chamados() {
             form.current.reset()
             setPhone("")
             setPrice("")
+            setMessage("")
+            setLinks([""])
         } catch (error) {
             console.error("Erro ao enviar", error)
             notificacao.mostrarNotificacao("Ocorreu um erro ao processar seu pedido. Tente novamente mais tarde.")
@@ -178,6 +219,7 @@ function Chamados() {
                                     <p className="text-black font-bold uppercase text-sm mb-2">Exemplo:</p>
                                     <p>"Quero um sistema para fazer X, Y, Z"</p>
                                     <p>"Esse sistema deve me permitir fazer A, B, C, D"</p>
+                                    <p><strong className="not-italic">💡 Dica:</strong> Se você ainda está em dúvida sobre o que pedir, não se preocupe! <span className="text-blue-700 font-semibold">{<Link to={"/"}>Clique aqui</Link>}</span> para ver alguns dos meus trabalhos e ter uma ideia do que você precisa.</p>
                                 </div>
                             </div>
 
@@ -198,12 +240,12 @@ function Chamados() {
 
                                 <div className="flex flex-col gap-1">
                                     <label htmlFor="user_email" className="text-xs text-zinc-400 uppercase">Email<span className="text-[#ee4b1e]">*</span></label>
-                                    <input id="user_email" maxLength={80} name="user_email" required placeholder="Seu Email" type="email" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
+                                    <input id="user_email" maxLength={100} name="user_email" required placeholder="Seu Email" type="email" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
                                 </div>
 
                                 <div className="flex flex-col gap-1">
 
-                                    <label htmlFor="budget" className="text-xs text-zinc-400 uppercase">Orçamento <Pergunta texto="Este é o valor inicial, poderá sofrer alterações." /></label>
+                                    <label htmlFor="budget" className="text-xs text-zinc-400 uppercase">Orçamento <Pergunta texto="Opcional, Este é o valor inicial, poderá sofrer alterações." /></label>
 
                                     <div className="flex flex-row text-black border w-full border-zinc-800 rounded">
                                         <select value={currency} onChange={(e) => { setCurrency(e.target.value); setPrice("") }} className="bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800" >
@@ -220,11 +262,28 @@ function Chamados() {
                                 </div>
 
                                 <div className="flex flex-col gap-1">
+                                    <label htmlFor="link" className="text-xs text-zinc-400 uppercase">Link <Pergunta texto="Opcional, Links de Referência (YouTube, Drive, etc) max: 3" /></label>
+
+                                    {links.map((link, index) => (
+                                        <div key={index} className="flex flex-row text-black border w-full border-zinc-800 rounded">
+
+                                            {index === 0 && links.length < 3 ? (
+                                                <button type="button" onClick={addLink} className="w-10 bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800">+</button>
+                                            ) : (
+                                                <button type="button" onClick={() => removeLink(index)} className="w-10 bg-zinc-900 text-red-400 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800 transition-colors">-</button>
+                                            )}
+
+                                            <input id={`link-${index}`} type="url" placeholder={`https://exemplo-${index + 1}.com`} value={link} onChange={(e) => handleLinkChange(index, e.target.value)} className="w-full text-sm border-l outline-none px-3 py-2" />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-col gap-1">
                                     <label htmlFor="message" className="text-xs text-zinc-400 uppercase">
                                         Como posso te ajudar?<span className="text-[#ee4b1e]">*</span>
                                     </label>
 
-                                    <textarea id="message" onChange={(e) => setMessage(e.target.value)} maxLength={800} name="message" required placeholder="Descreva seu pedido aqui detalhadamente..." rows="5" className="text-sm px-3 py-2 text-black border border-zinc-800 rounded outline-none" />
+                                    <textarea id="message" onChange={(e) => setMessage(sanitizeInput(e.target.value))} maxLength={800} name="message" required placeholder="Descreva seu pedido aqui detalhadamente..." rows="5" className="text-sm px-3 py-2 text-black border border-zinc-800 rounded outline-none" />
 
                                     <span className={`text-[10px] ${message.length > 750 ? 'text-orange-500' : 'text-zinc-500'}`}>
                                         {message.length} / 800
@@ -245,6 +304,9 @@ function Chamados() {
                                     </div>
                                 </div>
 
+                                <div htmlFor="honeypot" className="hidden">
+                                    <input id="honeypot" type="text" name="honeypot" tabIndex="-1" autoComplete="off" />
+                                </div>
                             </form>
                         </div>
                     </div>

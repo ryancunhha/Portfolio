@@ -9,6 +9,7 @@
                 "ano": "06/2025",
                 "github": "https://github.com/FranciscoDarlan/Site-BPC",
                 "deploy": "https://polocuricica.vercel.app/",
+                "emDesenvolvimento": true,
                 "imagem": [
                     "/projetos/front-end/bombeiro/bombeiro-1.png",
                     "/projetos/front-end/bombeiro/bombeiro-2.png",
@@ -350,6 +351,7 @@
                 "ano": "01/2026",
                 "github": "https://github.com/ryancunhha/app-notas",
                 "deploy": "",
+                "emDesenvolvimento": true,
                 "imagem": [
                     "/projetos/mobile/notas/imagem-3.jpeg",
                     "/projetos/mobile/notas/imagem-2.jpeg",

@@ -10,9 +10,21 @@ function Introducao({ projeto, categoria }) {
 
     const existeDeploy = !!projeto.deploy && projeto.deploy !== "#"
 
-    function copiarLink() {
-        navigator.clipboard.writeText(window.location.href)
-        notificacaoLink.mostrarNotificacao("Link copiado para a área de transferência")
+    async function copiarLink() {
+        const shareData = {
+            title: projeto.nome,
+            text: projeto.resuminho,
+            url: window.location.href,
+        }
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData)
+            } catch (error) { }
+        } else {
+            navigator.clipboard.writeText(window.location.href)
+            notificacaoLink.mostrarNotificacao("Link copiado para a área de transferência")
+        }
     }
 
     function copiarCodigoCarteiraBTC() {
@@ -39,9 +51,19 @@ function Introducao({ projeto, categoria }) {
                 </div>
 
                 <div className="flex justify-between items-center">
-                    <div>
-                        <p className="text-[13px] text-[#727171]">Feito em</p>
-                        <p className="text-[11px] text-black font-medium">{projeto.ano}</p>
+                    <div className="flex flex-row gap-2 items-center">
+                        <div>
+                            <p className="text-[13px] text-[#727171]">Feito em</p>
+                            <p className="text-[11px] text-black font-medium">{projeto.ano}</p>
+                        </div>
+
+                        {projeto.emDesenvolvimento && (
+                            <div className="no-underline">
+                                <span className="bg-[#FF8101] text-white text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider shadow-md">
+                                    Em Desenvolvimento
+                                </span>
+                            </div>
+                        )}
                     </div>
 
                     <div>
@@ -67,7 +89,7 @@ function Introducao({ projeto, categoria }) {
                         <img className="h-6 rounded-[100%] bg-white" src="https://img.icons8.com/ios-filled/92/github.png" alt="repositorio-no-github" />
                     </a>
 
-                    <button onClick={copiarLink} title="Copiar link">
+                    <button onClick={copiarLink} title="Compartilhar projeto">
                         <img className="h-6 cursor-pointer rounded-[100%]" src="https://img.icons8.com/flat-round/92/link--v1.png" alt="copiar-link" />
                     </button>
 

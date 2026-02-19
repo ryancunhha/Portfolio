@@ -34,8 +34,8 @@ function Conteudo({ projeto }) {
 
         return (
             <div className="fixed inset-0 z-30 bg-black/80 flex items-center justify-center" onClick={onClose}>
-                <img src={src} onClick={(e) => e.stopPropagation()} className="max-w-[90vw] max-h-[95vh] object-contain" />
-                <button onClick={onClose} className="cursor-pointer absolute top-6 right-6 text-white text-2xl" title="Fechar">✕</button>
+                <img src={src} onClick={(e) => e.stopPropagation()} className="max-w-[95vw] md:max-w-[80vw] max-h-[80vh] object-contain" />
+                <button onClick={onClose} className="cursor-pointer absolute top-6 right-6 text-white" title="Fechar">✕</button>
             </div>
         )
     }

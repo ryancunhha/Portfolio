@@ -234,7 +234,7 @@ function Chamados() {
 
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="user_phone" className="text-xs text-zinc-400 uppercase">Telefone <Pergunta texto="Opcional. Facilita o suporte e dúvidas rápidas via WhatsApp." /></label>
-                                        <input id="user_phone" value={phone} onChange={handlePhone} name="user_phone" placeholder="(00) 00000-0000" type="text" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
+                                        <input id="user_phone" value={phone} onChange={handlePhone} name="user_phone" placeholder="(00) 00000-0000" type="text" inputMode="numeric" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
                                     </div>
                                 </div>
 
@@ -256,7 +256,7 @@ function Chamados() {
                                         </select>
 
                                         <div className="w-full">
-                                            <input id="budget" value={price} onChange={handlePrice} name="budget" placeholder={currency === "BTC" ? "0.00000000" : "0,00"} type="text" className="w-full text-sm border-l outline-none px-3 py-2" />
+                                            <input id="budget" value={price} onChange={handlePrice} name="budget" placeholder={currency === "BTC" ? "0.00000000" : "0,00"} type="text" inputMode="numeric" className="w-full text-sm border-l outline-none px-3 py-2" />
                                         </div>
                                     </div>
                                 </div>
@@ -268,9 +268,9 @@ function Chamados() {
                                         <div key={index} className="flex flex-row text-black border w-full border-zinc-800 rounded">
 
                                             {index === 0 && links.length < 3 ? (
-                                                <button type="button" onClick={addLink} className="w-10 bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800">+</button>
+                                                <button title="Adicionar novo link" type="button" onClick={addLink} className="w-10 bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800">+</button>
                                             ) : (
-                                                <button type="button" onClick={() => removeLink(index)} className="w-10 bg-zinc-900 text-red-400 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800 transition-colors">-</button>
+                                                <button title="Remover este link" type="button" onClick={() => removeLink(index)} className="w-10 bg-zinc-900 text-red-400 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800 transition-colors">-</button>
                                             )}
 
                                             <input id={`link-${index}`} type="url" placeholder={`https://exemplo-${index + 1}.com`} value={link} onChange={(e) => handleLinkChange(index, e.target.value)} className="w-full text-sm border-l outline-none px-3 py-2" />

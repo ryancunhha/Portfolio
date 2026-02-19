@@ -6,8 +6,7 @@ import dadosContatos from "../../../data/contatos.json";
 function Contact() {
     const notificacao = useNotificacao(2500)
 
-    function EmailCopiado(e) {
-        e.preventDefault()
+    function EmailCopiado() {
         navigator.clipboard.writeText(dadosContatos.email)
 
         notificacao.mostrarNotificacao("Email copiado. Cole no seu app de email.")

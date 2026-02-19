@@ -51,6 +51,7 @@ Todos os arquivos `.json` responsáveis pelo conteúdo do portfólio ficam na pa
         "ano": "",
         "github": "",
         "deploy": "",
+        "emDesenvolvimento": true,
         "imagem": [],
         "conteudo": {
           "paragrafo": [""],
@@ -97,6 +98,7 @@ Todos os arquivos `.json` responsáveis pelo conteúdo do portfólio ficam na pa
  - **ano** → Data do projeto
  - **github** → Repositório
  - **deploy** → Site publicado
+ - **emDesenvolvimento** → Projeto em desenvolvimento
 
 ### Imagens
 

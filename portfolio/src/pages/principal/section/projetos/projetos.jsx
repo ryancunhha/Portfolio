@@ -44,12 +44,12 @@ function Projetos() {
 
     async function fetchClima() {
         try {
-            const resIp = await fetch("http://ip-api.com/json/")
+            const resIp = await fetch("https://ipwho.is/")
             const dataIp = await resIp.json()
 
             if (dataIp.status === "fail") throw new Error("Falha na localização")
 
-            const urlClima = `https://api.open-meteo.com/v1/forecast?latitude=${dataIp.lat}&longitude=${dataIp.lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&hourly=weathercode&timezone=auto`
+            const urlClima = `https://api.open-meteo.com/v1/forecast?latitude=${dataIp.latitude}&longitude=${dataIp.longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&hourly=weathercode&timezone=auto`
 
             const resClima = await fetch(urlClima)
             const data = await resClima.json()
@@ -68,9 +68,9 @@ function Projetos() {
 
             setClima({
                 cidade: dataIp.city,
-                chuvaProb: data.daily.precipitation_probability_max[0],
+                chuvaProb: probChuva,
                 chuvaMm: data.daily.precipitation_sum[0],
-                max: Math.round(data.daily.temperature_2m_max[0]),
+                max: tempMax,
                 min: Math.round(data.daily.temperature_2m_min[0]),
                 manhaEmoji: getEmoji(data.hourly.weathercode[9]),
                 tardeEmoji: getEmoji(data.hourly.weathercode[15]),

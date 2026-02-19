@@ -44,15 +44,17 @@ function Projetos() {
 
     async function fetchClima() {
         try {
-            const resIp = await fetch("https://ipwho.is/")
+            const resIp = await fetch("https://ipapi.co/json/")
             const dataIp = await resIp.json()
 
-            if (dataIp.status === "fail") throw new Error("Falha na localização")
+            if (!dataIp.status === "fail") throw new Error("Falha na localização")
 
             const urlClima = `https://api.open-meteo.com/v1/forecast?latitude=${dataIp.latitude}&longitude=${dataIp.longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&hourly=weathercode&timezone=auto`
 
             const resClima = await fetch(urlClima)
             const data = await resClima.json()
+
+            if (!data.daily) throw new Error("Erro nos dados do clima");
 
             const getEmoji = (code) => {
                 if (code <= 1) return "☀️"

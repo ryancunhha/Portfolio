@@ -22,7 +22,7 @@ function Dataehora() {
         } else {
             setTexto(saudacaoPorHora())
         }
-    }, [])
+    }, [dataHora])
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -42,7 +42,7 @@ function Dataehora() {
 
     return (
         <>
-            <div className="py-5 px-8 flex justify-between">
+            <div className="py-4 px-8 flex flex-col gap-2 md:flex-row justify-between">
                 <p className="text-[#727171] text-base flex items-center tracking-tighter">{texto}</p>
 
                 <div className="tracking-tighter text-[#727171] text-sm flex items-center">

@@ -53,7 +53,7 @@ function PesquisaModal({ aberto, onClose }) {
                                 <label htmlFor="procurar" className="text-xs font-bold">Busque por um projeto</label>
 
                                 <div className="w-full flex justify-between items-center">
-                                    <input id="procurar" type="text" value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") buscaProjeto() }} placeholder="Ex: Dashboard, Landing Page, Portfólio" className="w-full mt-2 px-2 pb-2 outline-none" />
+                                    <input maxLength={100} id="procurar" type="text" value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") buscaProjeto() }} placeholder="Ex: Dashboard, Landing Page, Portfólio" className="w-full mt-2 px-2 pb-2 outline-none" />
 
                                     {busca.length > 0 && (
                                         <button onClick={limparBusca} className="pr-3">✕</button>

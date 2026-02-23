@@ -74,7 +74,7 @@ function Conteudo({ projeto }) {
                     ))}
                 </div>
 
-                <Comentarios comentarios={comentarios} />
+                <Comentarios comentarios={comentarios} slugAtual={projeto.slug} />
             </div>
         </>
     )

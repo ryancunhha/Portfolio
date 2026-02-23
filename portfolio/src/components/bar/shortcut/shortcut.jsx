@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import dadosContatos from "../../../data/contatos.json";
 import dadosResumo from "../../../data/resumo.json";
 
-function Shortcut({ onClose }) {
+export default function Shortcut({ onClose }) {
     return (
         <div className="flex flex-col">
 
@@ -21,17 +21,18 @@ function Shortcut({ onClose }) {
 
 
             <div className="">
-                <ul className="font-medium list-none flex flex-col gap-0.5 py-1">
+                <ul className="w-full font-medium list-none flex flex-col gap-1 my-1">
                     <li>
                         <Link onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} title="Sobre Mim" to="/sobre" className="hover:underline cursor-pointer">Sobre</Link>
                     </li>
 
-                    <li>
-                        <a title="Currículo" target="_blank" rel="noreferrer" href={dadosContatos.cv} className="hover:underline cursor-pointer">CV</a>
-                    </li>
-
                     <li title="Faça sua solicitação">
                         <Link to={"/solicitacao"} onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} rel="noreferrer" className="hover:underline cursor-pointer">Solicitação</Link>
+                    </li>
+
+                    <li className="flex flex-row items-center gap-1">
+                        <a title="Currículo" target="_blank" rel="noreferrer" href={dadosContatos.cv} className="hover:underline cursor-pointer">Currículo</a>
+                        <img className="h-3" src="https://img.icons8.com/sf-regular/90/external-link.png" alt="link" />
                     </li>
                 </ul>
             </div>
@@ -39,5 +40,3 @@ function Shortcut({ onClose }) {
         </div>
     )
 }
-
-export default Shortcut

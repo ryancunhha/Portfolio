@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 
-function Notificacao({ visivel, mensagem, progresso, onClose, onPausa, onDecorrer }) {
+export default function Notificacao({ visivel, mensagem, progresso, onClose, onPausa, onDecorrer }) {
 
     return createPortal(
         <div onMouseEnter={onPausa} onMouseLeave={onDecorrer} className={`m-1.5 fixed bottom-5 md:bottom-2 right-0 z-11 transition-all duration-300 ease-in-out ${visivel ? "md:-translate-x-0.5" : "opacity-0 -translate-x pointer-events-none"}`}>
@@ -23,5 +23,3 @@ function Notificacao({ visivel, mensagem, progresso, onClose, onPausa, onDecorre
         </div>, document.body
     )
 }
-
-export default Notificacao

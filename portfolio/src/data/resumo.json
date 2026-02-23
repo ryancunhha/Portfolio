@@ -1,14 +1,14 @@
 {
     "marca": "/assets/Marca.png",
-    "bitcoin": "14aAC1AfhaBVUsuZ4bshPCn5tSWWBffUZR",
-    "cripto-rede": "Endereço copiado. Cole na sua corretora e selecione a Rede: Bitcoin (BTC).",
+    "bitcoin": "bc1q59vvngraya6sa0vn82hss3s6yrlp8l0x6yvayf",
+    "cripto-rede": "Endereço copiado!, No app da sua Exchange, selecione a rede Bitcoin (BTC). Valor mínimo: 0.0001 BTC",
     "foto": "/assets/sobre/ryan.jpg",
     "banner": "/assets/sobre/banner.jpg",
     "categoria": "Desenvolvedor Full-Stack",
-    "boas-vindas": "Sou desenvolvedor e este é o meu espaço. Sinta-se em à vontade para explorar o site e conhecer meu portfólio e descobrir como posso ajudar no seu próximo projeto.",
+    "boas-vindas": "Sou desenvolvedor e este é o meu espaço. Sinta-se à vontade para explorar o site e conhecer meu portfólio e descobrir como posso ajudar no seu próximo projeto.",
     "resumo": [
         "Sou desenvolvedor de Software. Crio projetos organizados, focados em reutilização de códigos e facilidade de manutenção. Este portfólio reflete como penso, estruturo e entrego soluções.",
-        "Meu interesse por tecnologia começou cedo, explorando computadores, sistemas e automaçãoes antes mesmo de pensar em programação. Ao longo do tempo, fui aprendendo na prática, desde organização de arquivos, edicão de mídia e automações domésticas.",
+        "Meu interesse por tecnologia começou cedo, explorando computadores, sistemas e automaçãoes. Ao longo do tempo, fui aprendendo na prática, desde organização de arquivos, edicão de mídia e automações domésticas.",
         "Essa curiosidade prática me levou ao desenvolvimento web, onde encontrei um espaço para transformar ideias em produtos funcionais usando  [https://pt.wikipedia.org/wiki/HTML|HTML], [https://pt.wikipedia.org/wiki/CSS|CSS] e [https://pt.wikipedia.org/wiki/JavaScript|JavaScript] e o ecossistema web moderno.",
         "Hoje eu desenvolvo projetos pensando em escabilidade, legibilidade e produtividade. Estruturo aplicações de forma que novas funcionalidades possam ser adicionadas como o mínimo de esforço, como neste portfólio, onde os projetos são gerenciados por dados organizados."
     ],

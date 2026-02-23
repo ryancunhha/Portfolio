@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import dadosProjetos from "../../../../data/projetos.json";
 import dadosResumo from "../../../../data/resumo.json";
 
-function PesquisaModal({ aberto, onClose }) {
+export default function PesquisaModal({ aberto, onClose }) {
     const [busca, setBusca] = useState("")
     const [resultado, setResultado] = useState([])
 
@@ -53,10 +53,10 @@ function PesquisaModal({ aberto, onClose }) {
                                 <label htmlFor="procurar" className="text-xs font-bold">Busque por um projeto</label>
 
                                 <div className="w-full flex justify-between items-center">
-                                    <input maxLength={100} id="procurar" type="text" value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") buscaProjeto() }} placeholder="Ex: Dashboard, Landing Page, Portfólio" className="w-full mt-2 px-2 pb-2 outline-none" />
+                                    <input maxLength={200} id="procurar" type="text" value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") buscaProjeto() }} placeholder="Ex: Dashboard, Landing Page, Portfólio" className="w-full mt-2 px-2 pb-2 outline-none" />
 
                                     {busca.length > 0 && (
-                                        <button onClick={limparBusca} className="pr-3">✕</button>
+                                        <button onClick={limparBusca} className="mr-3 cursor-pointer">✕</button>
                                     )}
 
                                     <button onClick={buscaProjeto} className="px-2 py-1 border-2 text-xs font-bold cursor-pointer transition-all hover:bg-black hover:border-black hover:text-white">BUSCAR</button>
@@ -81,5 +81,3 @@ function PesquisaModal({ aberto, onClose }) {
         </>
     )
 }
-
-export default PesquisaModal

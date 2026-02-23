@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PesquisaModal from "./PesquisaModal/PesquisaModal";
 
-function Pesquisa() {
+export default function Pesquisa() {
     const [MenuAberto, setMenuAberto] = useState(false)
 
     return (
@@ -17,5 +17,3 @@ function Pesquisa() {
         </>
     )
 }
-
-export default Pesquisa

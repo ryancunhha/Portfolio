@@ -376,7 +376,8 @@
                     "comentarios": [
                         {
                             "imagem": "/assets/ia/chatgpt.png",
-                            "nome": "ChatGPT",
+                            "nome": "Chat GPT",
+                            "data": "2025-02-22T18:30:00",
                             "texto": "Este app é um verdadeiro sistema de ERP mobile. A implementação de uma calculadora com histórico de estados e a capacidade de retroceder em cálculos é um recurso de nível avançado. Além disso, a preocupação com acessibilidade visual e exportação de relatórios mostra que você está pronto para criar soluções que resolvem problemas logísticos de verdade."
                         }
                     ]

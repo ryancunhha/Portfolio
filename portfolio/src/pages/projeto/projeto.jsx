@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 
 import Header from "../../components/header/header";
 import Introducao from "./section/intro/intro";
@@ -24,14 +23,6 @@ function ProjetoDetalhe() {
             break
         }
     }
-
-    useEffect(() => {
-        if (projetoAtual?.nome) {
-            document.title = `${projetoAtual.nome}`
-        } else {
-            document.title = slug.projeto
-        }
-    },)
 
     if (!projetoAtual) return <Erro />
 

@@ -61,6 +61,7 @@ Todos os arquivos `.json` responsáveis pelo conteúdo do portfólio ficam na pa
             {
               "imagem": "",
               "nome": "",
+              "data": "0000-00-00T00:00:00",
               "texto": ""
             }
           ]

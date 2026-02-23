@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import dadosProjetos from "../../../data/projetos.json";
 import { slugify } from "../../../utils/slugify/slugify";
 
-function Project() {
+export default function Project() {
 
     function CriarCard(projeto) {
         return (
             <div>
                 <p className="text-xs text-[#727171]">{projeto.categoria}</p>
 
-                <ul className="list-none flex flex-col gap-0.5">
+                <ul className="list-none flex flex-col gap-1">
                     {projeto.subCartegorias.map((item, index) => (
-                        <li key={index} title={item.nome} className="text-sm wrap-break-word group flex items-center gap-2">
+                        <li key={index} className="text-sm wrap-break-word group flex items-center gap-2">
                             
                             <Link className="hover:underline" to={`/${slugify(item.slug) ?? item.slug}`}>{item.nome}</Link>
 
@@ -23,9 +23,7 @@ function Project() {
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF8101]"></span>
                                     </span>
 
-                                    <span className="text-[9px] font-bold text-[#FF8101] uppercase tracking-tighter">
-                                        Em construção
-                                    </span>
+                                    <span title="Em desenvolvimento" className="cursor-default w-max text-[9px] font-bold text-[#FF8101] uppercase tracking-tighter">Dev</span>
                                 </div>
                             )}
                         </li>
@@ -37,7 +35,7 @@ function Project() {
 
     return (
         <div className="flex flex-col pb-5">
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 w-full">
                 {
                     dadosProjetos.map((p, index) => (
                         <CriarCard key={index} {...p} />
@@ -47,5 +45,3 @@ function Project() {
         </div>
     )
 }
-
-export default Project

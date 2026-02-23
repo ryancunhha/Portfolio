@@ -6,7 +6,7 @@ import Notificacao from "../../components/notificacao/notificacao";
 import { useNotificacao } from "../../hooks/useNotificacao";
 import Header from "../../components/header/header";
 
-function Chamados() {
+export default function Chamados() {
     const form = useRef()
     const [loading, setLoading] = useState(false)
     const [canSend, setCanSend] = useState(true)
@@ -141,8 +141,8 @@ function Chamados() {
 
         const SERVICE_ID = import.meta.env.VITE_SERVICE_ID
         const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY
-        const TEMPLATE_NOTIFICACAO_ID =  import.meta.env.VITE_TEMPLATE_NOTIFICACAO_ID
-        const TEMPLATE_AUTOREPLY_ID =  import.meta.env.VITE_TEMPLATE_AUTOREPLY_ID
+        const TEMPLATE_NOTIFICACAO_ID = import.meta.env.VITE_TEMPLATE_NOTIFICACAO_ID
+        const TEMPLATE_AUTOREPLY_ID = import.meta.env.VITE_TEMPLATE_AUTOREPLY_ID
 
         try {
             await emailjs.send(SERVICE_ID, TEMPLATE_NOTIFICACAO_ID, templateParams, PUBLIC_KEY)
@@ -182,7 +182,7 @@ function Chamados() {
         }, [])
 
         return (
-            <div className="group relative inline-block ml-1" ref={containerRef} onMouseEnter={() => setVisivel(true)} onMouseLeave={() => setVisivel(false)} >
+            <div className="group relative inline-block" ref={containerRef} onMouseEnter={() => setVisivel(true)} onMouseLeave={() => setVisivel(false)} >
 
                 <button type="button" onClick={() => setVisivel(!visivel)} className="w-3 h-3 border border-zinc-400 text-black text-[9px] font-bold rounded-full flex items-center justify-center cursor-help">
                     ?
@@ -233,7 +233,7 @@ function Chamados() {
                                     </div>
 
                                     <div className="flex flex-col gap-1">
-                                        <label htmlFor="user_phone" className="text-xs text-zinc-400 uppercase">Telefone <Pergunta texto="Opcional. Facilita o suporte e dúvidas rápidas via WhatsApp." /></label>
+                                        <label htmlFor="user_phone" className="text-xs text-zinc-400 uppercase flex flex-row gap-1">Telefone <Pergunta texto="Opcional. Facilita o suporte e dúvidas rápidas via WhatsApp." /></label>
                                         <input id="user_phone" value={phone} onChange={handlePhone} name="user_phone" placeholder="(00) 00000-0000" type="text" inputMode="numeric" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
                                     </div>
                                 </div>
@@ -245,7 +245,7 @@ function Chamados() {
 
                                 <div className="flex flex-col gap-1">
 
-                                    <label htmlFor="budget" className="text-xs text-zinc-400 uppercase">Orçamento <Pergunta texto="Opcional, Este é o valor inicial, poderá sofrer alterações." /></label>
+                                    <label htmlFor="budget" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Orçamento<Pergunta texto="Opcional, Este é o valor inicial, poderá sofrer alterações." /></label>
 
                                     <div className="flex flex-row text-black border w-full border-zinc-800 rounded">
                                         <select value={currency} onChange={(e) => { setCurrency(e.target.value); setPrice("") }} className="bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800" >
@@ -262,7 +262,7 @@ function Chamados() {
                                 </div>
 
                                 <div className="flex flex-col gap-1">
-                                    <label htmlFor="link" className="text-xs text-zinc-400 uppercase">Link <Pergunta texto="Opcional, Links de Referência (YouTube, Drive, etc) max: 3" /></label>
+                                    <label htmlFor="link" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Link <Pergunta texto="Opcional, Links de Referência (YouTube, Drive, etc) max: 3" /></label>
 
                                     {links.map((link, index) => (
                                         <div key={index} className="flex flex-row text-black border w-full border-zinc-800 rounded">
@@ -315,5 +315,3 @@ function Chamados() {
         </>
     )
 }
-
-export default Chamados

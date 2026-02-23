@@ -1,0 +1,31 @@
+{
+    "frio": [
+        "Clima de montanha! Perfeito para um café quente e muito código.",
+        "Está frio lá fora, mas o terminal está pegando fogo!",
+        "Hora de colocar o casaco e abrir o VS Code.",
+        "Compilando... e tremendo de frio.",
+        "Stack Overflow aquece mais que cobertor."
+    ],
+    "agradavel": [
+        "Temperatura ideal para tirar aquela ideia do papel.",
+        "Clima agradável, mente focada.",
+        "99 bugs na branch, 99 bugs...",
+        "Consigo ver minha casa daqui!",
+        "Ótimo dia para codar!",
+        "Clima agradável, mente focada. Vamos codar!",
+        "Alguém realmente lê isso?",
+        "O dia está perfeito para resolver uns bugs."
+    ],
+    "calor": [
+        "Está calor por aqui! Não esqueça de se hidratar.",
+        "Sol lá fora, Dark Mode aqui dentro.",
+        "Meu PC está parecendo uma airfryer.",
+        "Sol lá fora, código aqui dentro.",
+        "Clima tropical e produtividade a mil!"
+    ],
+    "chuva": [
+        "Caindo um pé d'água? Melhor lugar é dentro do código!",
+        "Som de chuva ao fundo e café na mão. Combo perfeito.",
+        "Dia chuvoso pede um refil de café e novos commits."
+    ]
+}

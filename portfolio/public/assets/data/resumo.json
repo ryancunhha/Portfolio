@@ -1,7 +1,22 @@
 {
+<<<<<<< Updated upstream:portfolio/src/data/resumo.json
     "marca": "/assets/Marca.png",
     "bitcoin": "14aAC1AfhaBVUsuZ4bshPCn5tSWWBffUZR",
     "cripto-rede": "Endereço copiado. Cole na sua corretora e selecione a Rede: Bitcoin (BTC).",
+=======
+    "bitcoin": [
+        "bc1q59vvngraya6sa0vn82hss3s6yrlp8l0x6yvayf",
+        "/assets/imagem/Qrcode/QrCode-btc.jpeg",
+        "Endereço copiado! Cole na sua Exchange, selecione a rede Bitcoin (BTC). Depósito mín: 0.0001 BTC",
+        "BTC - Bitcoin",
+        "0.0001 BTC"
+    ],
+    "pix": [
+        "8927d272-4b43-41fc-838c-eff41cf4534f",
+        "/assets/imagem/Qrcode/QrCode-pix.jpeg",
+        "Chave pix copiado! Cole no Banco."
+    ],
+>>>>>>> Stashed changes:portfolio/public/assets/data/resumo.json
     "foto": "/assets/sobre/ryan.jpg",
     "banner": "/assets/sobre/banner.jpg",
     "categoria": "Desenvolvedor Full-Stack",

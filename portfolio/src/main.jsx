@@ -8,7 +8,11 @@ import App from './App.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+<<<<<<< Updated upstream
       <App></App>
+=======
+      <App />
+>>>>>>> Stashed changes
     </BrowserRouter>
   </StrictMode>,
 )

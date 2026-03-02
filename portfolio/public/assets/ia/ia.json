@@ -1,0 +1,22 @@
+[
+    {
+        "nome": "Chat GPT",
+        "imagem": "/assets/ia/chatgpt.png"
+    },
+    {
+        "nome": "Claude",
+        "imagem": "/assets/ia/claude.png"
+    },
+    {
+        "nome": "Gemini",
+        "imagem": "/assets/ia/gemini.jpg"
+    },
+    {
+        "nome": "DeepSeek",
+        "imagem": "/assets/ia/deepseek.webp"
+    },
+    {
+        "nome": "Meta AI",
+        "imagem": "/assets/ia/meta.jpg"
+    }
+]

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import dadosResumo from "../../../../data/resumo.json";
+import dadosResumo from "../../../../../public/assets/data/resumo.json";
 
 function Dataehora() {
     const [dataHora, setDataHora] = useState(new Date())
@@ -42,18 +42,25 @@ function Dataehora() {
 
     return (
         <>
+<<<<<<< Updated upstream
             <div className="py-4 px-8 flex flex-col gap-2 md:flex-row justify-between">
                 <p className="text-[#727171] text-base flex items-center tracking-tighter">{texto}</p>
+=======
+            <div className="max-w-7xl mx-auto">
+                <div className="px-6 md:p-6 flex flex-col gap-2.5 md:flex-row justify-between">
+                    <p className="text-[#727171] text-base flex items-center tracking-tighter">{texto}</p>
+>>>>>>> Stashed changes
 
-                <div className="tracking-tighter text-[#727171] text-sm flex items-center">
-                    {formatacao}
+                    <div className="tracking-tighter text-[#727171] text-sm flex items-center">
+                        {formatacao}
+                    </div>
                 </div>
-            </div>
 
-            <div className="p-6">
-                <p className="text-[#212023] text-base wrap-break-word tracking-tighter whitespace-normal">
-                    {dadosResumo["boas-vindas"]}
-                </p>
+                <div className="p-6">
+                    <p className="text-[#212023] text-base wrap-break-word tracking-tighter whitespace-normal">
+                        {dadosResumo["boas-vindas"]}
+                    </p>
+                </div>
             </div>
         </>
     )

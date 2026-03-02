@@ -1,0 +1,33 @@
+{
+    "email": "ryancunhha@outlook.com",
+    "cv": "https://drive.google.com/file/d/1NulGvEgHW_4dOMTb5Q6YHoTbzw2NKLzZ/view",
+    "redes": [
+        {
+<<<<<<< Updated upstream:portfolio/src/data/contatos.json
+            "nome": "Linkedln",
+=======
+            "imagem-rede": "/assets/imagem/rede/linkedin.png",
+            "nome": "LinkedIn",
+>>>>>>> Stashed changes:portfolio/public/assets/data/contatos.json
+            "link": "https://www.linkedin.com/in/ryancunhha/"
+        },
+        {
+            "imagem-rede": "/assets/imagem/rede/github.png",
+            "nome": "GitHub",
+            "link": "https://github.com/ryancunhha"
+        },
+        {
+            "imagem-rede": "/assets/imagem/rede/instagram.png",
+            "nome": "Instagram",
+            "link": "https://www.instagram.com/ryancunhha"
+<<<<<<< Updated upstream:portfolio/src/data/contatos.json
+=======
+        },
+        {
+            "imagem-rede": "/assets/imagem/rede/twitter.png",
+            "nome": "X (Twitter)",
+            "link": "https://x.com/Ryancunhha"
+>>>>>>> Stashed changes:portfolio/public/assets/data/contatos.json
+        }
+    ]
+}

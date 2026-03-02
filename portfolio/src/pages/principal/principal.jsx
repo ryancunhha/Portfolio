@@ -4,8 +4,7 @@ import Dataehora from "./section/dataehora/Dataehora";
 import Projetos from "./section/projetos/projetos";
 import Header from "../../components/header/header";
 
-function Intro() {
-
+export default function Intro() {
     useEffect(() => {
         document.title = "Home | Portfólio"
     }, [])
@@ -14,12 +13,10 @@ function Intro() {
         <>
             <Header />
             
-            <div className="pt-16 pb-8">
+            <div className="pt-5 md:pt-0 pb-8">
                 <Dataehora />
                 <Projetos />
             </div>
         </>
     )
 }
-
-export default Intro

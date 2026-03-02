@@ -13,6 +13,8 @@ function Chamados() {
     const [currency, setCurrency] = useState("BRL")
     const [message, setMessage] = useState("")
     const [links, setLinks] = useState([""])
+    const [mostrarOpcionais, setMostrarOpcionais] = useState(false)
+    const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false)
 
     const addLink = () => {
         if (links.length < 3) {
@@ -57,6 +59,21 @@ function Chamados() {
     useEffect(() => {
         document.title = "Solicitação"
     })
+
+    useEffect(() => {
+        if (mostrarConfirmacao) {
+            document.body.style.overflow = "hidden";
+            document.documentElement.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset"
+            document.documentElement.style.overflow = "unset"
+        }
+
+        return () => {
+            document.body.style.overflow = "unset"
+            document.documentElement.style.overflow = "unset"
+        }
+    }, [mostrarConfirmacao])
 
     useEffect(() => {
         const lastSend = localStorage.getItem("portfolio_last_send")
@@ -196,14 +213,103 @@ function Chamados() {
         )
     }
 
+    const abrirConfirmacao = (e) => {
+        e.preventDefault()
+        setMostrarConfirmacao(true)
+    }
+
+    const handleConfirmarEnvio = () => {
+        setMostrarConfirmacao(false)
+        sendEmail()
+    }
+
     return (
         <>
             <Notificacao visivel={notificacao.visivel} mensagem={notificacao.mensagem} progresso={notificacao.progresso} onClose={notificacao.esconderNotificacao} onPausa={notificacao.pausarNotificacao} onDecorrer={notificacao.retomarNotificacao} />
 
+            {mostrarConfirmacao && (
+                <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
+                    <div className="bg-white w-full max-w-lg p-6 md:p-8 rounded-sm shadow-2xl border-4 border-black animate-fadeIn relative max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col">
+
+                        <div className="flex justify-between">
+                            <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-black">Checkout</h3>
+
+                            <button className="w-8 h-8 flex items-center justify-center bg-zinc-100 hover:bg-black hover:text-white transition-all rounded-full cursor-pointer" onClick={() => setMostrarConfirmacao(false)}>✕</button>
+                        </div>
+
+                        <div className="space-y-4 mb-8">
+                            <p className="text-zinc-500 text-xs uppercase font-bold tracking-widest border-b pb-1">Verifique seu contato:</p>
+
+                            <div>
+                                <span className="block text-[10px] text-zinc-400 uppercase font-black">Email para resposta:</span>
+                                <span className="text-lg font-bold text-blue-600 break-all">{form.current.user_email.value}</span>
+                            </div>
+
+                            <div>
+                                <span className="block text-[10px] text-zinc-400 uppercase font-black">Seu Nome:</span>
+                                <span className="text-lg font-bold text-black">{form.current.user_name.value}</span>
+                            </div>
+
+                            {phone && (
+                                <div>
+                                    <span className="block text-[10px] text-zinc-400 uppercase font-black tracking-tight">Telefone:</span>
+                                    <span className="text-lg font-bold text-black">{phone}</span>
+                                </div>
+                            )}
+
+                            <div>
+                                <span className="block text-[10px] text-zinc-400 uppercase font-black tracking-tight">Seu pedido:</span>
+                                <div className="max-h-40 overflow-y-auto border border-zinc-100 rounded bg-zinc-50 custom-scrollbar">
+                                    <p className="text-sm font-medium text-zinc-800 leading-relaxed italic p-3 whitespace-pre-wrap break-words">
+                                        "{message}"
+                                    </p>
+                                </div>
+                            </div>
+
+                            {price && price !== "0,00" && price !== "0.00000000" && (
+                                <div>
+                                    <span className="block text-[10px] text-zinc-400 uppercase font-black tracking-tight">Orçamento Estimado:</span>
+                                    <span className="text-lg font-bold text-green-600">
+                                        {currencySymbols[currency]} {price}
+                                    </span>
+                                </div>
+                            )}
+
+                            {links.some(l => l.trim() !== "") && (
+                                <div>
+                                    <span className="block text-[10px] text-zinc-400 uppercase font-black tracking-tight">Links de Referência:</span>
+                                    <div className="flex flex-col gap-1 mt-1">
+                                        {links.filter(l => l.trim() !== "").map((l, i) => (
+                                            <span key={i} className="text-xs text-blue-600 underline break-all truncate max-w-full block">
+                                                {l}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <p className="text-[11px] bg-amber-50 text-amber-700 p-3 border-l-4 border-amber-400">
+                                <strong>Atenção:</strong> Se o e-mail estiver errado, eu não conseguirei te responder!
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-4 ">
+                            <button onClick={() => setMostrarConfirmacao(false)} className="cursor-pointer w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-95 border-2 border-black" >
+                                Não, preciso corrigir algo
+                            </button>
+
+                            <button onClick={handleConfirmarEnvio} className="cursor-pointer w-full py-3 text-[11px] font-black uppercase tracking-[0.2em] text-zinc-400 hover:text-black hover:bg-zinc-100 transition-all border border-zinc-200 rounded-sm" >
+                                Tudo certo, enviar agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <main>
                 <Header></Header>
 
-                <section className="pt-18 pb-6 md:pb-0 px-6 max-w-5xl mx-auto text-white">
+                <section className="pt-3 pb-6 md:pb-0 px-6 max-w-5xl mx-auto text-white">
                     <div className="py-6">
                         <h2 className="text-2xl md:text-3xl font-bold mb-3 uppercase tracking-tighter text-black">Faça sua Solicitação!</h2>
 
@@ -223,17 +329,19 @@ function Chamados() {
                                 </div>
                             </div>
 
-                            <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-2 border border-gray-200 p-6 bg-gray-50">
-
+                            <form ref={form} onSubmit={abrirConfirmacao} className="flex flex-col gap-2 border border-gray-200 p-6 bg-gray-50">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="user_name" className="text-xs text-zinc-400 uppercase">Nome<span className="text-[#ee4b1e]">*</span></label>
                                         <input id="user_name" maxLength={20} name="user_name" required placeholder="Seu nome" type="text" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded  outline-none transition" />
                                     </div>
 
                                     <div className="flex flex-col gap-1">
+<<<<<<< Updated upstream
                                         <label htmlFor="user_phone" className="text-xs text-zinc-400 uppercase">Telefone <Pergunta texto="Opcional. Facilita o suporte e dúvidas rápidas via WhatsApp." /></label>
+=======
+                                        <label htmlFor="user_phone" className="text-xs text-zinc-400 uppercase flex flex-row gap-1">Telefone <Pergunta texto="Opcional. Facilita o suporte de dúvidas via WhatsApp." /></label>
+>>>>>>> Stashed changes
                                         <input id="user_phone" value={phone} onChange={handlePhone} name="user_phone" placeholder="(00) 00000-0000" type="text" inputMode="numeric" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
                                     </div>
                                 </div>
@@ -243,25 +351,56 @@ function Chamados() {
                                     <input id="user_email" maxLength={100} name="user_email" required placeholder="Seu Email" type="email" className="px-3 py-2 text-sm text-black border border-zinc-800 rounded outline-none" />
                                 </div>
 
-                                <div className="flex flex-col gap-1">
+                                <button type="button" onClick={() => setMostrarOpcionais(!mostrarOpcionais)} className="cursor-pointer mt-1 flex justify-between items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-black transition-colors w-40">
+                                    <span>
+                                        {mostrarOpcionais ? "− Ocultar Opcionais" : "+ Informações Opcionais"}
+                                    </span>
+                                    <span className={`transition-transform duration-300 ${mostrarOpcionais ? "rotate-180" : ""}`}>▼</span>
+                                </button>
 
+<<<<<<< Updated upstream
                                     <label htmlFor="budget" className="text-xs text-zinc-400 uppercase">Orçamento <Pergunta texto="Opcional, Este é o valor inicial, poderá sofrer alterações." /></label>
+=======
+                                <div className={`grid transition-all duration-500 ease-in-out ${mostrarOpcionais ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0 overflow-hidden"}`}>
+                                    <div className="min-h-0 flex flex-col gap-2">
+                                        <div className="flex flex-col gap-1">
+                                            <label htmlFor="budget" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Orçamento<Pergunta texto="Opcional, Este é o valor inicial, poderá sofrer alterações." /></label>
+>>>>>>> Stashed changes
 
-                                    <div className="flex flex-row text-black border w-full border-zinc-800 rounded">
-                                        <select value={currency} onChange={(e) => { setCurrency(e.target.value); setPrice("") }} className="bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800" >
-                                            <option value="BRL">BRL</option>
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="BTC">BTC</option>
-                                        </select>
+                                            <div className="flex flex-row text-black border w-full border-zinc-800 rounded">
+                                                <select value={currency} onChange={(e) => { setCurrency(e.target.value); setPrice("") }} className="bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800" >
+                                                    <option value="BRL">BRL</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="EUR">EUR</option>
+                                                    <option value="BTC">BTC</option>
+                                                </select>
 
-                                        <div className="w-full">
-                                            <input id="budget" value={price} onChange={handlePrice} name="budget" placeholder={currency === "BTC" ? "0.00000000" : "0,00"} type="text" inputMode="numeric" className="w-full text-sm border-l outline-none px-3 py-2" />
+                                                <div className="w-full">
+                                                    <input id="budget" value={price} onChange={handlePrice} name="budget" placeholder={currency === "BTC" ? "0.00000000" : "0,00"} type="text" inputMode="numeric" className="w-full text-sm border-l outline-none px-3 py-2" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col gap-1">
+                                            <label htmlFor="link" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Link de Referência <Pergunta texto="Opcional, Links de Referência (YouTube, Drive, etc) max: 3" /></label>
+
+                                            {links.map((link, index) => (
+                                                <div key={index} className="flex flex-row text-black border w-full border-zinc-800 rounded">
+                                                    {index === 0 && links.length < 3 ? (
+                                                        <button title="Adicionar novo link" type="button" onClick={addLink} className="w-10 bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800">+</button>
+                                                    ) : (
+                                                        <button title="Remover este link" type="button" onClick={() => removeLink(index)} className="w-10 bg-zinc-900 text-red-400 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800 transition-colors">-</button>
+                                                    )}
+
+                                                    <input id={`link-${index}`} type="url" placeholder={`https://exemplo-${index + 1}.com`} value={link} onChange={(e) => handleLinkChange(index, e.target.value)} className="w-full text-sm border-l outline-none px-3 py-2" />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col gap-1">
+<<<<<<< Updated upstream
                                     <label htmlFor="link" className="text-xs text-zinc-400 uppercase">Link <Pergunta texto="Opcional, Links de Referência (YouTube, Drive, etc) max: 3" /></label>
 
                                     {links.map((link, index) => (
@@ -279,6 +418,8 @@ function Chamados() {
                                 </div>
 
                                 <div className="flex flex-col gap-1">
+=======
+>>>>>>> Stashed changes
                                     <label htmlFor="message" className="text-xs text-zinc-400 uppercase">
                                         Como posso te ajudar?<span className="text-[#ee4b1e]">*</span>
                                     </label>

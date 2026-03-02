@@ -1,17 +1,22 @@
 import { useState } from "react";
 import PesquisaModal from "./PesquisaModal/PesquisaModal";
 
+<<<<<<< Updated upstream
 function Pesquisa() {
+=======
+import { procura } from "../../../config/index";
+
+export default function Pesquisa() {
+>>>>>>> Stashed changes
     const [MenuAberto, setMenuAberto] = useState(false)
 
     return (
         <>
             <PesquisaModal aberto={MenuAberto} onClose={() => setMenuAberto(false)} />
-            
+
             <div className="flex-1 flex justify-end">
-                <button onClick={() => setMenuAberto(true)} title="Buscar projetos" className="flex flex-row items-center cursor-pointer">
-                    <img className="h-4 w-4" src="https://img.icons8.com/ios-filled/92/window-search.png" alt="Lupa" />
-                    <span className="hidden md:inline font-bold text-xs tracking-tighter">Busca</span>
+                <button onClick={() => setMenuAberto(true)} className="flex flex-row items-center cursor-pointer">
+                    <img className="hover:bg-black/10 transition-all duration-300 rounded-full h-7 w-7 p-1.5" src={procura} alt="Buscar" />
                 </button>
             </div>
         </>

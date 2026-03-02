@@ -3,23 +3,36 @@ import { useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import Contatos from "../../components/bar/contact/contact";
 
-import dadosResumo from "../../data/resumo.json";
+import dadosResumo from "../../../public/assets/data/resumo.json";
 
 function Sobre() {
     const [mostarHistoria, setMostrarHistoria] = useState(false)
 
+
     function renderTextoComLink(texto) {
-        const regex = /\[(https?:\/\/[^\]|]+)(?:\|([^\]]+))?\]/g
-        const partes = texto.split(regex)
+        const regex = /\[([^\]|]+)(?:\|([^\]]+))?\]/g;
+        const partes = texto.split(regex);
 
         return partes.map((parte, index) => {
             if (index % 3 === 1) {
-                const link = parte
-                const textoLink = partes[index + 1]
-                const textoFinal = textoLink ? textoLink : link.replace("https://", "").replace("http://", "").replace("www", "").split("/")[0]
+                const conteudoPrincipal = parte
+                const textoAlternativo = partes[index + 1]
+
+                if (conteudoPrincipal.startsWith("http")) {
+                    const link = conteudoPrincipal
+                    const textoFinal = textoAlternativo ? textoAlternativo : link.replace(/(https?:\/\/)?(www\.)?/, "").split("/")[0]
+
+                    return (
+                        <a key={index} title={link} href={link} target="_blank" rel="noopener noreferrer" className="cursor-pointer underline text-gray-600 hover:no-underline font-medium">
+                            {textoFinal}
+                        </a>
+                    )
+                }
 
                 return (
-                    <a key={index} href={link} target="_blank" rel="noopener noreferrer" className="cursor-pointer underline text-gray-600 hover:no-underline">{textoFinal}</a>
+                    <mark key={index} className="animate-highlight text-black px-1 rounded-sm no-underline font-medium" style={{ animationDelay: `${index * 0.1}s` }} >
+                        {conteudoPrincipal}
+                    </mark>
                 )
             }
 
@@ -37,7 +50,7 @@ function Sobre() {
         <>
             <Header />
 
-            <div className="pt-16 pb-8 md:pb-0">
+            <div className="pb-8 md:pb-0">
                 <div className="max-w-6xl mx-auto px-4 font-sans text-gray-900">
 
                     <div className="relative w-full h-55 overflow-hidden mb-12">
@@ -66,20 +79,23 @@ function Sobre() {
                             {dadosResumo.historia?.length > 0 && (
                                 <div className="mt-4 text-gray-600">
                                     <div className="flex flex-row items-center mb-2 w-full">
-                                        <button onClick={() => setMostrarHistoria(!mostarHistoria)} className="text-sm tracking-tighter flex items-center gap-1 cursor-pointer">
-                                            <span className={`text-xs ${mostarHistoria ? "rotate-270" : ""}`}>▼</span>
+                                        <button onClick={() => setMostrarHistoria(!mostarHistoria)} className="text-sm tracking-tighter flex items-center gap-1 cursor-pointer group">
+                                            <span className={`text-[10px] transition-transform duration-300 ${mostarHistoria ? "" : "-rotate-90"}`}>▼</span>
                                             <p className="w-37.5 pr-2">{mostarHistoria ? "Ocultar história" : "História completa"}</p>
                                         </button>
                                         <hr className="border w-full" />
                                     </div>
 
-                                    {mostarHistoria && (
-                                        <div>{dadosResumo.historia.map((texto, index) => (
-                                            <p key={index} className="mb-4 tracking-tighter">
-                                                {renderTextoComLink(texto)}
-                                            </p>
-                                        ))}</div>
-                                    )}
+                                    <div className={`grid transition-all duration-500 ease-in-out ${mostarHistoria ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`}>
+                                        <div className="overflow-hidden">
+                                            {dadosResumo.historia.map((texto, index) => (
+                                                <p key={index} className="mb-4 tracking-tighter leading-relaxed">
+                                                    {renderTextoComLink(texto)}
+                                                </p>
+                                            ))}
+                                        </div>
+                                    </div>
+
                                 </div>
                             )}
                         </div>

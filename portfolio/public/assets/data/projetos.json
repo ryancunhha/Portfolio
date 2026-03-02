@@ -3,264 +3,249 @@
         "categoria": "Front-End",
         "subCartegorias": [
             {
-                "nome": "Landing Page",
-                "resuminho": "Eu ajudei a desenvolver uma landing page responsiva e otimizada para o Polo Curicica.",
+                "titulo": "Landing Page",
+                "resumo": "Eu ajudei a desenvolver uma landing page responsiva e otimizada para o Polo Curicica.",
                 "slug": "bombeiro",
                 "ano": "06/2025",
-                "github": "https://github.com/FranciscoDarlan/Site-BPC",
+                "repoGithub": "https://github.com/FranciscoDarlan/Site-BPC",
                 "deploy": "https://polocuricica.vercel.app/",
                 "emDesenvolvimento": true,
-                "imagem": [
-                    "/projetos/front-end/bombeiro/bombeiro-1.png",
-                    "/projetos/front-end/bombeiro/bombeiro-2.png",
-                    "/projetos/front-end/bombeiro/bombeiro-3.png",
-                    "/projetos/front-end/bombeiro/bombeiro-4.png"
-                ],
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/bombeiro/bombeiro-1.png",
+                        "/projetos/front-end/bombeiro/bombeiro-2.png",
+                        "/projetos/front-end/bombeiro/bombeiro-3.png",
+                        "/projetos/front-end/bombeiro/bombeiro-4.png"
+                    ],
+                    "alt": [
+                        "1",
+                        "2",
+                        "3",
+                        "4"
+                    ],
                     "paragrafo": [
                         "O projeto foi construído utilizando HTML5, CSS3 e JavaScript puro (Vanilla), garantindo uma estrutura semântica e um carregamento rápido, essencial para a experiência do usuário.",
-                        "Apliquei conceitos de Design Responsivo para garantir que o site seja totalmente acessível em qualquer dispositivo, desde monitores desktop até smartphones."
-                    ],
-                    "paragrafo-2": [
+                        "Apliquei conceitos de Design Responsivo para garantir que o site seja totalmente acessível em qualquer dispositivo, desde monitores desktop até smartphones.",
+                        "",
+                        "",
+                        "",
+                        "",
                         "Implementei um carrossel de banners dinâmico na seção principal para destacar promoções e avisos importantes da instituição.",
                         "Desenvolvi uma seção de navegação intuitiva que separa as áreas de 'Sobre', 'Cursos' e 'Novidades', permitindo que o usuário encontre o conteúdo desejado com poucos cliques.",
                         "Integrei botões de Call-to-Action (CTA) estratégicos, como o link direto para atendimento via WhatsApp e redes sociais, focando no aumento da taxa de conversão.",
-                        "Utilizei técnicas de manipulação de DOM com JavaScript para criar componentes interativos que tornam a navegação mais fluida e dinâmica."
-                    ],
-                    "paragrafo-3": [
+                        "Utilizei técnicas de manipulação de DOM com JavaScript para criar componentes interativos que tornam a navegação mais fluida e dinâmica.",
                         "Foquei na organização do código e na otimização de imagens (como logos e ícones) para manter a performance do site em alta, mesmo com o uso de banners visuais.",
                         "Este projeto me permitiu aprofundar conhecimentos em estilização avançada com CSS e estruturação de projetos reais voltados para o mercado de educação profissionalizante."
                     ],
+                    "tags": [
+                        "HTML",
+                        "CSS",
+                        "JavaScript"
+                    ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Este projeto é um excelente exemplo de solução real para o mercado de educação. Desenvolvido com HTML, CSS e JS puro, o site prioriza a performance e a conversão de alunos. A identidade visual é forte e autoritária, ideal para cursos de bombeiros. A responsividade garante acesso fluido via mobile, e os CTAs (contatos) são diretos e eficazes. Mais que um código, é uma ferramenta de negócio que prova competência em transformar necessidades reais em uma interface funcional e profissional. Um ótimo case de sucesso para o portfólio!"
-                        }
+                        "Este projeto é um excelente exemplo de solução real para o mercado de educação. Desenvolvido com HTML, CSS e JS puro, o site prioriza a performance e a conversão de alunos. A identidade visual é forte e autoritária, ideal para cursos de bombeiros. A responsividade garante acesso fluido via mobile, e os CTAs (contatos) são diretos e eficazes. Mais que um código, é uma ferramenta de negócio que prova competência em transformar necessidades reais em uma interface funcional e profissional. Um ótimo case de sucesso para o portfólio!"
                     ]
                 }
             },
             {
-                "nome": "Caça Niquel",
-                "resuminho": "Criei um simulador de caça-níqueis funcional focado em lógica de aleatoriedade e manipulação dinâmica de interface.",
+                "titulo": "Caça Niquel",
+                "resumo": "Criei um simulador de caça-níqueis funcional focado em lógica de aleatoriedade e manipulação dinâmica de interface.",
                 "slug": "niquel",
                 "ano": "06/2025",
-                "github": "https://github.com/ryancunhha/Caca-niqueis",
+                "repoGithub": "https://github.com/ryancunhha/Caca-niqueis",
                 "deploy": "#",
-                "imagem": [
-                    "/projetos/front-end/caca-niquel/caça-niqueis.png"
-                ],
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/caca-niquel/caça-niqueis.png"
+                    ],
+                    "alt": [],
                     "paragrafo": [
-                        "Implementação de lógica em JavaScript para gerar combinações aleatórias e verificar condições de vitória/derrota."
-                    ],
-                    "paragrafo-2": [
-                        "Uso de CSS e DOM para criar a ilusão de movimento nos slots e feedback visual imediato para o usuário."
-                    ],
-                    "paragrafo-3": [
+                        "",
+                        "",
+                        "Implementação de lógica em JavaScript para gerar combinações aleatórias e verificar condições de vitória/derrota.",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "Uso de CSS e DOM para criar a ilusão de movimento nos slots e feedback visual imediato para o usuário.",
                         "Controle de saldo, apostas e interações de botões para garantir que o fluxo do jogo seja consistente."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Este projeto demonstra um excelente domínio de lógica algorítmica e manipulação de eventos. Criar um jogo de azar digital exige precisão no controle de estados (apostas, ganhos e aleatoriedade), o que é um ótimo exercício para o raciocínio lógico. A separação clara entre a lógica do jogo e a interface visual. É um projeto que prova que o desenvolvedor entende como gerenciar dados dinâmicos em tempo real sem depender de bibliotecas externas."
-                        }
+                        "Este projeto demonstra um excelente domínio de lógica algorítmica e manipulação de eventos. Criar um jogo de azar digital exige precisão no controle de estados (apostas, ganhos e aleatoriedade), o que é um ótimo exercício para o raciocínio lógico. A separação clara entre a lógica do jogo e a interface visual. É um projeto que prova que o desenvolvedor entende como gerenciar dados dinâmicos em tempo real sem depender de bibliotecas externas."
                     ]
                 }
             },
             {
-                "nome": "Interfone Web",
+                "titulo": "Interfone Web",
                 "slug": "interfone",
                 "ano": "06/2025",
-                "github": "https://github.com/ryancunhha/InterfoneDigital",
+                "repoGithub": "https://github.com/ryancunhha/InterfoneDigital",
                 "deploy": "",
-                "imagem": [
-                    "/projetos/front-end/caixa-postal/caixa-postal.png"
-                ],
-                "resuminho": "Uma solução de Portaria Digital inteligente que resolve a comunicação em prédios sem porteiro.",
+                "resumo": "Uma solução de Portaria Digital inteligente que resolve a comunicação em prédios sem porteiro.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/caixa-postal/caixa-postal.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Desenvolvi uma solução de 'Portaria Digital' focada em resolver o problema de comunicação em prédios e condomínios que não possuem porteiro físico. O sistema funciona como um hub de mensagens rápidas e informativas.",
-                        "A interface foi inspirada no design minimalista e intuitivo do WhatsApp, garantindo que qualquer visitante consiga operar o sistema sem dificuldades."
-                    ],
-                    "paragrafo-2": [
+                        "A interface foi inspirada no design minimalista e intuitivo do WhatsApp, garantindo que qualquer visitante consiga operar o sistema sem dificuldades.",
                         "Implementei uma integração com API para o envio de mensagens e gerenciamento de dados, permitindo que o morador receba notificações de forma dinâmica.",
-                        "O sistema conta com um painel de status em tempo real, onde é possível visualizar a disponibilidade de cada unidade (Alugado ou Vago), automatizando o que antes dependia de avisos físicos ou contato manual"
-                    ],
-                    "paragrafo-3": [
+                        "O sistema conta com um painel de status em tempo real, onde é possível visualizar a disponibilidade de cada unidade (Alugado ou Vago), automatizando o que antes dependia de avisos físicos ou contato manual",
                         "Este projeto exigiu um nível maior de manipulação de estados e consumo de dados assíncronos via JavaScript, além de um trabalho cuidadoso com CSS para replicar a estética de um app de mensagens famoso.",
                         "A arquitetura foi pensada para ser escalável, permitindo que novas unidades ou blocos de apartamentos sejam adicionados facilmente à lógica do código."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Você uniu UI (Interface) inspirada em um produto de sucesso com uma solução para um problema logístico real. O uso de APIs para gerenciar status de apartamentos e comunicação direta eleva o projeto do nível 'estudo' para o nível 'produto'. É um excelente exemplo de como o desenvolvimento Web pode substituir infraestruturas físicas custosas por software inteligente."
-                        }
+                        "Você uniu UI (Interface) inspirada em um produto de sucesso com uma solução para um problema logístico real. O uso de APIs para gerenciar status de apartamentos e comunicação direta eleva o projeto do nível 'estudo' para o nível 'produto'. É um excelente exemplo de como o desenvolvimento Web pode substituir infraestruturas físicas custosas por software inteligente."
                     ]
                 }
             },
             {
-                "nome": "Conversor de Moedas",
+                "titulo": "Conversor de Moedas",
                 "slug": "moedas",
                 "ano": "08/2025",
                 "deploy": "",
-                "imagem": [
-                    "/projetos/front-end/conversor-moeda/Moeda.png"
-                ],
-                "github": "https://github.com/ryancunhha/Moeda",
-                "resuminho": "Um conversor de moedas inteligente que utiliza integração com APIs financeiras para fornecer cotações em tempo real.",
+                "repoGithub": "https://github.com/ryancunhha/Moeda",
+                "resumo": "Um conversor de moedas inteligente que utiliza integração com APIs financeiras para fornecer cotações em tempo real.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/conversor-moeda/Moeda.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Desenvolvi este conversor de moedas para explorar o consumo de dados externos através de APIs REST, um conceito fundamental para qualquer desenvolvedor moderno.",
-                        "O objetivo foi criar uma ferramenta simples, porém poderosa, que permitisse ao usuário calcular conversões entre diferentes moedas com base em dados atualizados do mercado."
-                    ],
-                    "paragrafo-2": [
+                        "O objetivo foi criar uma ferramenta simples, porém poderosa, que permitisse ao usuário calcular conversões entre diferentes moedas com base em dados atualizados do mercado.",
                         "Utilizei a Fetch API do JavaScript para buscar cotações em tempo real, lidando com Promises e tratamento de erros para garantir a estabilidade do sistema.",
                         "Implementei uma lógica de cálculo dinâmica que processa as taxas de câmbio instantaneamente conforme o valor de entrada é alterado pelo usuário.",
                         "A interface foi construída de forma limpa, focando na usabilidade e na clareza das informações apresentadas.",
-                        "Trabalhei a formatação de números e moedas utilizando métodos nativos do JavaScript para garantir a precisão das casas decimais."
-                    ],
-                    "paragrafo-3": [
+                        "Trabalhei a formatação de números e moedas utilizando métodos nativos do JavaScript para garantir a precisão das casas decimais.",
                         "Este projeto consolidou meu entendimento sobre o fluxo de dados entre o back-end (API) e o front-end, além de reforçar boas práticas de código assíncrono.",
                         "Foi um exercício valioso de como transformar dados brutos de uma API em uma interface visual amigável e útil para o dia a dia."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Trabalhar com cotações em tempo real é um desafio de sincronismo e precisão. Este projeto demonstra que você domina o Fetch API e entende como tratar dados dinâmicos. É uma ferramenta essencial no portfólio de quem busca trabalhar com aplicações que dependem de serviços externos e APIs financeiras."
-                        }
+                        "Trabalhar com cotações em tempo real é um desafio de sincronismo e precisão. Este projeto demonstra que você domina o Fetch API e entende como tratar dados dinâmicos. É uma ferramenta essencial no portfólio de quem busca trabalhar com aplicações que dependem de serviços externos e APIs financeiras."
                     ]
                 }
             },
             {
-                "nome": "Gerador de Bordas",
+                "titulo": "Gerador de Bordas",
                 "slug": "borda",
                 "ano": "09/2025",
                 "deploy": "#",
-                "imagem": [
-                    "/projetos/front-end/borda/borda.png"
-                ],
-                "github": "https://github.com/ryancunhha/Gerador-De-Bordas",
-                "resuminho": "Uma ferramenta interativa para desenvolvedores que permite gerar códigos CSS de bordas em tempo real.",
+                "repoGithub": "https://github.com/ryancunhha/Gerador-De-Bordas",
+                "resumo": "Uma ferramenta interativa para desenvolvedores que permite gerar códigos CSS de bordas em tempo real.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/borda/borda.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Desenvolvi este Gerador de Bordas como uma ferramenta utilitária para facilitar o dia a dia de desenvolvedores front-end, permitindo a criação visual de estilos complexos.",
-                        "O projeto foca na interatividade, transformando inputs de controle em propriedades CSS aplicadas dinamicamente a um elemento de visualização."
-                    ],
-                    "paragrafo-2": [
+                        "O projeto foca na interatividade, transformando inputs de controle em propriedades CSS aplicadas dinamicamente a um elemento de visualização.",
                         "Utilizei JavaScript para capturar os eventos de mudança nos inputs e atualizar o 'border-radius' e outras propriedades de estilo de forma imediata.",
                         "Implementei uma função de 'Copiar Código', permitindo que o usuário exporte o CSS gerado diretamente para sua área de transferência com um clique.",
                         "A interface foi desenhada para ser intuitiva, utilizando sliders e seletores que dão feedback visual constante ao usuário.",
-                        "Trabalhei com a manipulação direta de strings para formatar o código CSS que é exibido e entregue ao usuário final."
-                    ],
-                    "paragrafo-3": [
+                        "Trabalhei com a manipulação direta de strings para formatar o código CSS que é exibido e entregue ao usuário final.",
                         "Este projeto reforçou meus conhecimentos sobre como o JavaScript pode interagir diretamente com o motor de estilização do navegador.",
                         "Foi um excelente exercício de UI/UX, pensando em como tornar uma tarefa técnica (escrever CSS) em algo visual e divertido de usar."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Ferramentas que geram código são excelentes para o portfólio porque mostram que você entende o 'porquê' das propriedades CSS. A implementação de feedback visual em tempo real e a função de copiar para a área de transferência demonstram uma preocupação real com a utilidade e a experiência do usuário."
-                        }
+                        "Ferramentas que geram código são excelentes para o portfólio porque mostram que você entende o 'porquê' das propriedades CSS. A implementação de feedback visual em tempo real e a função de copiar para a área de transferência demonstram uma preocupação real com a utilidade e a experiência do usuário."
                     ]
                 }
             },
             {
-                "nome": "Calculadora de Juros Compostos",
+                "titulo": "Calculadora de Juros Compostos",
                 "slug": "juros",
                 "ano": "07/2025",
                 "deploy": "",
-                "imagem": [
-                    "/projetos/front-end/juros/juros-1.png",
-                    "/projetos/front-end/juros/juros-2.png",
-                    "/projetos/front-end/juros/juros-3.png"
-                ],
-                "github": "https://github.com/ryancunhha/Calculadora-JurosCompostos",
-                "resuminho": "Uma ferramenta financeira interativa que calcula o crescimento de investimentos ao longo do tempo.",
+                "repoGithub": "https://github.com/ryancunhha/Calculadora-JurosCompostos",
+                "resumo": "Uma ferramenta financeira interativa que calcula o crescimento de investimentos ao longo do tempo.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/juros/juros-1.png",
+                        "/projetos/front-end/juros/juros-2.png",
+                        "/projetos/front-end/juros/juros-3.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Desenvolvi esta calculadora para transformar conceitos de educação financeira em uma ferramenta prática e acessível através do navegador.",
-                        "O objetivo central foi criar um sistema que processasse múltiplas variáveis — como aporte inicial, juros mensais e tempo — para gerar um resultado imediato e exato."
-                    ],
-                    "paragrafo-2": [
+                        "O objetivo central foi criar um sistema que processasse múltiplas variáveis — como aporte inicial, juros mensais e tempo — para gerar um resultado imediato e exato.",
+                        "",
+                        "",
+                        "",
+                        "",
                         "Implementei a fórmula de juros compostos utilizando funções matemáticas nativas do JavaScript, garantindo a precisão dos cálculos financeiros.",
                         "Desenvolvi uma lógica de tratamento de dados para converter taxas anuais em mensais e garantir que os períodos de tempo fossem calculados corretamente.",
                         "Utilizei eventos de input para permitir que o usuário veja a evolução do seu dinheiro de forma dinâmica, focando em uma interface limpa e livre de distrações.",
-                        "Trabalhei a formatação de moeda (BRL) para que os resultados fossem apresentados de maneira profissional e fácil de ler."
-                    ],
-                    "paragrafo-3": [
+                        "Trabalhei a formatação de moeda (BRL) para que os resultados fossem apresentados de maneira profissional e fácil de ler.",
                         "Este projeto reforçou minha capacidade de traduzir regras de negócio e fórmulas matemáticas para o código de forma eficiente.",
                         "A construção da calculadora consolidou meu conhecimento em manipulação de tipos (strings para números) e na criação de interfaces utilitárias."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Projetos financeiros exigem atenção redobrada à lógica e precisão. Esta calculadora demonstra que você sabe como lidar com algoritmos matemáticos e entregar uma interface que transforma dados complexos em informações úteis. É uma excelente demonstração de competência em JavaScript funcional."
-                        }
+                        "Projetos financeiros exigem atenção redobrada à lógica e precisão. Esta calculadora demonstra que você sabe como lidar com algoritmos matemáticos e entregar uma interface que transforma dados complexos em informações úteis. É uma excelente demonstração de competência em JavaScript funcional."
                     ]
                 }
             },
             {
-                "nome": "Guitar Hero",
+                "titulo": "Guitar Hero",
                 "slug": "hero",
                 "ano": "09/2025",
                 "deploy": "#",
-                "imagem": [
-                    "/projetos/front-end/hero/hero.png"
-                ],
-                "github": "https://github.com/ryancunhha/Guitar-Hero",
-                "resuminho": "Um jogo de ritmo interativo inspirado no clássico Guitar Hero, desenvolvido para testar os limites da manipulação do navegador.",
+                "repoGithub": "https://github.com/ryancunhha/Guitar-Hero",
+                "resumo": "Um jogo de ritmo interativo inspirado no clássico Guitar Hero, desenvolvido para testar os limites da manipulação do navegador.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/hero/hero.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Este projeto foi um desafio de lógica focado em transformar o navegador em uma plataforma de jogos rítmicos, utilizando o teclado como controlador principal.",
-                        "O objetivo foi replicar a mecânica de notas que descem pela tela e devem ser acionadas no momento exato, exigindo uma gestão precisa de tempo e colisão."
-                    ],
-                    "paragrafo-2": [
+                        "O objetivo foi replicar a mecânica de notas que descem pela tela e devem ser acionadas no momento exato, exigindo uma gestão precisa de tempo e colisão.",
                         "Implementei a captura de eventos de teclado (Keydown) para sincronizar as ações do jogador com os elementos visuais da tela.",
                         "Utilizei animações CSS combinadas com lógica JavaScript para gerenciar o fluxo contínuo das notas e a detecção de acertos ou erros.",
                         "Desenvolvi um sistema de pontuação em tempo real, que dá feedback imediato ao usuário baseado na precisão de cada movimento.",
-                        "Trabalhei com o conceito de Game Loop para garantir que todos os elementos visuais fossem atualizados de forma fluida, mantendo a taxa de quadros estável."
-                    ],
-                    "paragrafo-3": [
+                        "Trabalhei com o conceito de Game Loop para garantir que todos os elementos visuais fossem atualizados de forma fluida, mantendo a taxa de quadros estável.",
                         "O desenvolvimento deste jogo me permitiu explorar o lado mais lúdico do JavaScript, lidando com lógica de games que foge do padrão de sistemas administrativos tradicionais.",
                         "Foi um excelente exercício para entender como o navegador processa múltiplos eventos simultâneos e como criar interfaces que respondem instantaneamente aos comandos."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Jogos de ritmo são testes de estresse para qualquer desenvolvedor front-end. Conseguir sincronizar inputs do usuário com elementos em movimento exige um domínio técnico refinado de eventos e timing. É um projeto que demonstra criatividade e uma base lógica muito sólida, além de ser um excelente diferencial no portfólio."
-                        }
+                        "Jogos de ritmo são testes de estresse para qualquer desenvolvedor front-end. Conseguir sincronizar inputs do usuário com elementos em movimento exige um domínio técnico refinado de eventos e timing. É um projeto que demonstra criatividade e uma base lógica muito sólida, além de ser um excelente diferencial no portfólio."
                     ]
                 }
             },
             {
-                "nome": "Verificar Cartão",
+                "titulo": "Verificar Cartão",
                 "slug": "cartao",
                 "ano": "08/2025",
                 "deploy": "",
-                "imagem": [
-                    "/projetos/front-end/cartao/cartao.png"
-                ],
-                "github": "https://github.com/ryancunhha/VerificarCartao",
-                "resuminho": "Um validador de cartões de crédito que e verifica a estrutura numérica e esse projeto e so uma brincaderia.",
+                "repoGithub": "https://github.com/ryancunhha/VerificarCartao",
+                "resumo": "Um validador de cartões de crédito que e verifica a estrutura numérica e esse projeto e so uma brincaderia.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/front-end/cartao/cartao.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Este projeto começou como um desafio de lógica para entender como os sistemas de checkout identificam e validam cartões de crédito antes mesmo do processamento bancário.",
-                        "O objetivo foi criar uma interface simples que desse feedback instantâneo ao usuário sobre a validade estrutural do número inserido."
-                    ],
-                    "paragrafo-2": [
+                        "O objetivo foi criar uma interface simples que desse feedback instantâneo ao usuário sobre a validade estrutural do número inserido.",
                         "Utilizei Expressões Regulares (Regex) avançadas para identificar automaticamente a bandeira do cartão (Visa, Mastercard, Elo, etc.) com base nos primeiros dígitos.",
                         "Implementei uma lógica de máscara de input, que formata o número do cartão automaticamente enquanto o usuário digita, melhorando a experiência de uso.",
                         "Trabalhei com validações de segurança simples para garantir que apenas caracteres numéricos sejam processados, evitando erros de entrada.",
-                        "O sistema fornece alertas visuais dinâmicos, mudando cores ou ícones dependendo se o cartão é reconhecido ou não."
-                    ],
-                    "paragrafo-3": [
+                        "O sistema fornece alertas visuais dinâmicos, mudando cores ou ícones dependendo se o cartão é reconhecido ou não.",
                         "Desenvolver este projeto me deu uma base sólida sobre como lidar com campos de formulário sensíveis e a importância da validação no lado do cliente (client-side).",
                         "Foi um excelente exercício de manipulação de strings e de como aplicar padrões lógicos para resolver problemas de UX em sistemas de pagamento."
                     ]
@@ -272,70 +257,60 @@
         "categoria": "Back-end",
         "subCartegorias": [
             {
-                "nome": "CRUD",
+                "titulo": "CRUD",
                 "slug": "crud",
                 "ano": "09/2025",
                 "deploy": "",
-                "imagem": [
-                    "/projetos/back-end/crud/CRUD.png"
-                ],
-                "github": "https://github.com/ryancunhha/CRUD",
-                "resuminho": "Um sistema de gerenciamento de dados completo que permite Criar, Ler, Atualizar e Deletar.",
+                "repoGithub": "https://github.com/ryancunhha/CRUD",
+                "resumo": "Um sistema de gerenciamento de dados completo que permite Criar, Ler, Atualizar e Deletar.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/back-end/crud/CRUD.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Desenvolvi este CRUD para consolidar meus conhecimentos sobre a manipulação de dados estruturados e entender o ciclo de vida das informações dentro de uma aplicação front-end.",
-                        "O projeto funciona como uma agenda ou gerenciador de tarefas, onde o usuário tem controle total sobre os registros inseridos."
-                    ],
-                    "paragrafo-2": [
+                        "O projeto funciona como uma agenda ou gerenciador de tarefas, onde o usuário tem controle total sobre os registros inseridos.",
                         "Implementei a lógica de persistência de dados utilizando o LocalStorage, garantindo que as informações não sejam perdidas ao fechar ou atualizar o navegador.",
                         "Utilizei JavaScript para criar funções de validação, impedindo que campos vazios sejam cadastrados e garantindo a integridade dos dados.",
                         "Desenvolvi uma interface dinâmica que atualiza a tabela de registros automaticamente a cada ação do usuário (adição, edição ou exclusão).",
-                        "Trabalhei com métodos avançados de Array, como map, filter e splice, para gerenciar os IDs e as posições de cada item no banco de dados local."
-                    ],
-                    "paragrafo-3": [
+                        "Trabalhei com métodos avançados de Array, como map, filter e splice, para gerenciar os IDs e as posições de cada item no banco de dados local.",
                         "A construção deste sistema foi um divisor de águas para entender como aplicações profissionais lidam com entradas de usuários e estados de dados.",
                         "Este projeto demonstra minha capacidade de criar sistemas lógicos, organizados e prontos para serem integrados a bancos de dados mais complexos no futuro."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "O CRUD é o teste de fogo de qualquer desenvolvedor. Dominar as quatro operações básicas de dados com persistência no LocalStorage mostra que você já tem a base lógica necessária para construir sistemas de gestão complexos e Dashboards profissionais. É um código limpo, funcional e extremamente didático."
-                        }
+                        "O CRUD é o teste de fogo de qualquer desenvolvedor. Dominar as quatro operações básicas de dados com persistência no LocalStorage mostra que você já tem a base lógica necessária para construir sistemas de gestão complexos e Dashboards profissionais. É um código limpo, funcional e extremamente didático."
                     ]
                 }
             },
             {
-                "nome": "Delivery",
+                "titulo": "Delivery",
                 "slug": "delivery",
                 "ano": "11/2025",
                 "deploy": "#",
-                "imagem": [
-                    "/projetos/back-end/delivery/Delivery.png"
-                ],
-                "github": "https://github.com/ryancunhha/delivery-api",
-                "resuminho": "Uma API robusta desenvolvida para gerenciar o ecossistema de um serviço de entrega.",
+                "repoGithub": "https://github.com/ryancunhha/delivery-api",
+                "resumo": "Uma API robusta desenvolvida para gerenciar o ecossistema de um serviço de entrega.",
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/back-end/delivery/Delivery.png"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Desenvolvi esta Delivery API para aprofundar meus conhecimentos na construção de arquiteturas escaláveis e na organização de fluxos de dados complexos no lado do servidor.",
-                        "O projeto simula a inteligência por trás de um aplicativo de entregas, onde a precisão na troca de informações entre cliente e restaurante é fundamental."
-                    ],
-                    "paragrafo-2": [
+                        "O projeto simula a inteligência por trás de um aplicativo de entregas, onde a precisão na troca de informações entre cliente e restaurante é fundamental.",
                         "Estruturei rotas dinâmicas para a gestão de produtos, permitindo operações completas de listagem e detalhamento de itens do cardápio.",
                         "Implementei a lógica de processamento de pedidos, onde cada requisição segue um fluxo de status simulando o ciclo real (pendente, em preparo, enviado).",
                         "Trabalhei com a padronização de respostas JSON e códigos de status HTTP, garantindo que qualquer front-end consiga consumir a API de forma clara e sem erros.",
-                        "Foquei na separação de responsabilidades dentro do código, facilitando a manutenção e futuras integrações com bancos de dados reais."
-                    ],
-                    "paragrafo-3": [
+                        "Foquei na separação de responsabilidades dentro do código, facilitando a manutenção e futuras integrações com bancos de dados reais.",
                         "Este projeto foi essencial para entender como os sistemas modernos se comunicam e como garantir a integridade dos dados em operações críticas de compra.",
                         "A construção desta API demonstra minha capacidade de pensar de forma estruturada, focando não apenas no que o usuário vê, mas na lógica que faz tudo funcionar."
                     ],
                     "comentarios": [
-                        {
-                            "imagem": "/assets/ia/gemini.jpg",
-                            "nome": "Gemini",
-                            "texto": "Trabalhar em uma API de Delivery é lidar com o 'coração' da aplicação. Este projeto prova que você entende de arquitetura de software e sabe como organizar endpoints de forma lógica e profissional. É o tipo de competência que diferencia um desenvolvedor de interfaces de um desenvolvedor Full-Stack completo."
-                        }
+                        "Trabalhar em uma API de Delivery é lidar com o 'coração' da aplicação. Este projeto prova que você entende de arquitetura de software e sabe como organizar endpoints de forma lógica e profissional. É o tipo de competência que diferencia um desenvolvedor de interfaces de um desenvolvedor Full-Stack completo."
                     ]
                 }
             }
@@ -345,40 +320,43 @@
         "categoria": "Mobile",
         "subCartegorias": [
             {
-                "nome": "Notas",
-                "resuminho": "Aplicativo android em desenvolvimento em React Native para controle de produção e entradas.",
+                "titulo": "Notas",
+                "resumo": "Aplicativo android em desenvolvimento em React Native para controle de produção e entradas.",
                 "slug": "notas",
                 "ano": "01/2026",
-                "github": "https://github.com/ryancunhha/app-notas",
+                "repoGithub": "https://github.com/ryancunhha/app-notas",
                 "deploy": "",
                 "emDesenvolvimento": true,
-                "imagem": [
-                    "/projetos/mobile/notas/imagem-3.jpeg",
-                    "/projetos/mobile/notas/imagem-2.jpeg",
-                    "/projetos/mobile/notas/imagem-1.jpeg",
-                    "/projetos/mobile/notas/imagem-4.jpeg"
-                ],
                 "conteudo": {
+                    "imagem": [
+                        "/projetos/mobile/notas/imagem-3.jpeg",
+                        "/projetos/mobile/notas/imagem-2.jpeg",
+                        "/projetos/mobile/notas/imagem-1.jpeg",
+                        "/projetos/mobile/notas/imagem-4.jpeg"
+                    ],
+                    "alt": [
+                        "a"
+                    ],
                     "paragrafo": [
                         "Este projeto para uma ferramenta de gestão operacional completa, focada em usuários que precisam de agilidade no controle de entradas, perdas e produção.",
-                        "O grande diferencial é o sistema de acessibilidade global, que permite expandir a escala das fontes em todas as telas, garantindo usabilidade para diferentes perfis de visão."
-                    ],
-                    "paragrafo-2": [
+                        "O grande diferencial é o sistema de acessibilidade global, que permite expandir a escala das fontes em todas as telas, garantindo usabilidade para diferentes perfis de visão.",
                         "Desenvolvi um fluxo de cadastro inteligente com predefinições (Entrada, Produção, Perda), integrado à câmera nativa do Android para registro fotográfico dos itens.",
                         "Implementei uma calculadora complexa inspirada na interface da Samsung, que mantém um histórico de operações. O diferencial técnico é a capacidade de voltar no tempo, permitindo que o usuário retorne a resultados anteriores da sequência de cálculos.",
                         "A gestão de dados conta com uma tabela dinâmica com filtros por categoria e cores, além de ordenação lógica automática baseada na numeração dos registros (N1, N2, etcs...)",
-                        "Adicionei funcionalidades de edição de registros, incluindo troca de fotos e exportação de relatórios formatados para compartilhamento via WhatsApp ou outros aplicativos externos."
-                    ],
-                    "paragrafo-3": [
+                        "Adicionei funcionalidades de edição de registros, incluindo troca de fotos e exportação de relatórios formatados para compartilhamento via WhatsApp ou outros aplicativos externos.",
                         "O maior desafio técnico foi gerenciar o estado da calculadora e a persistência das fotos e tabelas, garantindo que a ordenação dinâmica funcionasse em tempo real.",
                         "O sistema de segurança para limpeza de dados foi implementado com um contador de confirmação de 5 segundos, evitando exclusões acidentais e melhorando a segurança da informação do usuário."
                     ],
                     "comentarios": [
+<<<<<<< Updated upstream:portfolio/src/data/projetos.json
                         {
                             "imagem": "/assets/ia/chatgpt.png",
                             "nome": "ChatGPT",
                             "texto": "Este app é um verdadeiro sistema de ERP mobile. A implementação de uma calculadora com histórico de estados e a capacidade de retroceder em cálculos é um recurso de nível avançado. Além disso, a preocupação com acessibilidade visual e exportação de relatórios mostra que você está pronto para criar soluções que resolvem problemas logísticos de verdade."
                         }
+=======
+                        "Este app é um verdadeiro sistema de ERP mobile. A implementação de uma calculadora com histórico de estados e a capacidade de retroceder em cálculos é um recurso de nível avançado. Além disso, a preocupação com acessibilidade visual e exportação de relatórios mostra que você está pronto para criar soluções que resolvem problemas logísticos de verdade."
+>>>>>>> Stashed changes:portfolio/public/assets/data/projetos.json
                     ]
                 }
             }

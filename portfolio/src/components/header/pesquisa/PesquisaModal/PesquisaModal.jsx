@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import dadosProjetos from "../../../../data/projetos.json";
-import dadosResumo from "../../../../data/resumo.json";
+import dadosProjetos from "../../../../../public/assets/data/projetos.json";
+import { logo } from "../../../../config/index";
 
 function PesquisaModal({ aberto, onClose }) {
     const [busca, setBusca] = useState("")
@@ -13,8 +13,15 @@ function PesquisaModal({ aberto, onClose }) {
             if (e.key === "Escape") onClose()
         }
 
-        if (aberto) window.addEventListener("keydown", fecharEsc)
-        return () => window.removeEventListener("keydown", fecharEsc)
+        if (aberto) {
+            document.body.style.overflow = "hidden"
+            window.addEventListener("keydown", fecharEsc)
+        }
+
+        return () => {
+            document.body.style.overflow = "auto"
+            window.removeEventListener("keydown", fecharEsc)
+        }
     }, [aberto, onClose])
 
 
@@ -31,27 +38,27 @@ function PesquisaModal({ aberto, onClose }) {
             categoria => categoria.subCartegorias
         )
 
-        const encontrados = todosProjetos.filter((projeto) => projeto.nome.toLocaleLowerCase().includes(texto))
+        const encontrados = todosProjetos.filter((projeto) => projeto.titulo.toLocaleLowerCase().includes(texto))
         setResultado(encontrados)
     }
 
     if (!aberto) return null
 
     return (
-        <>
-            <div onClick={onClose} className="fixed">
+        <div onClick={onClose} className="fixed inset-0 z-50">
+            <div className="fixed inset-0 bg-white animate-fadeIn">
+                <div onClick={(e) => e.stopPropagation()} className="flex bg-white flex-col h-screen w-full">
 
-                <div className="fixed inset-0 z-50 animate-fadeIn">
-                    <div onClick={(e) => e.stopPropagation()} className="flex flex-col bg-white h-screen w-screen">
-                        <div className="flex justify-between items-center py-2 px-5 md:px-10">
-                            <img className="h-7" src={dadosResumo.marca} alt="Marca" />
-                            <button onClick={onClose} className="text-xl cursor-pointer hover:opacity-50">✕</button>
-                        </div>
+                    <div className="flex justify-between items-center py-4 px-5 md:px-10 max-w-7xl mx-auto w-full">
+                        <img title="ryancunhha" className="h-7" src={logo} alt="logo" />
+                        <button title="Fechar Menu" onClick={onClose} className="text-xl cursor-pointer hover:opacity-50">✕</button>
+                    </div>
 
-                        <div className="flex justify-center">
-                            <div className="flex flex-col w-[95%] md:w-[40%] pt-10 p-1">
-                                <label htmlFor="procurar" className="text-xs font-bold">Busque por um projeto</label>
+                    <div className="flex justify-center">
+                        <div className="flex flex-col w-full max-w-2xl px-5 pt-10">
+                            <label htmlFor="procurar" className="text-xs font-bold">Busque por um projeto</label>
 
+<<<<<<< Updated upstream
                                 <div className="w-full flex justify-between items-center">
                                     <input maxLength={100} id="procurar" type="text" value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") buscaProjeto() }} placeholder="Ex: Dashboard, Landing Page, Portfólio" className="w-full mt-2 px-2 pb-2 outline-none" />
 
@@ -71,14 +78,33 @@ function PesquisaModal({ aberto, onClose }) {
                                             </li>
                                         ))}
                                     </ul>
+=======
+                            <div className="w-full flex justify-between items-center">
+                                <input maxLength={200} id="procurar" type="text" value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") buscaProjeto() }} placeholder="Ex: Dashboard, Landing Page, Portfólio" className="w-full mt-2 px-2 pb-2 outline-none" />
+
+                                {busca.length > 0 && (
+                                    <button onClick={limparBusca} className="mr-3 cursor-pointer">✕</button>
+>>>>>>> Stashed changes
                                 )}
+
+                                <button onClick={buscaProjeto} className="px-2 py-1 border-2 text-xs font-bold cursor-pointer transition-all hover:bg-black hover:border-black hover:text-white">BUSCAR</button>
                             </div>
+                            <hr className="mt-1" />
+
+                            {resultado.length > 0 && (
+                                <ul className="mt-4 space-y-1">
+                                    {resultado.map((proj) => (
+                                        <li key={proj.slug}>
+                                            <Link onClick={() => { onClose(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="cursor-pointer text-sm hover:underline" to={`${proj.slug}`}>{proj.titulo}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
                 </div>
-
             </div>
-        </>
+        </div>
     )
 }
 

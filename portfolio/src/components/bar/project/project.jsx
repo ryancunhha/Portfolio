@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import dadosProjetos from "../../../data/projetos.json";
+import dadosProjetos from "../../../../public/assets/data/projetos.json";
 import { slugify } from "../../../utils/slugify/slugify";
 
 function Project() {
@@ -10,11 +10,18 @@ function Project() {
             <div>
                 <p className="text-xs text-[#727171]">{projeto.categoria}</p>
 
+<<<<<<< Updated upstream
                 <ul className="list-none flex flex-col gap-0.5">
                     {projeto.subCartegorias.map((item, index) => (
                         <li key={index} title={item.nome} className="text-sm wrap-break-word group flex items-center gap-2">
                             
                             <Link className="hover:underline" to={`/${slugify(item.slug) ?? item.slug}`}>{item.nome}</Link>
+=======
+                <ul className="list-none flex flex-col gap-2.5">
+                    {projeto.subCartegorias.map((item, index) => (
+                        <li key={index} className="wrap-break-word group flex items-center gap-2">
+                            <Link className="tracking-tighter" to={`/${slugify(item.slug) ?? item.slug}`}>{item.titulo}</Link>
+>>>>>>> Stashed changes
 
                             {item.emDesenvolvimento && (
                                 <div className="flex items-center gap-1.5 ml-1">
@@ -23,9 +30,13 @@ function Project() {
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF8101]"></span>
                                     </span>
 
+<<<<<<< Updated upstream
                                     <span className="text-[9px] font-bold text-[#FF8101] uppercase tracking-tighter">
                                         Em construção
                                     </span>
+=======
+                                    <span className="cursor-default w-max text-[9px] font-bold text-[#FF8101] uppercase tracking-tighter">Dev</span>
+>>>>>>> Stashed changes
                                 </div>
                             )}
                         </li>

@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+    @keyframes ticker {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+}
+
 @layer base {
     * {
         margin: 0;
@@ -9,7 +21,33 @@
 
     html {
         scroll-behavior: smooth;
+        scrollbar-width: thin;
     }
+}
+
+.animate-ticker {
+    animation: ticker var(--duration, 35s) linear infinite;
+}
+
+:root {
+    --duration: 35s;
+    --bg-color: white;
+    --text-color: black;
+}
+
+.dark-mode {
+    --bg-color: #1f1f1f;
+    --text-color: white;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    scrollbar-color: #444 #222;
+    scrollbar-width: thin;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+p,
+span {
+    color: var(--text-color);
 }
 
 @keyframes fadeIn {
@@ -30,7 +68,7 @@
 
 @keyframes slideFromBottom {
     0% {
-        transform: translateY(-100%);
+        transform: translateY(-40%);
         opacity: 0;
     }
 
@@ -42,7 +80,7 @@
 
 @keyframes slideFromTop {
     0% {
-        transform: translateY(100%);
+        transform: translateY(40%);
         opacity: 0;
     }
 
@@ -60,4 +98,51 @@
 .animate-descer {
     animation: slideFromTop 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
     will-change: transform, opacity;
+}
+
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+.animate-shrink {
+    animation: shrink 3s linear forwards;
+}
+
+@keyframes highlight {
+    from {
+        background-size: 0% 100%;
+    }
+
+    to {
+        background-size: 100% 100%;
+    }
+}
+
+.animate-highlight {
+    background-image: linear-gradient(#fef08a, #fef08a);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-color: transparent;
+    animation: highlight 0.8s ease-out forwards;
+    display: inline;
+}
+
+@keyframes spin-fast {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+.animate-spin-custom {
+    animation: spin-fast 0.4s ease-in-out;
 }

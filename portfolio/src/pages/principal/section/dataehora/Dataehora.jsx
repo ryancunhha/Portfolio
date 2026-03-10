@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-import dadosResumo from "../../../../data/resumo.json";
+import dadosResumo from "../../../../../public/assets/sobre/resumo.json";
 
-function Dataehora() {
+export default function Dataehora({ dark }) {
     const [dataHora, setDataHora] = useState(new Date())
     const [texto, setTexto] = useState("")
 
@@ -22,7 +22,7 @@ function Dataehora() {
         } else {
             setTexto(saudacaoPorHora())
         }
-    }, [dataHora])
+    }, [])
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -41,22 +41,26 @@ function Dataehora() {
     }).format(dataHora)
 
     return (
-        <>
-            <div className="px-6 md:p-6 flex flex-col gap-2.5 md:flex-row justify-between">
-                <p className="text-[#727171] text-base flex items-center tracking-tighter">{texto}</p>
+        <section>
+            {dadosResumo.sobre[1] && (
+                <div className="max-w-7xl mx-auto">
+                    <img className="w-full h-20 md:h-25 object-cover" src={dadosResumo.sobre[1]} alt="Banner" />
+                </div>
+            )}
 
-                <div className="tracking-tighter text-[#727171] text-sm flex items-center">
+            <div className="max-w-7xl mx-auto px-6 py-3 md:py-4 flex items-center flex-col gap-2.5 md:flex-row justify-between">
+                <p className={`${dark ? "text-gray-300!" : "text-[#727171]!"} text-base flex items-center tracking-tighter`}>{texto}</p>
+
+                <div className={`${dark ? "text-gray-300!" : "text-[#727171]!"} tracking-tighter text-sm flex items-center`}>
                     {formatacao}
                 </div>
             </div>
 
-            <div className="p-6">
-                <p className="text-[#212023] text-base wrap-break-word tracking-tighter whitespace-normal">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-2">
+                <p className={`${dark ? "text-gray-200!" : "text-[#212023]!"} text-base wrap-break-word tracking-tighter whitespace-normal`}>
                     {dadosResumo["boas-vindas"]}
                 </p>
             </div>
-        </>
+        </section>
     )
 }
-
-export default Dataehora

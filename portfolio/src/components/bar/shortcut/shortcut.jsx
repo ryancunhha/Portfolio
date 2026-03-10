@@ -1,42 +1,40 @@
+import { LINKS_NAVEGACAO } from "../../../config/navegacao";
 import { Link } from "react-router-dom";
 
-import dadosContatos from "../../../data/contatos.json";
-import dadosResumo from "../../../data/resumo.json";
+import { logo, linkExterno } from "../../../config/imagem";
 
-export default function Shortcut({ onClose }) {
+export default function Shortcut({ dark, onClose }) {
     return (
         <div className="flex flex-col">
 
             <div className="flex items-center justify-between">
-                <Link onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} to="/" className="cursor-pointer">
-                    <img className="h-7" src={dadosResumo.marca} alt="Marca" title="Ir para página inicial" />
+                <Link onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); onClose(); }} to="/" className="cursor-pointer" aria-label="Ir para a página inicial">
+                    <img className="h-9" src={logo} alt="Logo" />
                 </Link>
 
-                <div className="my-1.5 flex justify-end max-w-max items-center">
-                    <button title="Fechar Menu" className="cursor-pointer hover:opacity-50" onClick={onClose} >
-                        ✕
-                    </button>
-                </div>
+                <button className="cursor-pointer text-xl my-2 mr-2.5 max-w-max items-center flex justify-end hover:opacity-50" onClick={onClose} >
+                    ✕
+                </button>
             </div>
 
-
-            <div className="">
-                <ul className="w-full font-medium list-none flex flex-col gap-1 my-1">
-                    <li>
-                        <Link onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} title="Sobre Mim" to="/sobre" className="hover:underline cursor-pointer">Sobre</Link>
-                    </li>
-
-                    <li title="Faça sua solicitação">
-                        <Link to={"/solicitacao"} onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} rel="noreferrer" className="hover:underline cursor-pointer">Solicitação</Link>
-                    </li>
-
-                    <li className="flex flex-row items-center gap-1">
-                        <a title="Currículo" target="_blank" rel="noreferrer" href={dadosContatos.cv} className="hover:underline cursor-pointer">Currículo</a>
-                        <img className="h-3" src="https://img.icons8.com/sf-regular/90/external-link.png" alt="link" />
-                    </li>
+            <nav>
+                <ul className="mt-2 flex flex-col gap-4 list-none">
+                    {LINKS_NAVEGACAO.map((item, index) => (
+                        <li key={index} className="flex items-center gap-2 group">
+                            {item.externo ? (
+                                <a href={item.path} target="_blank" rel="noreferrer" className="uppercase tracking-tighter flex items-center gap-2" >
+                                    <span className={`transition-colors peer ${dark ? "text-zinc-400 hover:text-white" : "text-zinc-500 hover:text-black"}`}>{item.nome}</span>
+                                    <img className={`h-2.5 w-2.5 transition-all duration-300 opacity-30 peer-hover:opacity-100 ${dark ? "invert" : ""}`} src={linkExterno} alt="link" />
+                                </a>
+                            ) : (
+                                <Link to={item.path} onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); onClose(); }} className="uppercase tracking-tighter" >
+                                    {item.nome}
+                                </Link>
+                            )}
+                        </li>
+                    ))}
                 </ul>
-            </div>
-
+            </nav>
         </div>
     )
 }

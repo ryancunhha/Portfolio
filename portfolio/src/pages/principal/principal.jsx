@@ -4,22 +4,19 @@ import Dataehora from "./section/dataehora/Dataehora";
 import Projetos from "./section/projetos/projetos";
 import Header from "../../components/header/header";
 
-function Intro() {
-
+export default function Intro({ dark, mudarTema }) {
     useEffect(() => {
         document.title = "Home | Portfólio"
     }, [])
 
     return (
         <>
-            <Header />
+            <Header dark={dark} mudarTema={mudarTema} />
             
-            <div className="pt-16 pb-8">
-                <Dataehora />
-                <Projetos />
+            <div className="pb-8">
+                <Dataehora dark={dark} />
+                <Projetos dark={dark} />
             </div>
         </>
     )
 }
-
-export default Intro

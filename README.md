@@ -45,25 +45,28 @@ Todos os arquivos `.json` responsáveis pelo conteúdo do portfólio ficam na pa
     "categoria": "",
     "subCategorias": [
       {
-        "nome": "",
-        "resuminho": "",
+        "titulo": "",
+        "resumo": "",
         "slug": "",
         "ano": "",
-        "github": "",
+        "repoGithub": "",
         "deploy": "",
         "emDesenvolvimento": true,
-        "imagem": [],
         "conteudo": {
-          "paragrafo": [""],
-          "paragrafo-2": [""],
-          "paragrafo-3": [""],
+          "imagem": [
+            ""
+          ],
+          "alt": [
+            ""
+          ],
+          "paragrafo": [
+            ""
+          ],
+          "tags": [
+            ""
+          ],
           "comentarios": [
-            {
-              "imagem": "",
-              "nome": "",
-              "data": "0000-00-00T00:00:00",
-              "texto": ""
-            }
+            ""
           ]
         }
       }
@@ -93,11 +96,11 @@ Todos os arquivos `.json` responsáveis pelo conteúdo do portfólio ficam na pa
 ## Campos do projeto
 
  - **categoria** → Onde o projeto aparece no site
- - **nome** → Título do projeto
- - **resuminho** → Resumo rápido (hover e página interna)
+ - **titulo** → Título do projeto
+ - **resumo** → Resumo rápido (hover e página interna)
  - **slug** → URL do projeto (minúsculo, sem caracteres especiais)
  - **ano** → Data do projeto
- - **github** → Repositório
+ - **repoGithub** → Repositório
  - **deploy** → Site publicado
  - **emDesenvolvimento** → Projeto em desenvolvimento
 
@@ -120,14 +123,28 @@ A primeira imagem é a principal, as demais vão para o slider.
 
 ## Conteúdo interno
 
-- `paragrafo` → Abaixo da imagem principal  
-- `paragrafo-2` → Meio da página  
-- `paragrafo-3` → Final  
+- `paragrafo` → Conteúdo do projeto
 
 ### Quebra de parágrafo
 
 ```json
-["Texto 1", "Texto 2"]
+["Texto 1", "Texto 2", "", ""]
+```
+
+### alts
+
+- `alt` → descrição das imagens
+
+```json
+["Texto 1", "Texto 2", "", ""]
+```
+
+### tags
+
+- `alt` → São tags
+
+```json
+["Tag 1", "Tag 2",]
 ```
 
 ### Links no texto
@@ -139,13 +156,13 @@ A primeira imagem é a principal, as demais vão para o slider.
 
 ### Comentários (opcional)
 
+- `comentarios` → cada paragrafo e uma IA escolhida no **[`/public/ia/ia.json`](./portfolio/public/assets/ia/ia.json)**
+
 ```json
 "comentarios": [
-  {
-    "imagem": "/logo-chatgpt.png",
-    "nome": "ChatGPT",
-    "texto": "Texto do comentário"
-  }
+  "paragrafo-1",
+  "paragrafo-2",
+  "paragrafo-3"
 ]
 ```
 

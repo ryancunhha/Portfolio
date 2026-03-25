@@ -62,6 +62,11 @@ export default function PesquisaModal({ dark, aberto, onClose, visivel }) {
         return () => window.removeEventListener("keydown", fecharEsc)
     }, [aberto, onClose])
 
+    useEffect(() => {
+        if (busca === "") {
+            limparBusca();
+        }
+    }, [busca]);
 
     function limparBusca() {
         setBusca("")
@@ -78,19 +83,26 @@ export default function PesquisaModal({ dark, aberto, onClose, visivel }) {
             categoria => categoria.subCartegorias
         )
 
-        const encontrados = todosProjetos.filter((projeto) => projeto.titulo.toLocaleLowerCase().includes(texto))
+        const encontrados = todosProjetos.filter((projeto) => {
+            const Titulo = projeto.titulo.toLowerCase().includes(texto);
+            const Resumo = projeto.resumo?.toLowerCase().includes(texto);
+            const Paragrafos = projeto.conteudo?.paragrafo?.some(p => p.toLowerCase().includes(texto));
+
+            return Titulo || Resumo || Paragrafos;
+        });
+
         setResultado(encontrados)
     }
 
     return (
-        <div className={`fixed left-0 right-0 ${dark ? "bg-(--bg-color)" : "bg-white!"} z-7 transition-all duration-150 ease-in-out overflow-hidden ${aberto && visivel ? "top-20 translate-y-0 opacity-100" : "top-10 -translate-y-full opacity-0 pointer-events-none"}`} >
-            <div className={`border-b ${dark ? "border-zinc-600" : "border-zinc-100"} max-w-4xl mx-auto p-3`}>
+        <div className={`fixed left-0 right-0 ${dark ? "bg-(--bg-color)" : "bg-white!"} z-7 transition-all duration-300 ease-in-out overflow-hidden ${aberto && visivel ? "top-20 translate-y-0 opacity-100" : "top-10 -translate-y-full opacity-0 pointer-events-none"}`} >
+            <div className={`border-b ${dark ? "border-zinc-600" : "border-zinc-100"} max-w-4xl mx-auto pr-3 md:pr-0`}>
                 <form autoComplete="off" className="w-full flex justify-between items-center" onSubmit={(e) => { e.preventDefault(); buscaProjeto(); }} >
                     <img className={`rounded-xs hidden md:inline h-6 p-1 ${dark ? "invert" : ""}`} src={procura} alt="" />
-                    
+
                     <label htmlFor="busca-projetos" className="sr-only">Pesquisar projetos</label>
 
-                    <input ref={inputRef} autoFocus={aberto} maxLength={200} id="busca-projetos" name="busca-projetos" autoComplete="off" type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder={placeholder} className="w-full pr-2 md:px-2 outline-none" />
+                    <input ref={inputRef} autoFocus={aberto} maxLength={200} id="busca-projetos" name="busca-projetos" autoComplete="off" type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder={placeholder} className={`${dark ? "text-white!" : "text-black!"} w-full p-4 outline-none`} />
 
                     <div className="flex items-center gap-2 md:gap-3 ml-auto">
                         <button type="submit" onClick={buscaProjeto} className={`group flex items-center justify-center rounded-sm border px-2 py-1 md:px-4 md:py-1 text-[10px] uppercase font-black tracking-widest transition-all cursor-pointer active:scale-95 ${dark ? "border-zinc-700 hover:bg-white! hover:text-black!" : "border-zinc-200 hover:bg-black! hover:text-white!"}`} >
@@ -121,7 +133,7 @@ export default function PesquisaModal({ dark, aberto, onClose, visivel }) {
                         </ul>
                     ) : pesquisou && (
                         <div className="my-2 text-center animate-in fade-in zoom-in-95 duration-300">
-                            <p className="text-sm text-gray-400 italic">
+                            <p className="text-sm text-gray-400! italic">
                                 Nenhum projeto encontrado
                             </p>
                         </div>

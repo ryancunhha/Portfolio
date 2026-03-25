@@ -43,7 +43,7 @@ export default function Header({ dark, mudarTema }) {
                 <div className="max-w-7xl mx-auto w-full h-14 p-4 flex flex-row items-center justify-between md:justify-start gap-8">
                     <button onClick={() => setAberta(true)} className="cursor-pointer md:hidden flex-1 flex gap-1 items-center flex-row">
                         <span className="cursor-pointer">☰</span>
-                        <span className="text-xs tracking-tighter">Menu</span>
+                        <span className="text-sm tracking-tighter">Menu</span>
                     </button>
 
                     <Link onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }} to="/" className="flex-1 md:flex-initial flex justify-center md:justify-start cursor-pointer">
@@ -51,7 +51,7 @@ export default function Header({ dark, mudarTema }) {
                     </Link>
 
                     <div className="hidden md:block flex-1">
-                        <ul className="flex flex-row gap-5 font-bold text-[13px] uppercase tracking-tighter list-none">
+                        <ul className="flex flex-row gap-5 font-bold text-[13px] uppercase list-none">
                             {LINKS_NAVEGACAO.map((item, index) => {
                                 if (item.nome === "Solicitação") return null
 
@@ -75,12 +75,12 @@ export default function Header({ dark, mudarTema }) {
 
                     <div className="flex flex-row items-center md:gap-4 flex-1 md:flex-initial justify-end">
                         {LINKS_NAVEGACAO.find(item => item.nome === "Solicitação") && (
-                            <Link to={LINKS_NAVEGACAO.find(item => item.nome === "Solicitação").path} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className={`hidden md:block border-2 rounded-sm px-4 py-1.5 text-[10px] font-black uppercase ${dark ? "hover:bg-white! hover:text-black! border-white!" : "hover:bg-black! hover:text-white! border-black!"} transition-all duration-300`} >
+                            <Link to={LINKS_NAVEGACAO.find(item => item.nome === "Solicitação")?.path} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className={`hidden md:block text-[11px] font-black uppercase tracking-widest px-4 py-1 rounded-full border transition-all duration-300 ${dark ? "border-zinc-500 text-white hover:text-zinc-400 bg-zinc-900/50" : "border-zinc-200 text-zinc-900 hover:text-zinc-500 bg-white"}`}>
                                 Solicitação
                             </Link>
                         )}
 
-                        <button className="w-8 h-8 flex items-center justify-center cursor-pointer text-[19px] transition-transform duration-200" onClick={mudarTema} >{dark ? "☀️" : "🌙"}</button>
+                        <button className="w-7 h-7 flex items-center justify-center cursor-pointer text-[19px] transition-transform duration-200" onClick={mudarTema} >{dark ? "☀️" : "🌙"}</button>
 
                         <button onClick={() => setMenuAberto(!MenuAberto)} className="group flex items-center justify-center cursor-pointer" >
                             <img className={`transition-all duration-300 rounded-full h-8 w-8 p-1.5 ${dark ? "invert bg-transparent group-hover:bg-white/20" : "bg-transparent group-hover:bg-black/10"}`} src={procura} alt="Buscar" />

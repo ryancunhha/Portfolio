@@ -7,9 +7,17 @@
         }
 
         to {
-            transform: translateX(-50%);
+            transform: translateX(-33.3333333333%);
         }
     }
+
+    --animate-ticker: ticker 40s linear infinite;
+}
+
+.animate-ticker {
+    display: flex !important;
+    width: max-content !important;
+    white-space: nowrap;
 }
 
 @layer base {
@@ -23,10 +31,6 @@
         scroll-behavior: smooth;
         scrollbar-width: thin;
     }
-}
-
-.animate-ticker {
-    animation: ticker var(--duration, 35s) linear infinite;
 }
 
 :root {
@@ -144,5 +148,5 @@ span {
 }
 
 .animate-spin-custom {
-    animation: spin-fast 0.4s ease-in-out;
+    animation: spin-fast 0.25s ease-in-out;
 }

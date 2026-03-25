@@ -17,12 +17,6 @@
                         "/projetos/front-end/bombeiro/bombeiro-3.png",
                         "/projetos/front-end/bombeiro/bombeiro-4.png"
                     ],
-                    "alt": [
-                        "1",
-                        "2",
-                        "3",
-                        "4"
-                    ],
                     "paragrafo": [
                         "O projeto foi construído utilizando HTML5, CSS3 e JavaScript puro (Vanilla), garantindo uma estrutura semântica e um carregamento rápido, essencial para a experiência do usuário.",
                         "Apliquei conceitos de Design Responsivo para garantir que o site seja totalmente acessível em qualquer dispositivo, desde monitores desktop até smartphones.",
@@ -58,7 +52,6 @@
                     "imagem": [
                         "/projetos/front-end/caca-niquel/caça-niqueis.png"
                     ],
-                    "alt": [],
                     "paragrafo": [
                         "",
                         "",
@@ -70,9 +63,6 @@
                         "",
                         "Uso de CSS e DOM para criar a ilusão de movimento nos slots e feedback visual imediato para o usuário.",
                         "Controle de saldo, apostas e interações de botões para garantir que o fluxo do jogo seja consistente."
-                    ],
-                    "comentarios": [
-                        "Este projeto demonstra um excelente domínio de lógica algorítmica e manipulação de eventos. Criar um jogo de azar digital exige precisão no controle de estados (apostas, ganhos e aleatoriedade), o que é um ótimo exercício para o raciocínio lógico. A separação clara entre a lógica do jogo e a interface visual. É um projeto que prova que o desenvolvedor entende como gerenciar dados dinâmicos em tempo real sem depender de bibliotecas externas."
                     ]
                 }
             },
@@ -86,9 +76,6 @@
                 "conteudo": {
                     "imagem": [
                         "/projetos/front-end/caixa-postal/caixa-postal.png"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Desenvolvi uma solução de 'Portaria Digital' focada em resolver o problema de comunicação em prédios e condomínios que não possuem porteiro físico. O sistema funciona como um hub de mensagens rápidas e informativas.",
@@ -113,9 +100,6 @@
                 "conteudo": {
                     "imagem": [
                         "/projetos/front-end/conversor-moeda/Moeda.png"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Desenvolvi este conversor de moedas para explorar o consumo de dados externos através de APIs REST, um conceito fundamental para qualquer desenvolvedor moderno.",
@@ -142,9 +126,6 @@
                 "conteudo": {
                     "imagem": [
                         "/projetos/front-end/borda/borda.png"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Desenvolvi este Gerador de Bordas como uma ferramenta utilitária para facilitar o dia a dia de desenvolvedores front-end, permitindo a criação visual de estilos complexos.",
@@ -173,9 +154,6 @@
                         "/projetos/front-end/juros/juros-1.png",
                         "/projetos/front-end/juros/juros-2.png",
                         "/projetos/front-end/juros/juros-3.png"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Desenvolvi esta calculadora para transformar conceitos de educação financeira em uma ferramenta prática e acessível através do navegador.",
@@ -207,9 +185,6 @@
                     "imagem": [
                         "/projetos/front-end/hero/hero.png"
                     ],
-                    "alt": [
-                        "a"
-                    ],
                     "paragrafo": [
                         "Este projeto foi um desafio de lógica focado em transformar o navegador em uma plataforma de jogos rítmicos, utilizando o teclado como controlador principal.",
                         "O objetivo foi replicar a mecânica de notas que descem pela tela e devem ser acionadas no momento exato, exigindo uma gestão precisa de tempo e colisão.",
@@ -235,9 +210,6 @@
                 "conteudo": {
                     "imagem": [
                         "/projetos/front-end/cartao/cartao.png"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Este projeto começou como um desafio de lógica para entender como os sistemas de checkout identificam e validam cartões de crédito antes mesmo do processamento bancário.",
@@ -267,9 +239,6 @@
                     "imagem": [
                         "/projetos/back-end/crud/CRUD.png"
                     ],
-                    "alt": [
-                        "a"
-                    ],
                     "paragrafo": [
                         "Desenvolvi este CRUD para consolidar meus conhecimentos sobre a manipulação de dados estruturados e entender o ciclo de vida das informações dentro de uma aplicação front-end.",
                         "O projeto funciona como uma agenda ou gerenciador de tarefas, onde o usuário tem controle total sobre os registros inseridos.",
@@ -295,9 +264,6 @@
                 "conteudo": {
                     "imagem": [
                         "/projetos/back-end/delivery/Delivery.png"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Desenvolvi esta Delivery API para aprofundar meus conhecimentos na construção de arquiteturas escaláveis e na organização de fluxos de dados complexos no lado do servidor.",
@@ -333,9 +299,6 @@
                         "/projetos/mobile/notas/imagem-2.jpeg",
                         "/projetos/mobile/notas/imagem-1.jpeg",
                         "/projetos/mobile/notas/imagem-4.jpeg"
-                    ],
-                    "alt": [
-                        "a"
                     ],
                     "paragrafo": [
                         "Este projeto para uma ferramenta de gestão operacional completa, focada em usuários que precisam de agilidade no controle de entradas, perdas e produção.",

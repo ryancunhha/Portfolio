@@ -7,18 +7,18 @@ export default function Shortcut({ dark, onClose }) {
     return (
         <div className="flex flex-col">
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mx-2">
                 <Link onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); onClose(); }} to="/" className="cursor-pointer" aria-label="Ir para a página inicial">
                     <img className="h-9" src={logo} alt="Logo" />
                 </Link>
 
-                <button className="cursor-pointer text-xl my-2 mr-2.5 max-w-max items-center flex justify-end hover:opacity-50" onClick={onClose} >
+                <button className="cursor-pointer mr-2 text-[24px] max-w-max items-center flex justify-end hover:opacity-50" onClick={onClose} >
                     ✕
                 </button>
             </div>
 
-            <nav>
-                <ul className="mt-2 flex flex-col gap-4 list-none">
+            <nav className="mt-4 mx-1.5">
+                <ul className="flex flex-col gap-4 list-none">
                     {LINKS_NAVEGACAO.map((item, index) => (
                         <li key={index} className="flex items-center gap-2 group">
                             {item.externo ? (

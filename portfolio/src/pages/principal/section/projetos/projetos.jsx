@@ -6,21 +6,21 @@ import FrasesClima from "../../../../api/clima/frases.json";
 import { slugify } from "../../../../utils/slugify/slugify";
 import { sicronizar } from "../../../../config/imagem";
 
+const obterFraseSorteada = (temp, chuva) => {
+    let categoria = "agradavel"
+
+    if (chuva > 50) categoria = "chuva"
+    else if (temp <= 18) categoria = "frio"
+    else if (temp > 28) categoria = "calor"
+
+    const frases = FrasesClima[categoria]
+    return frases[Math.floor(Math.random() * frases.length)]
+}
+
 export default function Projetos({ dark }) {
     const todosOsProjetos = useMemo(() => dadosProjetos.flatMap(cat => cat.subCartegorias), [])
     const [projetosVitrine, setProjetosVitrine] = useState([])
     const [girando, setGirando] = useState(false)
-
-    const handleSortear = () => {
-        if (girando) return
-
-        setGirando(true)
-        Sortear()
-
-        setTimeout(() => {
-            setGirando(false)
-        }, 500)
-    }
 
     const [clima, setClima] = useState({
         cidade: "--",
@@ -38,8 +38,17 @@ export default function Projetos({ dark }) {
 
     const Sortear = () => {
         const misturados = [...todosOsProjetos].sort(() => Math.random() - 0.5).slice(0, 2)
-
         setProjetosVitrine(misturados)
+    }
+
+    const handleSortear = () => {
+        if (girando) return
+        setGirando(true)
+        Sortear()
+
+        setTimeout(() => {
+            setGirando(false)
+        }, 500)
     }
 
     useEffect(() => {
@@ -58,7 +67,7 @@ export default function Projetos({ dark }) {
     const EsqueletoFornecido2 = () => {
         return (
             <div className="animate-pulse w-full">
-                <div className="mt-1 h-3.5 w-[80%] bg-gray-300 rounded"></div>
+                <div className="mt-1 h-3.5 bg-gray-300 rounded"></div>
             </div>
         )
     }
@@ -113,11 +122,6 @@ export default function Projetos({ dark }) {
                 loading: false
             }
 
-            localStorage.setItem("cache-clima", JSON.stringify({
-                data: dadosClima,
-                timestamp: new Date().getTime()
-            }))
-
             setClima(dadosClima)
             localStorage.setItem(CHAVE_CACHE, JSON.stringify({
                 data: dadosClima,
@@ -141,27 +145,16 @@ export default function Projetos({ dark }) {
         }
     }
 
-    const obterFraseSorteada = (temp, chuva) => {
-        let categoria = "agradavel"
-
-        if (chuva > 50) categoria = "chuva"
-        else if (temp <= 18) categoria = "frio"
-        else if (temp > 28) categoria = "calor"
-
-        const frases = FrasesClima[categoria]
-        return frases[Math.floor(Math.random() * frases.length)]
-    }
-
     return (
         <div className="flex flex-col gap-5">
             <section className="ml-5 mr-5">
                 <div className="max-w-6xl mx-auto">
-                    <hr className="mt-3 text-[#dcdcdc]!" />
+                    <hr className={`mt-3 ${dark ? "text-gray-600" : "text-[#dcdcdc]!"}`} />
                     <div className="my-3 flex flex-row gap-2">
                         <p className={`text-xs ${dark ? "" : "text-[#727171]!"}`}>Sugestões para você</p>
 
                         <button onClick={handleSortear} className="group flex items-center text-[10px] cursor-pointer transition-all">
-                            <img className={`h-3 ${dark ? "invert" : ""} rounded-full transition-transform duration-600 group-hover:rotate-180 ${girando ? "animate-spin-custom" : ""}`} src={sicronizar} alt="Sortear" />
+                            <img loading="lazy" decoding="async" className={`h-3 ${dark ? "invert" : ""} rounded-full transition-transform duration-300 group-hover:rotate-180 ${girando ? "animate-spin-custom" : ""}`} src={sicronizar} alt="Sortear" />
                         </button>
                     </div>
 
@@ -170,7 +163,7 @@ export default function Projetos({ dark }) {
                             <Fragment key={`vitrine-${i}`}>
                                 <div className="mb-3.5 break-inside-avoid">
                                     <Link title={projeto.resumo} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} to={`/${slugify(projeto.slug) ?? projeto.slug}`}>
-                                        <img src={projeto.conteudo.imagem?.[0]} alt={projeto.conteudo.alt?.[0]} className="w-full h-45 md:h-65 rounded-md shadow-sm object-cover" />
+                                        <img loading="lazy" decoding="async" src={projeto.conteudo.imagem?.[0]} alt={projeto.conteudo.alt?.[0]} className="w-full h-45 md:h-65 rounded-md shadow-sm object-cover" />
                                     </Link>
 
                                     <div className="my-2 flex justify-between items-center">
@@ -198,9 +191,20 @@ export default function Projetos({ dark }) {
                                         </div>
 
                                         <div>
-                                            <div className="text-start px-2 py-2">
-                                                {clima.loading ? (EsqueletoFornecido2()) : (<p className={`text-xl font-bold text-zinc-800!`}>{clima.cidade}</p>)}
-                                                {clima.loading ? (EsqueletoFornecido2()) : (<p className="text-[17px] text-zinc-800!">Prob. de chuva: {clima.chuvaProb}% {clima.chuvaMm}mm</p>)}
+                                            <div className="text-start py-2">
+                                                {clima.loading ? (
+                                                    <>
+                                                        <EsqueletoFornecido2 />
+                                                        <EsqueletoFornecido2 />
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <p className="text-xl font-bold text-zinc-800!">{clima.cidade}</p>
+                                                        <p className="text-[17px] text-zinc-800!">
+                                                            Prob. de chuva: {clima.chuvaProb}% {clima.chuvaMm}mm
+                                                        </p>
+                                                    </>
+                                                )}
                                             </div>
 
                                             <div className="w-full flex flex-row justify-between p-2">
@@ -222,13 +226,28 @@ export default function Projetos({ dark }) {
                                                 </div>
 
                                                 <div className="flex w-[20%] flex-col justify-center gap-1 text-xs font-bold">
-                                                    {clima.loading ? (EsqueletoFornecido()) : (<span className="text-red-400!">{clima.max}° Max</span>)}
-                                                    {clima.loading ? (EsqueletoFornecido()) : (<span className="text-blue-400!">{clima.min}° Min</span>)}
+                                                    {clima.loading ? (
+                                                        <>
+                                                            <EsqueletoFornecido />
+                                                            <EsqueletoFornecido />
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <span className="text-red-400!">{clima.max}° Max</span>
+                                                            <span className="text-blue-400!">{clima.min}° Min</span>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {clima.loading ? (EsqueletoFornecido()) : (<p className="text-sm text-zinc-800! italic mt-2">{clima.loading ? `"${clima.frase}"` : ""}</p>)}
+                                        {clima.loading ? (
+                                            <EsqueletoFornecido />
+                                        ) : (
+                                            <p className="text-sm text-zinc-800! italic mt-2">
+                                                {clima.frase}
+                                            </p>
+                                        )}
                                     </div>
                                 )}
                             </Fragment>
@@ -240,14 +259,14 @@ export default function Projetos({ dark }) {
             {dadosProjetos.map((categoria, index) => (
                 <section key={index} className="ml-5 mr-5">
                     <div className="max-w-6xl mx-auto">
-                        <hr className={`mt-3 ${dark ? "" : "text-[#dcdcdc]!"}`} />
+                        <hr className={`mt-3 ${dark ? "text-gray-600" : "text-[#dcdcdc]!"}`} />
                         <p className={`text-xs py-3 ${dark ? "" : "text-[#727171]!"}`}>{categoria.categoria}</p>
 
                         <div className="columns-1 sm:columns-2 lg:columns-3 gap-3.5">
                             {categoria.subCartegorias.map((projeto, i) => (
                                 <div key={i} className="mb-3.5 break-inside-avoid">
                                     <Link title={projeto.resumo} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} to={`/${slugify(projeto.slug) ?? projeto.slug}`}>
-                                        <img loading="lazy" src={projeto.conteudo.imagem?.[0]} alt={projeto.conteudo.alt?.[0]} className="w-full h-45 md:h-auto rounded-md shadow-sm object-cover" />
+                                        <img loading="lazy" decoding="async" src={projeto.conteudo.imagem?.[0]} alt={projeto.conteudo.alt?.[0]} className="w-full h-45 md:h-auto rounded-md shadow-sm object-cover" />
                                     </Link>
 
                                     <div className="my-2 flex justify-between items-center">

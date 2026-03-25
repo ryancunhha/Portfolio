@@ -33,11 +33,11 @@ export default function Comentarios({ comentarios, slugAtual, data }) {
         const diferencaMeses = (hoje.getFullYear() - dataProjeto.getFullYear()) * 12 + (hoje.getMonth() - dataProjeto.getMonth())
 
         if (diferencaMeses <= 4) {
-            return 3500
+            return 3000
         } else if (diferencaMeses <= 12) {
-            return 7000
+            return 6000
         } else {
-            return 10000
+            return 9000
         }
     }
     const tempo = calcularTempoIntervalo(data)
@@ -52,7 +52,7 @@ export default function Comentarios({ comentarios, slugAtual, data }) {
     useEffect(() => {
         const intervalo = setInterval(() => {
             const variacao = Math.floor(Math.random() * 5) + 1
-            const subir = Math.random() > 0.2
+            const subir = Math.random() > 0.1
 
             setLikesFake(prev => {
                 const novo = subir ? prev + variacao : prev - variacao
@@ -151,44 +151,46 @@ export default function Comentarios({ comentarios, slugAtual, data }) {
 
     return (
         <div>
-            <button onClick={() => setMostar(!mostrar)} className={`w-full rounded-xs cursor-pointer text-xs font-black uppercase tracking-[0.2em] px-3 py-3 border ${dark ? "text-white! hover:text-black!" : "text-black! hover:text-white!"} ${dark ? "" : ""} ${dark ? " hover:bg-white!" : "hover:bg-black!"}  transition-all hover:text-white`}>
-                {mostrar ? "Fechar Avaliações" : `Ver Avaliações`}
+            <button onClick={() => setMostar(!mostrar)} className={` w-full cursor-pointer rounded-sm px-3 py-4 text-[13px] font-black uppercase tracking-[0.3em] border transition-all duration-300 ease-in-out border-zinc-500/30 text-zinc-500 hover:bg-zinc-900 hover:text-white hover:border-zinc-900 dark:hover:bg-white dark:hover:text-black dark:hover:border-white`} >
+                {mostrar ? "Fechar Insights" : "Insights da IA"}
             </button>
 
-            {mostrar && (
-                <div className="p-2 flex flex-col">
-                    {comentarios.map((texto, index) => (
-                        <div className="p-2.5 rounded bg-gray-100 flex gap-1 flex-col" key={index}>
-                            {carregamento ? (EsqueletoNome()) : (
-                                <div className="flex justify-between flex-row items-center gap-1">
-                                    <span className="flex gap-1 text-[12px] tracking-tight font-bold text-zinc-700!">Resumo das Avaliações <strong>✦</strong></span>
+            <div className={`grid transition-all duration-500 ease-in-out ${mostrar ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`} >
+                <div className="overflow-hidden">
+                    <div className="px-2 flex flex-col">
+                        {comentarios.map((texto, index) => (
+                            <div className="p-2.5 rounded bg-gray-100 flex gap-1 flex-col" key={index}>
+                                {carregamento ? (EsqueletoNome()) : (
+                                    <div className="flex justify-between flex-row items-center gap-1">
+                                        <span className="flex gap-1 text-[12px] tracking-tight font-bold text-zinc-700!">Resumo da IA <strong className="text-purple-500">✦</strong></span>
 
-                                    <div className="flex flex-row gap-1 items-center">
-                                        <div className="flex flex-row items-center gap-1" >
-                                            <span className="flex items-center gap-0.5 text-[12px] tracking-tight font-bold text-zinc-700!">
-                                                Útil (
-                                                <span key={likesFake} className={`inline-block text-zinc-700! ${direcao === "subir" ? "animate-subir" : "animate-descer"}`}>
-                                                    {likesFake}
+                                        <div className="flex flex-row gap-1 items-center">
+                                            <div className="flex flex-row items-center gap-1" >
+                                                <span className="flex items-center gap-0.5 text-[12px] tracking-tight font-bold text-zinc-700!">
+                                                    Útil (
+                                                    <span key={likesFake} className={`inline-block text-zinc-700! ${direcao === "subir" ? "animate-subir" : "animate-descer"}`}>
+                                                        {likesFake}
+                                                    </span>
+                                                    )
                                                 </span>
-                                                )
-                                            </span>
 
-                                            <button onClick={Like} className={`text-[14px] cursor-pointer ${curtido ? "" : "grayscale"}`}>
-                                                👍
-                                            </button>
+                                                <button title="Gostei" onClick={Like} className={`text-[14px] cursor-pointer ${curtido ? "" : "grayscale"}`}>
+                                                    👍
+                                                </button>
+                                            </div>
+
+                                            <span className="flex justify-center text-[12px] text-zinc-700! tracking-tighter uppercase font-medium">{formatarTempo(data)}</span>
                                         </div>
 
-                                        <span className="flex justify-center text-[12px] text-zinc-700! tracking-tighter uppercase font-medium">{formatarTempo(data)}</span>
                                     </div>
+                                )}
 
-                                </div>
-                            )}
-                            
-                            {carregamento ? (EsqueletoTexto()) : (<p className="text-[14px] md:text-[15px] leading-relaxed text-zinc-700! font-medium tracking-tight">{texto}</p>)}
-                        </div>
-                    ))}
+                                {carregamento ? (EsqueletoTexto()) : (<p className="text-[14px] md:text-[15px] leading-relaxed text-zinc-700! font-medium tracking-tight">{texto}</p>)}
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            )}
+            </div>
         </div>
     )
 }

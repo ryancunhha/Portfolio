@@ -60,7 +60,6 @@ export default function Chamados({ dark, mudarTema }) {
     useEffect(() => {
         const travarScroll = mostrarConfirmacao || enviadoComSucesso
 
-
         if (travarScroll) {
             document.body.style.overflow = "hidden"
             document.documentElement.style.overflow = "hidden"
@@ -259,7 +258,7 @@ export default function Chamados({ dark, mudarTema }) {
                             <p className="text-[11px] bg-amber-50 text-amber-700! p-3 border-l-4 border-amber-400 leading-relaxed">
                                 <strong>Atenção:</strong>
                                 <span className="block mt-1 text-amber-700!">• Verifique seu e-mail, caso esteja errado não conseguirei te responder.</span>
-                                <span className="block text-amber-700!">• Este formulário só pode ser enviado 1 vez por sessão.</span>
+                                <span className="block text-amber-700!">• Este formulário só pode ser enviado 1 vez por dia.</span>
                             </p>
 
                             <div>
@@ -329,11 +328,11 @@ export default function Chamados({ dark, mudarTema }) {
                     <div className="bg-white w-full max-w-sm p-8 rounded-sm shadow-2xl border-4 border-black animate-fadeIn relative flex flex-col items-center text-center">
 
                         <div className="mb-6">
-                            <img className="h-20 w-20" src={check} alt="Sucesso" />
+                            <img loading="lazy" decoding="async" className="h-12 w-12" src={check} alt="Sucesso" />
                         </div>
 
                         <h3 className="text-2xl font-black uppercase tracking-tighter mb-2 text-black!">
-                            Solicitação Finalizada
+                            Solicitação Enviada
                         </h3>
 
                         <p className="text-zinc-600! text-xs font-medium leading-relaxed mb-8">
@@ -356,8 +355,8 @@ export default function Chamados({ dark, mudarTema }) {
 
             <main className="overflow-x-hidden">
                 <section className="py-3 px-3 md:px-6 max-w-5xl mx-auto text-white">
-                    <div className="md:py-6">
-                        <h2 className={`text-2xl md:text-3xl font-bold md:mb-3 uppercase tracking-tighter ${dark ? "text-white!" : "text-black!"}`}>Faça sua Solicitação!</h2>
+                    <div className="pt-5 md:py-6">
+                        <h2 className={`text-2xl text-center md:text-start md:text-3xl font-bold md:mb-3 uppercase tracking-tighter ${dark ? "text-white!" : "text-black!"}`}>Faça sua Solicitação!</h2>
 
                         <div className="grid md:grid-cols-2 md:gap-10">
                             <div className="space-y-6 px-1 md:px-6 py-6 h-fit">
@@ -383,15 +382,10 @@ export default function Chamados({ dark, mudarTema }) {
                                     <p className="text-zinc-500! text-xs mb-1">Preencha os campos abaixo para iniciar seu pedido.</p>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="user_name" className="text-xs text-zinc-400! uppercase">Nome<span className="text-[#ee4b1e]!">*</span></label>
-                                        <input id="user_name" name="user_name" maxLength={20} required placeholder="Seu nome" type="text" className={`px-3 py-2 text-sm ${dark ? "text-white!" : "text-black!"} border border-zinc-800 rounded outline-none transition`} />
-                                    </div>
-
-                                    <div className="flex flex-col gap-1">
-                                        <label htmlFor="user_phone" className="text-xs text-zinc-400! uppercase flex flex-row gap-1">Telefone <Pergunta texto="Opcional. Facilita o suporte de dúvidas via WhatsApp." /></label>
-                                        <input id="user_phone" name="user_phone" value={phone} onChange={handlePhone} placeholder="(00) 00000-0000" type="text" inputMode="numeric" className={`px-3 py-2 text-sm ${dark ? "text-white!" : "text-black!"} border border-zinc-800 rounded outline-none`} />
+                                        <input id="user_name" name="user_name" maxLength={20} required placeholder="Seu nome" type="text" className={`px-3 py-2 text-sm ${dark ? "text-white!" : "text-black!"} border border-zinc-800 rounded outline-none`} />
                                     </div>
                                 </div>
 
@@ -400,7 +394,7 @@ export default function Chamados({ dark, mudarTema }) {
                                     <input id="user_email" maxLength={100} name="user_email" required placeholder="Seu Email" type="email" className={`px-3 py-2 text-sm ${dark ? "text-white!" : "text-black!"} border border-zinc-800 rounded outline-none`} />
                                 </div>
 
-                                <button type="button" onClick={() => setMostrarOpcionais(!mostrarOpcionais)} className="cursor-pointer mt-2 flex justify-between items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-colors w-40">
+                                <button type="button" onClick={() => setMostrarOpcionais(!mostrarOpcionais)} className="cursor-pointer mt-2 flex justify-between items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-colors w-[70%] md:w-[50%]">
                                     <span className={`${dark ? "" : "text-zinc-500! hover:text-black!"}`} >
                                         {mostrarOpcionais ? "− Ocultar Opcionais" : "+ Informações Opcionais"}
                                     </span>
@@ -411,7 +405,12 @@ export default function Chamados({ dark, mudarTema }) {
                                 <div className={`grid transition-all duration-500 ease-in-out ${mostrarOpcionais ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0 overflow-hidden"}`}>
                                     <div className="min-h-0 flex flex-col gap-2">
                                         <div className="flex flex-col gap-1">
-                                            <label htmlFor="budget_currency" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Orçamento <Pergunta texto="Opcional, Este é o valor inicial, poderá sofrer alterações." /></label>
+                                            <label htmlFor="user_phone" className="text-xs text-zinc-400! uppercase flex flex-row gap-1">Telefone <Pergunta texto="Facilita o suporte de dúvidas via WhatsApp." /></label>
+                                            <input id="user_phone" name="user_phone" value={phone} onChange={handlePhone} placeholder="(00) 00000-0000" type="text" inputMode="numeric" className={`px-3 py-2 text-sm ${dark ? "text-white!" : "text-black!"} border border-zinc-800 rounded outline-none`} />
+                                        </div>
+
+                                        <div className="flex flex-col gap-1">
+                                            <label htmlFor="budget_currency" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Orçamento <Pergunta texto="Este é o valor inicial, poderá sofrer alterações." /></label>
 
                                             <div className={`flex flex-row border rounded overflow-hidden ${dark ? "border-zinc-800" : "border-zinc-300"}`}>
                                                 <select id="budget_currency" name="currency" value={currency} onChange={(e) => { setCurrency(e.target.value); setPrice("") }} className="bg-zinc-900 text-zinc-300 text-xs font-bold px-3 outline-none cursor-pointer border-r border-zinc-700 hover:bg-zinc-800" >
@@ -426,7 +425,7 @@ export default function Chamados({ dark, mudarTema }) {
                                         </div>
 
                                         <div className="flex flex-col gap-1">
-                                            <label htmlFor="link-0" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Link de Referência <Pergunta texto="Opcional, Links de Referência (YouTube, Drive, etc) max: 3" /></label>
+                                            <label htmlFor="link-0" className="flex flex-row gap-1 text-xs text-zinc-400 uppercase">Link de Referência <Pergunta texto="Links de Referência (YouTube, Drive, etc) max: 3" /></label>
 
                                             {links.map((link, index) => (
                                                 <div key={index} className="flex flex-row text-black border w-full border-zinc-800 rounded overflow-hidden">

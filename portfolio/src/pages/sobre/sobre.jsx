@@ -9,23 +9,38 @@ export default function Sobre({ dark, mudarTema }) {
     const [mostarHistoria, setMostrarHistoria] = useState(false)
 
     function renderTextoComLink(texto) {
-        const regex = /\[(https?:\/\/[^\]|]+)(?:\|([^\]]+))?\]/g
+        const regex = /\[([^\]|]+)(?:\|([^\]]+))?\]/g
         const partes = texto.split(regex)
 
         return partes.map((parte, index) => {
             if (index % 3 === 1) {
-                const link = parte
-                const textoLink = partes[index + 1]
-                const textoFinal = textoLink ? textoLink : link.replace("https://", "").replace("http://", "").replace("www", "").split("/")[0]
+                const conteudo = parte
+                const textoAlternativo = partes[index + 1]
+
+                if (conteudo.startsWith("http")) {
+                    const textoFinal = textoAlternativo ? textoAlternativo : conteudo.replace(/(https?:\/\/)?(www\.)?/, "").split("/")[0]
+
+                    return (
+                        <a key={index} href={conteudo} target="_blank" rel="noopener noreferrer" className={`cursor-pointer underline font-medium ${dark ? "text-white!" : "text-black!"} hover:no-underline`} >
+                            {textoFinal}
+                        </a>
+                    )
+                }
 
                 return (
-                    <a key={index} href={link} target="_blank" rel="noopener noreferrer" className={`cursor-pointer underline ${dark ? "text-gray-300!" : "text-gray-600!"} hover:no-underline`}>{textoFinal}</a>
+                    <mark key={index} className="text-black px-1 rounded-sm font-medium animate-highlight" style={{ animationDelay: `${index * 0.1}s` }} >
+                        {conteudo}
+                    </mark>
                 )
             }
 
             if (index % 3 === 2) return null
 
-            return <span className={`${dark ? "text-white!" : "text-gray-600!"}`} key={index}>{parte}</span>
+            return (
+                <span key={index} className={dark ? "text-zinc-300!" : "text-zinc-600!"}>
+                    {parte}
+                </span>
+            )
         })
     }
 
@@ -40,7 +55,7 @@ export default function Sobre({ dark, mudarTema }) {
             <div className="pb-8 md:pb-0">
                 <div className="max-w-6xl mx-auto px-4 font-sans text-gray-900!">
                     <div className="relative w-full h-55 overflow-hidden mb-12">
-                        <img className="w-full h-full object-cover brightness-40" loading="lazy" src={dadosResumo.sobre[1]} alt="banner" />
+                        <img className="w-full h-full object-cover brightness-40" loading="lazy" decoding="async" src={dadosResumo.sobre[1]} alt="banner" />
                         <div className="absolute bottom-10 left-10">
                             <h1 className="text-5xl font-black text-white! uppercase tracking-tighter">Sobre Mim</h1>
                             <div className="w-20 h-2 bg-white mt-2"></div>
@@ -96,10 +111,10 @@ export default function Sobre({ dark, mudarTema }) {
                         <div className="md:w-1/3">
                             <div className={`top-8 border border-gray-200 p-6 ${dark ? "bg-zinc-900 border-zinc-800 shadow-2xl" : "bg-gray-50! border-gray-200 shadow-sm"}`}>
                                 <div className="w-full aspect-square mb-6 overflow-hidden">
-                                    <img loading="lazy" className="w-full h-full object-cover" src={dadosResumo.sobre[0]} alt="Ryan" />
+                                    <img loading="lazy" decoding="async" className="w-full h-full object-cover" src={dadosResumo.sobre[0]} alt="Ryan" />
                                 </div>
                                 <h3 className={`text-xl font-black uppercase mb-4 tracking-tight ${dark ? "text-white!" : "text-zinc-900!"}`}>{dadosResumo.sobre[2]}</h3>
-                                
+
                                 <div className={`w-full h-px mb-6 ${dark ? "bg-zinc-800" : "bg-gray-200"}`} />
                                 <Contatos dark={dark} />
                             </div>

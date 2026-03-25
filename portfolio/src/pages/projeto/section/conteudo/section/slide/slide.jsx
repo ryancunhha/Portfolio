@@ -26,13 +26,13 @@ function ModalImagem({ index, imagens, onClose, onNavigate, alt }) {
     return (
         <div className="fixed inset-0 z-30 bg-black/85 flex items-center justify-center backdrop-blur-xs transition-all flex-col md:flex-row">
             <div className="absolute top-6">
-                <img loading="lazy" className="h-8" src={logo} alt="Logo" />
+                <img loading="lazy" decoding="async" className="h-8" src={logo} alt="Logo" />
             </div>
 
             <button onClick={onClose} className="cursor-pointer absolute top-6 right-6 text-white! font-black bg-black/30! md:bg-white/0! md:hover:bg-white/20! w-10 h-10 rounded-full flex items-center justify-center transition-all z-40">✕</button>
 
             <div className={`relative flex-1 w-full h-full flex items-center justify-center ${zoom ? "overflow-y-auto block" : "overflow-hidden flex"}`} >
-                <img src={imagens[index]} onClick={(e) => { e.stopPropagation(); setZoom(!zoom); }} className={`transition-all duration-150 ease-in-out transform ${zoom ? "scale-100 cursor-zoom-out min-w-full my-auto block" : "max-w-[90vw] md:max-w-[90vw] max-h-[60vh] md:max-h-[80vh] object-contain scale-90 cursor-zoom-in"}`} alt={alt[index]} />
+                <img loading="lazy" decoding="async" src={imagens[index]} onClick={(e) => { e.stopPropagation(); setZoom(!zoom); }} className={`transition-all duration-150 ease-in-out transform ${zoom ? "scale-100 cursor-zoom-out min-w-full my-auto block" : "max-w-[90vw] md:max-w-[90vw] max-h-[60vh] md:max-h-[80vh] object-contain scale-90 cursor-zoom-in"}`} alt={alt[index]} />
 
                 {!zoom && (
                     <div className="z-40 absolute inset-x-0 flex justify-between px-1.5 md:px-3 pointer-events-none">
@@ -71,7 +71,7 @@ export default function Slide({ imagens = [], altTexto, dark }) {
             <div className="my-6">
                 <div className="relative group">
                     <div className="absolute inset-0 flex opacity-100 group-hover:opacity-0 transition-opacity duration-250 pointer-events-none">
-                        <img className="bg-white! rounded-br-sm cursor-zoom-in absolute p-0.5 h-3.5" src={zoom} alt="Zoom" />
+                        <img loading="lazy" decoding="async" className="bg-white! rounded-br-sm cursor-zoom-in absolute p-0.5 h-3.5" src={zoom} alt="Zoom" />
                     </div>
 
                     <div className="hidden md:flex absolute h-full w-full justify-between items-center pointer-events-none opacity-100 group-hover:opacity-0 transition-opacity duration-150">
@@ -79,12 +79,12 @@ export default function Slide({ imagens = [], altTexto, dark }) {
                         <span className="pr-3 animate-[bounce-x_2s_infinite] text-3xl text-gray-500! transition-all duration-300 group-hover:translate-x-2 group-hover:animate-pulse">›</span>
                     </div>
 
-                    <img onClick={() => setImagemAberta(0)} loading="lazy" src={imagensSlide[0]} className="w-full aspect-video object-contain cursor-pointer" alt="Preview 1" />
+                    <img onClick={() => setImagemAberta(0)} loading="lazy" decoding="async" src={imagensSlide[0]} className="w-full aspect-video object-contain cursor-pointer" alt="Preview 1" />
                 </div>
 
                 <div className="flex gap-2.5 mt-2.5 h-16 md:h-17">
                     <button onClick={() => setImagemAberta(0)} className="relative shrink-0 w-23 md:w-25 h-full cursor-pointer" >
-                        <img src={imagensSlide[0]} alt={altTexto[0]} className="w-full h-full object-cover brightness-50" />
+                        <img loading="lazy" decoding="async" src={imagensSlide[0]} alt={altTexto[0]} className="w-full h-full object-cover brightness-50" />
 
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <span className="font-black leading-none text-white!">{`${imagensSlide.length} imagens`}</span>
@@ -94,13 +94,13 @@ export default function Slide({ imagens = [], altTexto, dark }) {
                     {imagensSlide[1] && (
                         <button onClick={() => setImagemAberta(1)}
                             className="shrink-0 w-23 md:w-25 h-full cursor-pointer" >
-                            <img src={imagensSlide[1]} className="w-full h-full object-cover" alt={altTexto[1]} />
+                            <img loading="lazy" decoding="async" src={imagensSlide[1]} className="w-full h-full object-cover" alt={altTexto[1]} />
                         </button>
                     )}
 
                     {imagensSlide[2] && (
                         <button onClick={() => setImagemAberta(2)} className="hidden md:block shrink-0 md:w-25 h-full cursor-pointer">
-                            <img src={imagensSlide[2]} className="w-full h-full object-cover" alt={altTexto[1]} />
+                            <img loading="lazy" decoding="async" src={imagensSlide[2]} className="w-full h-full object-cover" alt={altTexto[1]} />
                         </button>
                     )}
                 </div>

@@ -17,7 +17,7 @@ export default function Conteudo({ projeto, dark }) {
 
     const [tamanhoFonte, setTamanhoFonte] = useState(() => {
         const salvo = localStorage.getItem("preferencia-fonte")
-        return salvo ? parseInt(salvo) : 16
+        return salvo ? parseInt(salvo) : 18
     })
 
     useEffect(() => {
@@ -114,13 +114,13 @@ export default function Conteudo({ projeto, dark }) {
         return (
             <div className="fixed inset-0 z-30 bg-black/85 flex items-center justify-center backdrop-blur-xs transition-all flex-col md:flex-row">
                 <div className="absolute top-6 text-white/50">
-                    <img loading="lazy" className="h-8" src={logo} alt="Logo" />
+                    <img loading="lazy" decoding="async" className="h-8" src={logo} alt="Logo" />
                 </div>
 
                 <button onClick={onClose} className="cursor-pointer absolute top-6 right-6 text-white! font-black bg-black/30! md:bg-white/0! md:hover:bg-white/20! w-10 h-10 rounded-full flex items-center justify-center transition-all z-40">✕</button>
 
                 <div className={`relative flex-1 w-full h-full flex items-center justify-center ${zoom ? "overflow-y-auto block" : "overflow-hidden flex"}`} >
-                    <img src={src} onClick={handleImageClick} className={`transition-all duration-100 ease-in-out transform cursor-zoom-in ${zoom ? "scale-100 cursor-zoom-out min-w-full my-auto" : "max-w-full md:max-w-[80vw] max-h-[60vh] md:max-h-[85vh] object-contain scale-90"}`} alt={existeAlt} />
+                    <img loading="lazy" decoding="async" src={src} onClick={handleImageClick} className={`transition-all duration-100 ease-in-out transform cursor-zoom-in ${zoom ? "scale-100 cursor-zoom-out min-w-full my-auto" : "max-w-full md:max-w-[80vw] max-h-[60vh] md:max-h-[85vh] object-contain scale-90"}`} alt={existeAlt} />
                 </div>
 
                 <div className="relative w-full md:w-65 flex flex-col gap-1 px-5 pt-2.5 pb-5">
@@ -147,13 +147,13 @@ export default function Conteudo({ projeto, dark }) {
             <div className="my-2.5">
                 <div className="relative group overflow-hiddenm">
                     <div className="absolute inset-0 flex opacity-100 group-hover:opacity-0 transition-opacity duration-250 pointer-events-none">
-                        <img className="bg-white! rounded-br-sm cursor-zoom-in absolute p-0.5 h-3.5" src={zoom} alt="Zoom" />
+                        <img loading="lazy" decoding="async" className="bg-white! rounded-br-sm cursor-zoom-in absolute p-0.5 h-3.5" src={zoom} alt="Zoom" />
                     </div>
 
-                    <img onClick={() => setImagemAberta(projeto.conteudo.imagem[0])} loading="lazy" className="cursor-pointer w-full aspect-video object-contain" src={projeto.conteudo.imagem[0]} alt={existeAlt} />
+                    <img onClick={() => setImagemAberta(projeto.conteudo.imagem[0])} loading="lazy" decoding="async" className="cursor-pointer w-full aspect-video object-contain" src={projeto.conteudo.imagem[0]} alt={existeAlt} />
                 </div>
 
-                <div className="pt-3 px-1 md:hidden">
+                <div className="pt-3 md:hidden">
                     <Acessibilidade dark={dark} paragrafos={todosParagrafos} slug={projeto.slug} />
                 </div>
 

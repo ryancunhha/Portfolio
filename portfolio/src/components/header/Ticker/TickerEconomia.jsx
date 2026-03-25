@@ -72,26 +72,19 @@ export default function TickerEconomia({ dark }) {
     }, [])
 
     return (
-        <div className={`relative h-6 w-full overflow-hidden border-b transition-colors flex items-center ${dark ? "bg-(--bg-color) border-zinc-600" : "bg-white border-zinc-100"}`} onMouseEnter={() => setPausado(true)} onMouseLeave={() => setPausado(false)} >
-            <div className={`absolute inset-0 z-11 pointer-events-none ${dark ? "bg-linear-to-r from-(--bg-color) via-transparent 15% via-transparent 85% to-(--bg-color)" : "bg-linear-to-r from-white via-transparent 15% via-transparent 85% to-white"}`} ></div>
+        <div className={`relative h-6 w-full overflow-hidden border-b transition-colors flex items-center ${dark ? "border-zinc-600" : "border-zinc-100"}`} onMouseEnter={() => setPausado(true)} onMouseLeave={() => setPausado(false)} >
+            <div className="absolute inset-0 z-11 pointer-events-none" ></div>
 
-            <div style={{animationPlayState: pausado ? "paused" : "running", transition: "animation-duration 0.5s ease"}} className="flex whitespace-nowrap w-fit animate-ticker relative z-10" >
-                {[...moedas, ...moedas].map((item, index) => (
-                    <div key={index} className="flex items-center mx-6 gap-2">
-                        <span className={`text-[9px] font-black uppercase tracking-tighter ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+            <div style={{ animationPlayState: pausado ? "paused" : "running", transition: "animation-duration 0.5s ease" }} className="flex whitespace-nowrap animate-ticker relative z-10 w-[max-content]" >
+                {[...moedas, ...moedas, ...moedas].map((item, index) => (
+                    <div key={index} className="flex items-center shrink-0 px-8 gap-2 border-r-2 border-zinc-600 ">
+                        <span className={`text-[11px] font-black ${dark ? "text-zinc-200!" : "text-zinc-600!"}`}>
                             {item.nome}
                         </span>
 
-                        <span className={`text-[11px] font-bold ${dark ? "text-zinc-100" : "text-zinc-900"}`}>
-                            <span className={` ${item.positivo ? "text-green-500!" : "text-red-500!"}  `} >{item.valor}</span>
-                        </span>
+                        <span className={`text-[11px] font-bold  ${dark ? "text-zinc-200!" : "text-zinc-600!"}`} >{item.valor}</span>
 
-                        <div className="flex items-center gap-0.5 text-[9px] font-bold">
-                            <span className={` ${item.positivo ? "text-green-300!" : "text-red-400!"}  `}>{item.positivo ? "▲" : "▼"}</span>
-                            <span className={` ${item.positivo ? "text-green-300!" : "text-red-400!"} `}>{item.variacao}</span>
-                        </div>
-
-                        <span className={`text-zinc-600 opacity-20 ml-4`}>|</span>
+                        <span className={`text-[11px] font-bold ${item.positivo ? "text-green-300!" : "text-red-400!"}`}>{item.variacao}</span>
                     </div>
                 ))}
             </div>

@@ -87,7 +87,7 @@ export default function Introducao({ projeto, categoria, dark }) {
         return (
             <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 p-2 bg-white! rounded-lg shadow-xl border border-gray-100! transition-all duration-300 z-50 w-32 ${visivel ? "opacity-100 scale-95 visible" : "opacity-0 invisible"}`}>
                 {qrcode && (
-                    <img loading="lazy" src={qrcode} alt="QR Code" className="w-full h-auto" />
+                    <img loading="lazy" decoding="async" src={qrcode} alt="QR Code" className="w-full h-auto" />
                 )}
 
                 <div className="flex flex-col gap-1 border-t border-gray-50! pt-2">
@@ -122,90 +122,90 @@ export default function Introducao({ projeto, categoria, dark }) {
             <Notificacao visivel={notificacaoLink.visivel} mensagem={notificacaoLink.mensagem} progresso={notificacaoLink.progresso} onClose={notificacaoLink.esconderNotificacao} onPausa={notificacaoLink.pausarNotificacao} onDecorrer={notificacaoLink.retomarNotificacao} />
             <Notificacao visivel={notificacaoBitcoin.visivel} mensagem={notificacaoBitcoin.mensagem} progresso={notificacaoBitcoin.progresso} onClose={notificacaoBitcoin.esconderNotificacao} onPausa={notificacaoBitcoin.pausarNotificacao} onDecorrer={notificacaoBitcoin.retomarNotificacao} />
 
-            <div className="py-2.5">
+            <div className="py-3">
                 <div>
-                    <p className="text-[12px] mb-1 flex items-center">
+                    <p className="text-[14px] mb-1 flex items-center">
                         <Link className="pr-1 hover:underline" to="/">Página Inicial</Link>
                         <span>›</span>
                         <span className="pl-1">{categoria.categoria}</span>
                     </p>
 
-                    <h1 className={`text-3xl tracking-tight font-bold ${dark ? "text-white!" : "text-black!"} my-2 pr-0 md:pr-7`}>{projeto.titulo}</h1>
-                    <h2 className={`text-xs tracking-tighter md:pr-7 mb-3 ${dark ? "text-gray-300!" : "text-[#727171]!"}`}>{projeto.resumo}</h2>
+                    <h1 className={`text-[44px] tracking-tight font-bold ${dark ? "text-white!" : "text-black!"} my-1 pr-0 px-0.5 md:pr-7`}>{projeto.titulo}</h1>
+                    <h2 className={`text-[18px] tracking-tighter md:pr-7 mb-3 px-0.5 ${dark ? "text-gray-300!" : "text-[#727171]!"}`}>{projeto.resumo}</h2>
 
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center px-1">
                         <div className="flex flex-row gap-2 items-center">
                             <div>
                                 <p className={`text-[13px] ${dark ? "text-gray-300!" : "text-[#727171]!"}`}>Feito em</p>
-                                <p className={`text-[11px] ${dark ? "text-white!" : "text-black!"}`}>{projeto.ano}</p>
+                                <p className={`text-[13px] ${dark ? "text-white!" : "text-black!"}`}>{projeto.ano}</p>
                             </div>
 
                             {projeto.emDesenvolvimento && (
-                                <span className="bg-[#FF8101] text-white! text-[10px] font-semibold px-2 py-0.5 rounded-sm uppercase">
+                                <span className="bg-[#FF8101] text-white! text-[11px] font-semibold px-2 py-0.5 rounded-sm uppercase">
                                     Em Desenvolvimento
                                 </span>
                             )}
                         </div>
 
                         <div>
-                            <img className="h-6" src={logo} alt="Logo" />
+                            <img loading="lazy" decoding="async" className="h-6" src={logo} alt="Logo" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div>
+            <div className="px-1">
                 <div className="flex justify-between flex-row">
-                    <p className={`text-[11px] ${dark ? "text-white!" : "text-black!"} mb-2`}>Compartilhar projeto</p>
+                    <p className={`text-xs ${dark ? "text-white!" : "text-black!"} mb-2`}>Compartilhar projeto</p>
                 </div>
 
                 <div className="flex flex-row flex-wrap items-center gap-3">
                     {existeDeploy && (
                         <button className="cursor-pointer" title="Visitar Site" onClick={verSite}>
-                            <img className="h-6 rounded-full bg-white" src={dominio} alt="site-deployado" />
+                            <img loading="lazy" decoding="async" className="h-8 w-8 md:h-7 md:w-7 rounded-full bg-white" src={dominio} alt="site-deployado" />
                         </button>
                     )}
 
                     {existeRepositorio && (
                         <button className="cursor-pointer" title="Ver Repositório" onClick={repoGitHub}>
-                            <img className="h-6 w-6 rounded-full bg-white" src={github} alt="repositorio-no-github" />
+                            <img loading="lazy" decoding="async" className="h-8 w-8 md:h-7 md:w-7 rounded-full bg-white" src={github} alt="repositorio-no-github" />
                         </button>
                     )}
 
                     <button onClick={copiarLink} title="Compartilhar projeto">
-                        <img className="h-6 w-6 cursor-pointer rounded-full" src={link} alt="copiar-link" />
+                        <img loading="lazy" decoding="async" className="h-8 w-8 md:h-7 md:w-7 cursor-pointer rounded-full" src={link} alt="copiar-link" />
                     </button>
 
-                    {dadosResumo.bitcoin && (
+                    {dadosResumo.bitcoin[0] && (
                         <div className="relative" ref={containerRef}>
                             <QrCode visivel={visivelBTC} texto={dadosResumo.bitcoin[0]} qrcode={dadosResumo.bitcoin[1]} deposito={dadosResumo.bitcoin[4]} rede={dadosResumo.bitcoin[3]} />
 
                             <button onClick={() => { copiarCodigoCarteiraBTC(); setVisivelBTC(!visivel); }} onMouseEnter={() => setVisivelBTC(true)} onMouseLeave={() => setVisivelBTC(false)} className="cursor-pointer rounded-full transition-all flex items-center justify-center" title="Apoiar com Bitcoin">
-                                <img className={`h-6 w-6`} src={btc} alt="bitcoin" />
+                                <img loading="lazy" decoding="async" className={`h-8 w-8 md:h-7 md:w-7`} src={btc} alt="bitcoin" />
                             </button>
                         </div>
                     )}
 
-                    {dadosResumo.pix && (
+                    {dadosResumo.pix[0] && (
                         <div className={`relative`} ref={containerRef}>
                             <QrCode visivel={visivelPix} texto={dadosResumo.pix[0]} qrcode={dadosResumo.pix[1]} />
 
                             <button onClick={() => { copiarPix(); setVisivel(!visivelPix); }} onMouseEnter={() => setVisivelPix(true)} onMouseLeave={() => setVisivelPix(false)} className="cursor-pointer rounded-full transition-all flex items-center justify-center" title="Apoiar com Pix">
-                                <img className="p-1 rounded-full h-6 w-6 bg-[#29bbac]" src={pix} alt="pix" />
+                                <img loading="lazy" decoding="async" className="p-1 rounded-full h-8 w-8 md:h-7 md:w-7 bg-[#29bbac]" src={pix} alt="pix" />
                             </button>
                         </div>
                     )}
 
                     <button className="cursor-pointer" onClick={compartilharWhatsapp} title="Compartilhar no WhatsApp" aria-label="Compartilhar projeto no WhatsApp">
-                        <img className="h-6 w-6 bg-[#39b44c] rounded-full p-1" src={zap} alt="WhastApp" />
+                        <img loading="lazy" decoding="async" className="h-8 w-8 md:h-7 md:w-7 bg-[#39b44c] rounded-full p-1" src={zap} alt="WhastApp" />
                     </button>
 
                     <button className="cursor-pointer" onClick={compartilharFacebook} title="Compartilhar no Facebook" aria-label="Compartilhar projeto no Facebook">
-                        <img className="h-6 w-6 rounded-full bg-[#3f51b5]" src={face} alt="Facebook" />
+                        <img loading="lazy" decoding="async" className="h-8 w-8 md:h-7 md:w-7 rounded-full bg-[#3f51b5]" src={face} alt="Facebook" />
                     </button>
 
                     <button className="cursor-pointer" onClick={compartilharTwitter} title="Compartilhar no X (Twitter)" aria-label="Compartilhar projeto no X">
-                        <img className={`h-6 w-6 bg-[#212121] rounded-full`} src={twitter} alt="Twiiter" />
+                        <img loading="lazy" decoding="async" className={`h-8 w-8 md:h-7 md:w-7 bg-[#212121] rounded-full`} src={twitter} alt="Twiiter" />
                     </button>
                 </div>
             </div>

@@ -1,28 +1,28 @@
 // header
-import logo from "../../public/assets/sobre/sobre-img/logo.png";
-import procura from "../../public/assets/projetos/outros/procurar.png";
+import logo from "/assets/sobre/sobre-img/logo.webp";
+import procura from "/assets/projetos/outros/procurar.webp";
 
 // dentro de projetos, github e twitter na bar
-import pix from "../../public/assets/projetos/redes-sociais/pix.png";
-import btc from "../../public/assets/projetos/redes-sociais/bitcoin.png";
-import face from "../../public/assets/projetos/redes-sociais/facebook.png";
-import twitter from "../../public/assets/projetos/redes-sociais/twitter.png";
-import dominio from "../../public/assets/projetos/redes-sociais/domaino.png";
-import github from "../../public/assets/projetos/redes-sociais/github.png";
-import zap from "../../public/assets/projetos/redes-sociais/whatsapp.jpg";
-import link from "../../public/assets/projetos/redes-sociais/link.png";
+import pix from "/assets/projetos/redes-sociais/pix.webp";
+import btc from "/assets/projetos/redes-sociais/bitcoin.webp";
+import face from "/assets/projetos/redes-sociais/facebook.webp";
+import twitter from "/assets/projetos/redes-sociais/twitter.webp";
+import dominio from "/assets/projetos/redes-sociais/dominio.webp";
+import github from "/assets/projetos/redes-sociais/github.webp";
+import zap from "/assets/projetos/redes-sociais/whatsapp.webp";
+import link from "/assets/projetos/redes-sociais/link.webp";
 
 //slide
-import zoom from "../../public/assets/projetos/outros/zoom-slide.png";
+import zoom from "/assets/projetos/outros/zoom-slide.webp";
 
 //acessibilidade
-import check from "../../public/assets/projetos/outros/aprovacao.gif";
+import check from "/assets/projetos/outros/aprovacao.webp";
 
 // bar
-import linkExterno from "../../public/assets/projetos/redes-sociais/external-link.png";
-import email from "../../public/assets/projetos/redes-sociais/email.png";
+import linkExterno from "/assets/projetos/redes-sociais/external-link.webp";
+import email from "/assets/projetos/redes-sociais/email.webp";
 
 // inicial
-import sicronizar from "../../public/assets/projetos/outros/sicronizar.png";
+import sicronizar from "/assets/projetos/outros/sicronizar.webp";
 
 export { zap, pix, btc, face, twitter, dominio, link, github, logo, procura, linkExterno, email, zoom, check, sicronizar }

@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+    --color-principal-bg: var(--bg-color);
+    --color-principal-text: var(--text-color);
+}
+
+:root {
+    --bg-color: #18181B;
+    --text-color: #F8F9FA;
+}
+
+.light {
+    --bg-color: #F8F9FA;
+    --text-color: #111113;
+}

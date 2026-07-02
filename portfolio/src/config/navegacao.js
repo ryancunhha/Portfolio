@@ -1,7 +1,0 @@
-import dadosContatos from "../../public/data/contatos.json";
-
-export const LINKS_NAVEGACAO = [
-    { nome: "Sobre", path: "/sobre", externo: false },
-    { nome: "Solicitação", path: "/solicitacao", externo: false },
-    { nome: "Currículos", path: dadosContatos.cv, externo: true },
-]

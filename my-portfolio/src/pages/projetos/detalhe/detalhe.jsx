@@ -72,32 +72,38 @@ export default function DetalhePagina() {
 
     return (
         <div className="m-4 flex flex-col gap-3">
+            {/* Fazer um modificaçaõ aqui ← Voltar para projetos (se tiver > Topics por exemplo e automacao com link que fiz "/projetos?search=${topico}") ficará Projeto > Automacao entendeu? */}
             <Link to="/projetos" className="w-max text-sm">← Voltar para projetos</Link>
 
             {/* APRESENTAÇÃO DO PROJETO */}
             <div className="flex flex-col gap-3">
-                <img className="w-full h-64 md:h-96 object-cover rounded-lg select-none" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} />
-
                 <div>
-                    <h1 className="text-2xl font-bold uppercase">{projeto.nome}</h1>
-                    <p className="text-sm text-[#888]">Criado em {projeto.anoCriacao} {projeto.atualizado && `${projeto.atualizado}`}</p>
+                    <h1 className="text-3xl font-bold uppercase">{projeto.nome}</h1>
+                    <p className="text-sm">Criado em {projeto.anoCriacao} {projeto.atualizado && `${projeto.atualizado}`}</p>
                 </div>
 
-                <div className="flex flex-row flex-wrap gap-2">
-                    {projeto.homepage && (
-                        <a href={projeto.homepage} className="cursor-pointer" target="_blank" rel="noreferrer">
-                            <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />
+                <div className="flex flex-col gap-2">
+                    <p className="text-xs">link inforamções</p>
+
+                    <div className="flex flex-row flex-wrap gap-2">
+                        {/* projeto.homepage */}
+                        {true && (
+                            <a href={projeto.homepage} className="cursor-pointer" target="_blank" rel="noreferrer">
+                                <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />
+                            </a>
+                        )}
+
+                        <a href={`https://github.com/ryancunhha/${projeto.name}`} target="_blank" rel="noreferrer">
+                            <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/github.png" alt={`GitHub do projeto ${projeto.name}`} />
                         </a>
-                    )}
 
-                    <a href={`https://github.com/ryancunhha/${projeto.name}`} target="_blank" rel="noreferrer">
-                        <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/github.png" alt={`GitHub do projeto ${projeto.name}`} />
-                    </a>
-
-                    <button onClick={() => navigator.share && navigator.share({ title: projeto?.nome, url: window.location.href }).catch(console.error)} className="cursor-pointer">
-                        <img className="rounded-full" height="40" width="40" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar projeto" />
-                    </button>
+                        <button onClick={() => navigator.share && navigator.share({ title: projeto?.nome, url: window.location.href }).catch(console.error)} className="cursor-pointer">
+                            <img className="rounded-full" height="40" width="40" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar projeto" />
+                        </button>
+                    </div>
                 </div>
+
+                <img className="w-full h-64 md:h-96 object-cover rounded-lg select-none" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} />
             </div>
 
             {/* BARRA DE ACESSIBILIDADE */}

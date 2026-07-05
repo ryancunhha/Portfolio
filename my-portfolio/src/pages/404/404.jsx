@@ -23,7 +23,7 @@ export default function Erro() {
     }, [navigate])
 
     return (
-        <div className="bg-[#1F1F1F] flex h-screen justify-center flex-col items-center">
+        <div className="bg-[#18181B] flex h-screen justify-center flex-col items-center">
             <p className="text-7xl text-white">404</p>
             <p className="text-sm text-white">Página não encontrada.</p>
 

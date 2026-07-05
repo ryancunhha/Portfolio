@@ -5,13 +5,23 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfólio</title>
-  <script>
-    const t = localStorage.getItem("theme")
+  <title>Portfólio | Ryan Cunha</title>
 
-    if (t === "light") {
-      document.documentElement.classList.add("light")
-    }
+  <!-- Pre-conexoes -->
+  <link rel="preconnect" href="https://api.github.com" crossorigin />
+  <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin />
+  <link rel="preconnect" href="https://img.icons8.com" crossorigin />
+
+  <!-- SEO -->
+  <meta name="description" content="Portfólio de Ryan Cunha. Desenvolvedor Full Stack, confira meus projetos.">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ryancunhha.vercel.app/" />
+  <meta property="og:title" content="Portfólio | Ryan Cunha" />
+  <meta property="og:description" content="Portfólio de Ryan Cunha. Desenvolvedor Full Stack, confira meus projetos." />
+
+  <script>
+    if (localStorage.getItem("theme") === "light") document.documentElement.classList.add("light")
   </script>
 </head>
 

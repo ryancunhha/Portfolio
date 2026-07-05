@@ -26,8 +26,8 @@ function Opcoes({ className }) {
             </button>
 
             {/* REDES */}
-            <div className="relative flex flex-row items-center">
-                <button aria-label="Links das redes sociais" aria-expanded={dropdownAberto} title={dropdownAberto ? "Fechar" : "Expandir"} type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }} className="p-1.5 md:hidden">
+            <div className="mr-2 relative flex flex-row items-center">
+                <button aria-label="Links das redes sociais" aria-expanded={dropdownAberto} type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }} className="p-1 md:hidden">
                     <p className="text-[#999] text-lg" aria-hidden="true">{dropdownAberto ? "▴" : "▾"}</p>
                 </button>
 
@@ -39,7 +39,7 @@ function Opcoes({ className }) {
                 <div className="hidden md:flex flex-row items-center gap-3">
                     {redes.map((rede, id) => (
                         <a key={id} title={rede.label} href={rede.url} target="_blank" rel="noopener noreferrer" className="opacity-90">
-                            <img className="object-contain invert" height="25" width="25" src={rede.icon} loading="lazy" alt={`Acessar meu perfil no ${rede.label}`} />
+                            <img className="object-contain" height="30" width="30" src={rede.icon} loading="eager" fetchPriority="low" alt={`Acessar meu perfil no ${rede.label}`} />
                         </a>
                     ))}
                 </div>
@@ -81,29 +81,27 @@ export default function MenuHamburguer() {
                 {/* HEAEDAR */}
                 <div className="border-b border-[#29292A]">
                     {/* botao de fechar (mobile) */}
-                    <div className="bg-[#18181B] rounded-t-lg pt-5 px-6 flex md:hidden">
-                        <button type="button" onClick={alterarMenu} className="text-3xl text-white p-1" aria-label="Fechar menu de navegação">
-                            ×
-                        </button>
+                    <div className="bg-[#18181B] rounded-t-lg pt-5 px-3 flex md:hidden">
+                        <button type="button" onClick={alterarMenu} className="text-3xl text-white p-3" aria-label="Fechar menu de navegação">×</button>
                     </div>
 
                     {/* logo / nome */}
-                    <div className="flex flex-row items-center m-4 p-1.5 rounded-lg bg-[#161616] text-white">
-                        <img className="border rounded-full border-[#232323] select-none" height="10" width="10" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil de Ryan Cunha" width="40" height="40" decoding="async" />
-                        <p className="ml-2 text-white text-wrap font-medium">Ryan Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-500 select-none" aria-hidden="true">_</span></p>
+                    <div className="flex flex-row items-center m-4 p-2 rounded-lg bg-[#161616] text-white">
+                        <img className="border rounded-full border-[#232323] select-none" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil de Ryan Cunha" width="40" height="40" decoding="async" loading="eager" fetchPriority="low" />
+                        <p className="ml-2 text-white text-wrap font-semibold">Ryan <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-500 select-none" aria-hidden="true">_</span></span></p>
                     </div>
                 </div>
 
-                <nav className="flex-1 overflow-y-auto px-4 space-y-2 py-2 mb-2 md:mb-0 scrollbar-thumb-[#9F9F9F]">
+                <nav className="flex-1 overflow-y-auto px-4 space-y-2 py-2 md:mb-0 scrollbar-thumb-[#9F9F9F]">
                     {rotasMenu.map((link, index) => (
-                        <NavLink key={index} to={link.path} onClick={() => setMenuAberto(false)} className={({ isActive }) => `flex gap-1.5 p-2 rounded-md transition-all ${isActive ? "text-white bg-[#161616] border-l-8 border-white" : "text-[#999] hover:text-white hover:bg-[#161616] border-l-8 border-transparent"}`}>
-                            <p>{link.nome}</p>
+                        <NavLink key={index} to={link.path} onClick={() => setMenuAberto(false)} className={({ isActive }) => `flex p-4 rounded-md ${isActive ? "text-white bg-[#161616] border-l-8 border-white" : "text-[#999] hover:text-white hover:bg-[#161616] border-l-8 border-transparent"}`}>
+                            {link.nome}
                         </NavLink>
                     ))}
                 </nav>
 
                 {/* rodape do menu (PC) */}
-                <Opcoes className="hidden md:flex flex-wrap border-t border-[#29292A] py-6 px-4 select-none" />
+                <Opcoes className="hidden md:flex flex-wrap border-t border-[#29292A] py-8 px-6 select-none" />
             </div>
         </>
     );

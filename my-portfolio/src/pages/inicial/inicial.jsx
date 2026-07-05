@@ -49,11 +49,8 @@ export default function TelaInicial() {
                 </div>
 
                 <div className="relative flex items-center justify-center w-full h-90 overflow-hidden rounded-2xl select-none">
-                    <img className="absolute w-full h-full object-cover brightness-40" height="100" src={BACK} fetchPriority="high" loading="eager" alt="" decoding="async" />
-
-                    <p className="relative font-semibold text-[32px] italic tracking-tighter text-white text-center">
-                        {textoAtual}
-                    </p>
+                    <img className="absolute w-full h-full object-cover brightness-40" height="647" width="1080" src={BACK} loading="eager" fetchPriority="high" alt="" decoding="async" aria-hidden="true" />
+                    <p className="relative font-semibold text-[32px] italic tracking-tighter text-white text-center px-2">{textoAtual}</p>
                 </div>
             </section>
 
@@ -69,7 +66,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/color/48/python--v1.png" width="40" height="40" alt="Python" className="object-contain" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link className="p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=automacao"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por automação" className="p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=automacao"}>Ver exemplos</Link>
                         </div>
 
                         <div className="mt-4">
@@ -85,7 +82,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React-Native" width="40" height="40" className="object-contain" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link className="p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=mobile"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por mobile" className="p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=mobile"}>Ver exemplos</Link>
                         </div>
 
                         <div className="mt-4">
@@ -101,7 +98,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML" className="object-contain" width="40" height="40" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link className="p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por Web" className="p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
                         </div>
 
                         <div className="mt-4">

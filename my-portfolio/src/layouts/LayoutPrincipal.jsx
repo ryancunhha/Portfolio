@@ -1,8 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/header/header";
 import ScrollToTop from "../components/header/ScrollToTop";
 
 export default function LayoutPrincipal() {
+    const location = useLocation();
+    const path = location.pathname;
+
+    if (path.startsWith("/projetos/")) {
+        document.title = path.split("/")[2];
+    } else {
+        document.title = "Portfólio | Ryan Cunha";
+    }
+
     return (
         <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden">
             <ScrollToTop />

@@ -1,7 +1,8 @@
-const API = "https://api.github.com/users/ryancunhha/repos?sort=pushed&per_page=100";
+import { ignorarRepo } from "../config/config";
+
 const CACHE_KEY = "repos_cache";
 const CACHE_TIME_KEY = "cache_time";
-const FALLBACK = "/FALLBAKCK.webp";
+const FALLBACK = "/FALLBACK.webp";
 
 const intervalos = {
     mês: 2592000,
@@ -17,8 +18,7 @@ function formatarTempoAtras(dataString) {
     if (diferencaEmSegundos > 90 * 86400) return null;
 
     for (const unidade in intervalos) {
-        const valorEmSegundos = intervalos[unidade];
-        const contagem = Math.floor(diferencaEmSegundos / valorEmSegundos);
+        const contagem = Math.floor(diferencaEmSegundos / intervalos[unidade]);
 
         if (contagem >= 1) {
             const plural = contagem > 1 ? (unidade === "mês" ? "meses" : unidade + "s") : unidade;
@@ -38,14 +38,14 @@ export async function obterProjetosGithub(signal) {
 
         if (cache && tempo && (agora - Number(tempo) < 300000)) return JSON.parse(cache);
 
-        const response = await fetch(API, { signal });
+        const response = await fetch("https://api.github.com/users/ryancunhha/repos?sort=pushed&per_page=100", { signal });
         if (!response.ok) throw new Error(`Erro na API do GitHub: ${response.status}`);
 
         const dados = await response.json();
         if (!Array.isArray(dados)) return [];
 
         // INFORMAÇÔES
-        const meusProjetos = dados.filter(repo => !repo.fork).map(({ id, name, topics = [], created_at, pushed_at, homepage, html_url }) => {
+        const meusProjetos = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(({ id, name, topics = [], created_at, pushed_at, homepage, html_url }) => {
             return {
                 id, // id
                 name, // para links 

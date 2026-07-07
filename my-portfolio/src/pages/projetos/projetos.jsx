@@ -89,7 +89,7 @@ export default function Projeto() {
                     <p>🔍</p>
                 </div>
 
-                <div className="w-full flex flex-row gap-2 mt-3 pb-1 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
+                <div className="w-full flex flex-row gap-2 mt-3 pb-2 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
                     {todasCategorias.map((categoria) => (
                         <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-3 py-1 rounded-full font-medium cursor-pointer shrink-0 transition-colors ${filtroAtivo === categoria ? "bg-[#F8F9FA] text-black" : "bg-zinc-800 text-white"}`}>
                             {categoria}
@@ -98,7 +98,7 @@ export default function Projeto() {
                 </div>
             </div>
 
-            <div className="mx-4 mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="mx-4 mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {projetosExibidos.length === 0 ? (
                     <div className="text-center text-[#999] col-span-full pt-10">Nenhum projeto encontrado.</div>
                 ) : (
@@ -107,7 +107,7 @@ export default function Projeto() {
                             <img loading={i < 9 ? "eager" : "lazy"} fetchPriority={i < 9 ? "high" : "low"} width="540" height="360" className="w-full p-1 aspect-video object-cover rounded-xl select-none" src={repo.imagem} alt={`Projeto ${repo.name}`} />
 
                             <div className="mb-1 mx-2">
-                                <p className="truncate font-bold text-lg">{repo.nome}</p>
+                                <p className="truncate font-bold text-lg first-letter:uppercase">{repo.nome}</p>
                                 <p className="text-[12px] font-semibold text-[#888]">{repo.anoCriacao} {repo.atualizado}</p>
                             </div>
                         </Link>

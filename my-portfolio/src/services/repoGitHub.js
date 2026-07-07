@@ -74,6 +74,7 @@ export async function obterProjetosGithub(signal) {
 export async function obterReadmeDoProjeto(repo, signal) {
     try {
         const response = await fetch(`https://raw.githubusercontent.com/ryancunhha/${repo}/main/README.md`, { signal });
+        if (!response.ok) return "Indisponível no momento";
         return await response.text();
     } catch (error) {
         if (error.name === "AbortError") return "";

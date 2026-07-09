@@ -1,4 +1,8 @@
-const email = "ryancunhha@outlook.com"
+import BannerPessoal from "./banners/Pessoal";
+
+const BANNERS = [
+    BannerPessoal
+];
 
 const rotasMenu = [
     { nome: "Inicio", path: "/" },
@@ -7,6 +11,8 @@ const rotasMenu = [
     { nome: "Solicitação", path: "/solicitacao" },
     { nome: "Curriculos", path: "/curriculos" },
 ]
+
+const email = "ryancunhha@outlook.com"
 
 const redes = [
     { label: "Twitter / X", url: "https://x.com/ryancunhha", icon: "https://img.icons8.com/ios-filled/50/FFFFFF/twitterx--v1.png" },
@@ -18,4 +24,4 @@ const ignorarRepo = [
     "ryancunhha",
 ] || []
 
-export { rotasMenu, redes, email, ignorarRepo }
+export { rotasMenu, redes, email, ignorarRepo, BANNERS }

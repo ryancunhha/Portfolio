@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown";
 import { rotasMenu, redes, email } from "../../config/config";
+import Notificacao from "../notificacao/notificacao";
 
-function Opcoes({ className }) {
+function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
     const [dropdownAberto, setDropdownAberto] = useState(false)
     const [ativadoLight, setAtivadoLight] = useState(() => {
         if (typeof window !== "undefined") {
@@ -11,6 +12,17 @@ function Opcoes({ className }) {
         }
         return false
     })
+
+    const copiarEmail = () => {
+        navigator.clipboard.writeText(email);
+        setMostrarNotificacao(true);
+    };
+
+    useEffect(() => {
+        if (!mostrarNotificacao) return;
+        const timer = setTimeout(() => setMostrarNotificacao(false), 3500);
+        return () => clearTimeout(timer);
+    }, [mostrarNotificacao, setMostrarNotificacao]);
 
     const alterarTema = () => {
         const Light = document.documentElement.classList.toggle("light")
@@ -24,6 +36,8 @@ function Opcoes({ className }) {
             <button type="button" onClick={alterarTema} className="cursor-pointer" title={ativadoLight ? "Modo Escuro" : "Modo Claro"} aria-label={ativadoLight ? "Ativar modo escuro" : "Ativar modo claro"}>
                 {ativadoLight ? "🌙" : "☀️"}
             </button>
+
+            <button type="button" onClick={copiarEmail} title="Copiar Email" className="cursor-pointer" aria-label="Copiar Email">📧</button>
 
             {/* REDES */}
             <div className="mr-2 relative flex flex-row items-center">
@@ -39,7 +53,7 @@ function Opcoes({ className }) {
                 <div className="hidden md:flex flex-row items-center gap-3">
                     {redes.map((rede, id) => (
                         <a key={id} title={rede.label} href={rede.url} target="_blank" rel="noopener noreferrer" className="opacity-90">
-                            <img className="object-contain" height="30" width="30" src={rede.icon} loading="eager" fetchPriority="low" alt={`Acessar meu perfil no ${rede.label}`} />
+                            <img className="object-contain w-6 h-6" height="30" width="30" src={rede.icon} loading="eager" fetchPriority="low" alt={`Acessar meu perfil no ${rede.label}`} />
                         </a>
                     ))}
                 </div>
@@ -49,6 +63,7 @@ function Opcoes({ className }) {
 }
 
 export default function MenuHamburguer() {
+    const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
     const [menuAberto, setMenuAberto] = useState(false)
 
     const alterarMenu = () => {
@@ -61,6 +76,9 @@ export default function MenuHamburguer() {
 
     return (
         <>
+            {/* NOTIFICACAO */}
+            {mostrarNotificacao && <Notificacao mensagem={"E-mail copiado!"} className="select-none p-3 px-4 text-sm font-bold rounded-md bg-blue-100 text-blue-700" />}
+
             {/* MOBILE */}
             <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-3">
                 {/* botao hamburguer mobile */}
@@ -71,7 +89,7 @@ export default function MenuHamburguer() {
                     </div>
                 </button>
 
-                <Opcoes />
+                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} />
             </div>
 
             {menuAberto && <div onClick={fecharMenu} className="fixed inset-0 bg-black/20 z-4 md:hidden animate-fade-in" />}
@@ -87,7 +105,7 @@ export default function MenuHamburguer() {
 
                     {/* logo / nome */}
                     <div className="flex flex-row items-center m-4 p-2 rounded-lg bg-[#161616] text-white">
-                        <img className="border rounded-full border-[#232323] select-none" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil de Ryan Cunha" width="40" height="40" decoding="async" loading="eager" fetchPriority="low" />
+                        <img className="border rounded-full border-[#232323] select-none h-8 w-8" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil GitHub de Ryan Cunha" width="40" height="40" decoding="async" loading="eager" fetchPriority="low" />
                         <p className="ml-2 text-white text-wrap font-semibold">Ryan <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-500 select-none" aria-hidden="true">_</span></span></p>
                     </div>
                 </div>
@@ -101,7 +119,7 @@ export default function MenuHamburguer() {
                 </nav>
 
                 {/* rodape do menu (PC) */}
-                <Opcoes className="hidden md:flex flex-wrap border-t border-[#29292A] py-8 px-6 select-none" />
+                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} className="hidden md:flex flex-wrap border-t border-[#29292A] py-8 px-6 select-none" />
             </div>
         </>
     );

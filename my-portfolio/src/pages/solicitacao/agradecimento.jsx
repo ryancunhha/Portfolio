@@ -7,7 +7,6 @@ export default function Agradecimento() {
 
     useEffect(() => {
         document.title = "Solicitação Enviada";
-        const quantidadeConfetes = 100;
         const container = document.createElement("div");
         container.style.position = "fixed";
         container.style.top = "0";
@@ -15,12 +14,14 @@ export default function Agradecimento() {
         container.style.width = "100vw";
         container.style.height = "100vh";
         container.style.pointerEvents = "none";
-        container.style.zIndex = "9999";
+        container.style.zIndex = "10";
         container.style.overflow = "hidden";
+        container.style.transition = "opacity 1.5s ease-out";
+        container.style.opacity = "1";
         document.body.appendChild(container);
         const cores = ["#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
 
-        for (let i = 0; i < quantidadeConfetes; i++) {
+        for (let i = 0; i < 50; i++) {
             const confete = document.createElement("div");
             const tamanho = Math.random() * 8 + 6;
             const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
@@ -39,6 +40,14 @@ export default function Agradecimento() {
             container.appendChild(confete);
         }
 
+        const iniciarFadeOut = setTimeout(() => {
+            container.style.opacity = "0";
+        }, 4000);
+
+        const confeteTimer = setTimeout(() => {
+            if (document.body.contains(container)) document.body.removeChild(container);
+        }, 5500);
+
         const timer = setInterval(() => {
             setSegundos((prev) => {
                 if (prev <= 1) {
@@ -52,9 +61,7 @@ export default function Agradecimento() {
 
         return () => {
             clearInterval(timer);
-            if (document.body.contains(container)) {
-                document.body.removeChild(container);
-            }
+            if (document.body.contains(container)) document.body.removeChild(container);
         };
     }, [navigate]);
 
@@ -63,34 +70,26 @@ export default function Agradecimento() {
             <style>
                 {`
                     @keyframes confete {
-                    0% {
-                        transform: translateY(0) rotate(0deg);
-                    }
-                    100% {
-                        transform: translateY(105vh) rotate(720deg);
-                    }
+                        0% { transform: translateY(0) rotate(0deg); }
+                        100% { transform: translateY(105vh) rotate(720deg); }
                     }
                 `}
             </style>
 
             <span className="text-6xl animate-bounce">✅</span>
 
-            <h1 className="text-4xl font-extrabold tracking-tight text-blue-500">
-                Solicitação Recebida com Sucesso!
-            </h1>
+            <h1 className="text-4xl font-extrabold tracking-tight text-blue-500">Solicitação Recebida!</h1>
 
             <div className="max-w-md space-y-2">
                 <p className="text-lg font-medium">Muito obrigado pelo contato!</p>
-                <p className="text-base">
-                    Acabei de receber os detalhes do seu projeto no meu e-mail. Vou analisar tudo e te respondo o quanto antes.
-                </p>
+                <p className="text-base">Acabei de receber do seu projeto no meu e-mail. Vou analisar tudo e te respondo o quanto antes.</p>
             </div>
 
-            <p className="text-[10px] uppercase tracking-widest mt-4">
+            <p className="text-[10px] uppercase tracking-widest">
                 Redirecionando para a página inicial em <span className="text-blue-500 font-bold">{segundos}s</span>
             </p>
 
-            <Link to="/" className="text-sm text-[#5b88c3] hover:underline mt-2">
+            <Link to="/" className="text-sm text-[#5b88c3] hover:underline">
                 Voltar agora
             </Link>
         </div>

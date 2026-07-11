@@ -1,52 +1,81 @@
 @import "tailwindcss";
 
 @theme {
-    --color-principal-bg: var(--bg-color);
-    --color-principal-text: var(--text-color);
+  --color-principal-bg: var(--bg-color);
+  --color-principal-text: var(--text-color);
 }
 
 :root {
-    --bg-color: #18181B;
-    --text-color: #F8F9FA;
+  --bg-color: #18181B;
+  --text-color: #F8F9FA;
 }
 
 .light {
-    --bg-color: #F8F9FA;
-    --text-color: #111113;
+  --bg-color: #F8F9FA;
+  --text-color: #111113;
 }
 
 /* NOTIFICACAO */
 @keyframes slide-in-from-top {
-  0% { transform: translateY(-30px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translate(-50%, -30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
 }
+
 @keyframes slide-out-to-top {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-30px); opacity: 0; }
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -30px);
+    opacity: 0;
+  }
 }
 
-/* Animações Desktop (Mexem no eixo X) */
 @keyframes slide-in-from-left {
-  0% { transform: translateX(-30px); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
+
 @keyframes slide-out-to-left {
-  0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(-30px); opacity: 0; }
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
 }
 
-@utility animate-slide-in-top {
-    animation: slide-in-from-top 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+@utility animate-notification-in {
+  animation: slide-in-from-top 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
-@utility animate-slide-out-top {
-    animation: slide-out-to-top 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@utility animate-slide-in-left {
+  @media (min-width: 960px) {
     animation: slide-in-from-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 }
 
-@utility animate-slide-out-left {
+@utility animate-notification-out {
+  animation: slide-out-to-top 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @media (min-width: 960px) {
     animation: slide-out-to-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 }

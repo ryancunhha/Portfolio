@@ -5,29 +5,78 @@ import { BANNERS } from "../../config/config";
 export default function TelaInicial() {
     const [indexAtual, setIndexAtual] = useState(0);
     const [rodando, setRodando] = useState(true);
+    const [direcao, setDirecao] = useState("direita");
     const totalBanners = BANNERS ? BANNERS.length : 0;
     const ComponenteBanner = (totalBanners > 0 && BANNERS[indexAtual]) ? BANNERS[indexAtual] : null;
 
     useEffect(() => {
         if (!rodando || totalBanners <= 1) return
-        const interval = setInterval(() => proximoBanner(), 7000);
+        const interval = setInterval(() => {
+            setIndexAtual((prev) => {
+                const proximo = (prev + 1) % BANNERS.length
+
+                if (proximo === 0) {
+                    setDirecao("esquerda");
+                } else {
+                    setDirecao("direita");
+                }
+
+                return proximo;
+            })
+        }, 7500);
         return () => clearInterval(interval);
-    }, [indexAtual, rodando]);
+    }, [rodando, totalBanners]);
 
     const proximoBanner = () => {
         if (totalBanners === 0) return;
+        setDirecao("direita");
         setIndexAtual((prev) => (prev + 1) % BANNERS.length)
         setRodando(false)
     }
 
     const bannerAnterior = () => {
         if (totalBanners === 0) return;
+        setDirecao("esquerda");
         setIndexAtual((prev) => (prev - 1 + BANNERS.length) % BANNERS.length)
         setRodando(false)
     }
 
+    const animationStyles = `
+        @keyframes entrarDaDireita {
+            0% { 
+                opacity: 0; 
+                transform: translateX(100px) scale(0.95);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0) scale(1); 
+            }
+        }
+
+        @keyframes entrarDaEsquerda {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-100px) scale(0.95); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0) scale(1); 
+            }
+        }
+
+        .animacao-direita {
+            animation: entrarDaDireita 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .animacao-esquerda {
+            animation: entrarDaEsquerda 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+    `;
+
     return (
         <>
+            <style>{animationStyles}</style>
+
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
                     <h1 className="leading-tight brightness-120 text-[7.5vw] sm:text-4xl md:text-6xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Menos complexidade. Mais escala.</h1>
@@ -37,8 +86,10 @@ export default function TelaInicial() {
                 {/* BANNER */}
                 <div className="w-full">
                     {totalBanners > 0 ? (
-                        <div className="bg-white/40 w-full h-100 overflow-hidden">
-                            <ComponenteBanner />
+                        <div className="w-full h-100 overflow-hidden">
+                            <div key={indexAtual} className={direcao === "direita" ? "animacao-direita" : "animacao-esquerda"}>
+                                {ComponenteBanner && <ComponenteBanner />}
+                            </div>
                         </div>
                     ) : (
                         null
@@ -46,7 +97,7 @@ export default function TelaInicial() {
 
                     {/* Controles */}
                     {totalBanners > 1 &&
-                        <div className="w-full flex justify-between items-center pt-2 px-4">
+                        <div className="w-full flex justify-between items-center pt-2 px-4 select-none">
                             <button title="Anterior" onClick={bannerAnterior} className="p-2 px-4 border-2 rounded-full cursor-pointer">❮</button>
 
                             <div className="flex items-center gap-1">
@@ -58,7 +109,7 @@ export default function TelaInicial() {
                                 </div>
 
                                 {/* Botão Play/Pausa */}
-                                <button onClick={() => setRodando(!rodando)} className="border-2 rounded cursor-pointer px-1">
+                                <button title={rodando ? "Pausar" : "Play"} onClick={() => setRodando(!rodando)} className="border-2 rounded cursor-pointer px-1">
                                     {rodando ? "❚❚" : "▶︎"}
                                 </button>
                             </div>

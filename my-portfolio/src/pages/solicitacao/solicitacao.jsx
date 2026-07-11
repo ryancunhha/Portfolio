@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { email } from "../../config/config";
+import ReCAPTCHA from "react-google-recaptcha";
 import Agradecimento from "./agradecimento";
 import Notificacao from "../../components/notificacao/notificacao";
 
@@ -7,10 +8,23 @@ export default function Solicitacao() {
     const [enviado, setEnviado] = useState(false);
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(null);
+    const recaptchaRef = useRef(null);
+    const mostrarErro = (mensagem) => {
+        setErro(mensagem);
+        setTimeout(() => setErro(null), 4000);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setCarregando(true);
+
+        const token = recaptchaRef.current.getValue();
+        if (!token) {
+            setErro("Marque a caixa de verificação.");
+            setCarregando(false);
+            setTimeout(() => setErro(null), 3500);
+            return;
+        }
 
         const formData = new FormData(e.target);
         for (let [key, value] of formData.entries()) {
@@ -18,6 +32,9 @@ export default function Solicitacao() {
                 formData.set(key, value.trim());
             }
         }
+
+        formData.append("g-recaptcha-response", token);
+        formData.append("_cc", formData.get("email"));
 
         try {
             const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
@@ -31,11 +48,12 @@ export default function Solicitacao() {
             if (response.ok) {
                 setEnviado(true);
             } else {
-                setErro("Algo deu errado. Tente novamente.");
-                setTimeout(() => setErro(null), 3500);
+                recaptchaRef.current?.reset();
+                mostrarErro("Algo deu errado.");
             }
         } catch (error) {
-            setErro("Erro de conexão. Verifique sua internet.");
+            recaptchaRef.current?.reset();
+            mostrarErroTemporario("Erro de conexão com o servidor.");
         } finally {
             setCarregando(false);
         }
@@ -48,7 +66,7 @@ export default function Solicitacao() {
 
     return (
         <>
-            <Notificacao mensagem={erro} className="p-3 text-sm rounded-lg md:rounded-r-lg border-l-6 bg-red-100 text-red-700 border-red-700" />
+            <Notificacao mensagem={erro} className="p-4 text-sm rounded-lg border-l-6 bg-red-100 text-red-700 border-red-700" />
 
             <div className="py-8 px-4 flex flex-col items-center justify-center min-h-screen space-y-6 w-full">
                 <div className="text-center space-y-3 max-w-2xl w-full">
@@ -62,11 +80,11 @@ export default function Solicitacao() {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-8 space-y-4 max-w-2xl w-full border border-gray-400 rounded-2xl">
+                <form onSubmit={handleSubmit} className="px-4 md:px-10 py-8 space-y-4 max-w-2xl w-full border border-gray-400 rounded-xl">
                     {/* Configurações do FormSubmit (Oculto) */}
                     <input type="hidden" name="_captcha" value="false" />
-                    <input type="text" name="_honeypot" style={{ display: "none" }} />
-                    <input type="hidden" name="_autoresponse" value="custom message" />
+                    <input type="text" name="_honey" style={{ display: "none" }} />
+                    <input type="hidden" name="_subject" value="Solicitação de Serviço" />
 
                     {/* Campos de preenchimento (Visivel) */}
                     <div>
@@ -84,10 +102,15 @@ export default function Solicitacao() {
                         <textarea className={`${input} h-30 resize-none`} id="descricao" name="descricao" placeholder="" required />
                     </div>
 
+                    <div className="flex justify-start w-full overflow-x-auto py-1">
+                        <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_RECAPTCHA_KEY} />
+                    </div>
+
                     <button title="Enviar" type="submit" disabled={carregando} className={`w-full py-3 px-6 text-white font-semibold rounded-sm ${carregando ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800 outline-none cursor-pointer"}`}>
                         {carregando ? "Enviando..." : "Enviar"}
                     </button>
                 </form>
             </div>
-        </>)
+        </>
+    )
 }

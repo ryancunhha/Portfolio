@@ -108,7 +108,7 @@ export default function Projeto() {
 
                             <div className="mb-1 mx-2">
                                 <p className="truncate font-bold text-lg first-letter:uppercase">{repo.nome}</p>
-                                <p className="text-[12px] font-semibold text-[#888]">{repo.anoCriacao} {repo.atualizado}</p>
+                                <p className="text-[12px] font-semibold text-[#888]">{repo.ano} {repo.atualizado}</p>
                             </div>
                         </Link>
                     ))

@@ -105,7 +105,7 @@ export default function MenuHamburguer() {
 
                     {/* logo / nome */}
                     <div className="flex flex-row items-center m-4 p-2 rounded-lg bg-[#161616] text-white">
-                        <img className="border rounded-full border-[#232323] select-none h-8 w-8" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil GitHub de Ryan Cunha" width="40" height="40" decoding="async" loading="eager" fetchPriority="low" />
+                        <img className="border rounded-full border-[#232323] h-8 w-8" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil GitHub de Ryan Cunha" width="40" height="40" decoding="async" loading="eager" fetchPriority="low" />
                         <p className="ml-2 text-white text-wrap font-semibold">Ryan <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-500 select-none" aria-hidden="true">_</span></span></p>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ export default function MenuHamburguer() {
                 </nav>
 
                 {/* rodape do menu (PC) */}
-                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} className="hidden md:flex flex-wrap border-t border-[#29292A] py-8 px-6 select-none" />
+                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} className="hidden md:flex flex-wrap border-t border-[#29292A] py-8 px-6" />
             </div>
         </>
     );

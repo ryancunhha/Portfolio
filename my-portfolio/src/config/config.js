@@ -1,7 +1,9 @@
 import BannerPessoal from "./banners/Pessoal";
+import BannerAutomacao from "./banners/Automacao";
 
 const BANNERS = [
-    BannerPessoal
+    BannerPessoal,
+    BannerAutomacao,
 ];
 
 const rotasMenu = [
@@ -20,8 +22,6 @@ const redes = [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/ryancunhha", icon: "https://img.icons8.com/ios-filled/50/FFFFFF/linkedin.png" },
 ]
 
-const ignorarRepo = [
-    "ryancunhha",
-] || []
+const ignorarRepo = [] || []
 
 export { rotasMenu, redes, email, ignorarRepo, BANNERS }

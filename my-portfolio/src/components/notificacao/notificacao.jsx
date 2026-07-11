@@ -32,12 +32,12 @@ export default function AlertError({ mensagem, className }) {
                 ${className}
                 
                 /* Celular */
-                top-14 left-1/2 -translate-x-1/2 w-[90%] max-w-sm
+                top-14 left-1/2 w-[90%] max-w-sm
                 ${animarSaida ? "animate-slide-out-top" : "animate-slide-in-top"}
                 
                 /* COMPUTADOR */
-                md:top-auto md:bottom-3 md:left-67 md:translate-x-0 md:w-auto md:max-w-xs 
-                md:${animarSaida ? "animate-slide-out-left" : "animate-slide-in-left"}
+                md:top-auto md:bottom-3 md:left-67 md:w-auto md:max-w-xs 
+                ${animarSaida ? "animate-notification-out" : "animate-notification-in"}
             `}
         >
             {mensagem}

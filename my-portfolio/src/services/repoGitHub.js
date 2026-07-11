@@ -45,16 +45,19 @@ export async function obterProjetosGithub(signal) {
         if (!Array.isArray(dados)) return [];
 
         // INFORMAÇÔES
-        const meusProjetos = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(({ id, name, topics = [], created_at, pushed_at, homepage, html_url }) => {
+        const meusProjetos = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(({ id, name, topics = [], ano, mes, created_at, pushed_at, homepage, html_url, description, clone_url}) => {
             return {
                 id, // id
                 name, // para links 
                 nome: name.replace(/-/g, " "), // exibição nome
                 topicos: topics, // filtro
-                anoCriacao: new Date(created_at).getFullYear(), // ano de criação do repositorio
+                ano: new Date(created_at).getFullYear(), // ano de criação do repositorio
+                mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"), // mes
                 atualizado: formatarTempoAtras(pushed_at), // atualização feita
                 imagem: topics.includes("com-capa") ? `https://raw.githubusercontent.com/ryancunhha/${name}/main/thumbnail.png` : FALLBACK, // imagem
                 homepage, // deploy
+                description,
+                clone_url
             };
         });
 

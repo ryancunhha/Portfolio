@@ -72,14 +72,14 @@ export default function DetalhePagina() {
 
     return (
         <div className="m-4 flex flex-col gap-3">
-            {/* Fazer um modificaçaõ aqui ← Voltar para projetos (se tiver > Topics por exemplo e automacao com link que fiz "/projetos?search=${topico}") ficará Projeto > Automacao entendeu? */}
+            {/* Fazer um modificaçaõ aqui ← Voltar para projetos (se tiver > Topics por exemplo e automacao com link que fiz "/projetos?search=${topico}") ficará Projeto > Automacao */}
             <Link to="/projetos" className="w-max text-sm">← Voltar para projetos</Link>
 
             {/* APRESENTAÇÃO DO PROJETO */}
             <div className="flex flex-col gap-3">
                 <div>
                     <h1 className="text-3xl font-bold uppercase">{projeto.nome}</h1>
-                    <p className="text-sm">Criado em {projeto.anoCriacao} {projeto.atualizado && `${projeto.atualizado}`}</p>
+                    <p className="text-sm">Criado em {projeto.mes}/{projeto.ano} {projeto.atualizado && `${projeto.atualizado}`}</p>
                 </div>
 
                 <div className="flex flex-col gap-2">

@@ -1,7 +1,7 @@
 export default function Curriculo() {
     return (
         <>
-            <p>Indisponível no momento</p>
+            <p className="text-center">Indisponível no momento</p>
         </>
     )
 }

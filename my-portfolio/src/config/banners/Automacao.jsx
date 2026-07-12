@@ -14,7 +14,7 @@ export default function BannerAutomacao() {
                 }
                 return prev + 20;
             });
-        }, 300);
+        }, 600);
 
         return () => clearInterval(intervalo);
     }, []);
@@ -61,26 +61,25 @@ export default function BannerAutomacao() {
                         </div>
 
                         <div className="w-full bg-gray-900 border border-gray-800 rounded-full overflow-hidden">
-                            <div className="bg-gradient-to-r from-blue-500 rounded-full to-green-400 h-2.5 transition-all duration-300" style={{ width: `${progresso}%` }} />
+                            <div className="bg-gradient-to-r from-blue-500 rounded-full to-green-400 h-2 transition-all duration-300" style={{ width: `${progresso}%` }} />
                         </div>
                     </div>
                 </div>
 
-                <div className="md:hidden w-full max-h-40 font-mono text-[11px] sm:text-xs bg-[#14161d] p-4 rounded-xl border border-gray-800 leading-relaxed overflow-auto flex-1 my-1">
+                <div className="md:hidden w-full max-h-40 font-mono text-[11px] bg-[#14161d] px-3 pt-1 rounded-xl border border-gray-800 leading-relaxed overflow-auto flex-1 my-1">
                     <span className="text-purple-400">import</span> <span className="text-blue-400">automacoes</span>
                     <br /><br />
                     <span className="text-purple-400">def</span> <span className="text-yellow-400">main</span>():
                     <br />
                     <span className="text-green-500 block pl-4 my-1 font-semibold italic">
-                        # Aquela planilha chata? Eu automatizo para você.
+                        # Planilha chata? Eu automatizo para você.
                     </span>
-                    <span className="text-blue-400 pl-4">planilha</span> = <span className="text-green-400">"trabalho.xlsx"</span>
-                    <br />
-                    <span className="text-blue-400 pl-4">automacoes</span>.<span className="text-yellow-400">grafico</span>(planilha)
-                    <br /><br />
-                    <span className="text-purple-400">if</span> <span className="text-blue-400">__name__</span> == <span className="text-green-400">"__main__"</span>:
-                    <br />
-                    <span className="text-yellow-400 pl-4">main</span>()
+                    <div className="max-[400px]:hidden">
+                        <br />
+                        <span className="text-purple-400">if</span> <span className="text-blue-400">__name__</span> == <span className="text-green-400">"__main__"</span>:
+                        <br />
+                        <span className="text-yellow-400 pl-4">main</span>()
+                    </div>
                 </div>
 
                 <div className="pt-3 border-t border-gray-800 flex items-center justify-between gap-3 w-full flex-wrap shrink-0">

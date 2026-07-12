@@ -29,6 +29,16 @@ function formatarTempoAtras(dataString) {
     return "• Atualizado há 1seg";
 }
 
+function verificacaoImagemGitHub(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = url;
+        img.onload = () => resolve(url);
+        img.onerror = () => resolve(FALLBACK);
+    })
+}
+
 // DADO LEVES
 export async function obterProjetosGithub(signal) {
     try {
@@ -44,22 +54,28 @@ export async function obterProjetosGithub(signal) {
         const dados = await response.json();
         if (!Array.isArray(dados)) return [];
 
+        const reposFiltrados = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name));
+
         // INFORMAÇÔES
-        const meusProjetos = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(({ id, name, topics = [], ano, mes, created_at, pushed_at, homepage, html_url, description, clone_url}) => {
-            return {
-                id, // id
-                name, // para links 
-                nome: name.replace(/-/g, " "), // exibição nome
-                topicos: topics, // filtro
-                ano: new Date(created_at).getFullYear(), // ano de criação do repositorio
-                mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"), // mes
-                atualizado: formatarTempoAtras(pushed_at), // atualização feita
-                imagem: topics.includes("com-capa") ? `https://raw.githubusercontent.com/ryancunhha/${name}/main/thumbnail.png` : FALLBACK, // imagem
-                homepage, // deploy
-                description,
-                clone_url
-            };
-        });
+        const meusProjetos = await Promise.all(
+            reposFiltrados.map(async ({ id, name, topics = [], created_at, pushed_at, homepage, html_url, description, default_branch }) => {
+                const branch = default_branch || "main";
+                const imagemFinal = await verificacaoImagemGitHub(`https://raw.githubusercontent.com/ryancunhha/${name}/${branch}/thumbnail.png`);
+
+                return {
+                    id,
+                    name,
+                    nome: name.replace(/-/g, " "),
+                    topicos: topics,
+                    ano: new Date(created_at).getFullYear(),
+                    mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
+                    atualizado: formatarTempoAtras(pushed_at),
+                    imagem: imagemFinal,
+                    homepage,
+                    description,
+                };
+            })
+        )
 
         sessionStorage.setItem(CACHE_KEY, JSON.stringify(meusProjetos));
         sessionStorage.setItem(CACHE_TIME_KEY, agora.toString());
@@ -67,7 +83,7 @@ export async function obterProjetosGithub(signal) {
         return meusProjetos;
     } catch (error) {
         if (error.name === "AbortError") return [];
-        console.error("Erro ao buscar repositórios:", error);
+        console.error(error);
         const cacheAntigo = sessionStorage.getItem(CACHE_KEY);
         return cacheAntigo ? JSON.parse(cacheAntigo) : [];
     }

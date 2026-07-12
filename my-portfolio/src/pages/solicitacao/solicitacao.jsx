@@ -33,8 +33,7 @@ export default function Solicitacao() {
             }
         }
 
-        formData.append("g-recaptcha-response", token);
-        formData.append("_cc", formData.get("email"));
+        formData.append("recaptcha", token);
 
         try {
             const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
@@ -53,7 +52,7 @@ export default function Solicitacao() {
             }
         } catch (error) {
             recaptchaRef.current?.reset();
-            mostrarErroTemporario("Erro de conexão com o servidor.");
+            mostrarErro("Erro de conexão com o servidor.");
         } finally {
             setCarregando(false);
         }
@@ -72,7 +71,7 @@ export default function Solicitacao() {
                 <div className="text-center space-y-3 max-w-2xl w-full">
                     <h1 className="text-4xl font-extrabold tracking-tight">Solicitação de Serviço</h1>
                     <h2 className="text-xl">Como fazer a sua solicitação?</h2>
-                    <p className="text-base">Escreva em detalhes o que você precisa, quais os passos importantes do processo e, se tiver, mencione algum site ou sistema que use como exemplo.</p>
+                    <p className="text-base">Escreva em detalhes o que você precisa, quais os passos importantes do processo e se tiver.</p>
 
                     <p className="text-sm">
                         <strong className="font-semibold">Exemplo: </strong>

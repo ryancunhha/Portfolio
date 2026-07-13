@@ -44,7 +44,7 @@ export async function obterProjetosGithub(signal) {
         const dados = await response.json();
 
         // DADOS
-        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch }) => {
+        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description }) => {
                 return {
                     id,
                     name,
@@ -84,7 +84,6 @@ export async function obterUnicoProjeto(nomeRepo, signal) {
         }
 
         const dados = await response.json();
-        console.log(dados)
 
         return {
             id: dados.id,

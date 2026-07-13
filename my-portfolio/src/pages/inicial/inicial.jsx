@@ -41,42 +41,8 @@ export default function TelaInicial() {
         setRodando(false)
     }
 
-    const animationStyles = `
-        @keyframes entrarDaDireita {
-            0% { 
-                opacity: 0; 
-                transform: translateX(100px) scale(0.95);
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateX(0) scale(1); 
-            }
-        }
-
-        @keyframes entrarDaEsquerda {
-            0% { 
-                opacity: 0; 
-                transform: translateX(-100px) scale(0.95); 
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateX(0) scale(1); 
-            }
-        }
-
-        .animacao-direita {
-            animation: entrarDaDireita 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        .animacao-esquerda {
-            animation: entrarDaEsquerda 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-    `;
-
     return (
         <>
-            <style>{animationStyles}</style>
-
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
                     <h1 className="leading-tight brightness-120 text-[7.5vw] sm:text-4xl md:text-6xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Menos complexidade. Mais escala.</h1>
@@ -132,7 +98,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/color/48/python--v1.png" width="40" height="40" alt="Python" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link aria-label="Filtrar projetos por automação" className="mt-1 p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=automacao"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por automação" className="mt-1 py-2 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=automacao"}>Ver exemplos</Link>
                         </div>
 
                         <div>
@@ -148,7 +114,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React-Native" width="40" height="40" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link aria-label="Filtrar projetos por mobile" className="mt-1 p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=mobile"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por mobile" className="mt-1 py-2 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=mobile"}>Ver exemplos</Link>
                         </div>
 
                         <div>
@@ -164,7 +130,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link aria-label="Filtrar projetos por Web" className="mt-1 p-1 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por Web" className="mt-1 py-2 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
                         </div>
 
                         <div>

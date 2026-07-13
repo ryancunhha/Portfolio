@@ -4,8 +4,8 @@ import ErrorLimite from "./components/error/errorLimite";
 
 import LayoutPrincipal from "./layouts/LayoutPrincipal";
 import TelaInicial from "./pages/inicial/inicial";
+import Erro404 from "./pages/404/404";
 
-const Erro404 = lazy(() => import("./pages/404/404"));
 const Projetos = lazy(() => import("./pages/projetos/projetos"));
 const Sobre = lazy(() => import("./pages/sobre/sobre"));
 const Solicitacao = lazy(() => import("./pages/solicitacao/solicitacao"));

@@ -103,7 +103,7 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
         <div className="flex flex-col flex-wrap gap-2 select-none">
             <span className="text-xs font-medium">Ouvir:</span>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4">
                 <button type="button" onClick={alternarLeitura} className="cursor-pointer font-bold w-6">
                     {status === "tocando" ? "❚❚" : "▶︎"}
                 </button>
@@ -114,13 +114,13 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
                 </div>
 
                 <select id="velocidade-select" name="velocidadeSelect" value={velocidade} onChange={(e) => alterarVelocidade(Number(e.target.value))} className="text-xs outline-none cursor-pointer select-none bg-principal-bg transition-colors duration-200" >
-                    {[1, 1.25, 1.5, 2].map(a => <option key={a} value={a}>{a}x</option>)}
+                    {[1, 1.15, 1.5, 2, 3].map(a => <option key={a} value={a}>{a}x</option>)}
                 </select>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                     <span className="text-xs font-medium">Fonte:</span>
-                    <button onClick={() => setTamanhoFonte(prev => Math.max(12, prev - 2))} className="cursor-pointer font-bold px-1">A-</button>
-                    <button onClick={() => setTamanhoFonte(prev => Math.min(28, prev + 2))} className="cursor-pointer font-bold px-1">A+</button>
+                    <button onClick={() => setTamanhoFonte(prev => Math.max(12, prev - 2))} className="text-lg cursor-pointer font-bold px-1">A-</button>
+                    <button onClick={() => setTamanhoFonte(prev => Math.min(28, prev + 2))} className="text-lg cursor-pointer font-bold px-1">A+</button>
                 </div>
             </div>
         </div>

@@ -11,25 +11,6 @@ export default function Projeto() {
     const fimDaPaginaRef = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
-    useEffect(() => {
-        const querySearch = searchParams.get("search") || "";
-        if (querySearch !== busca) setBusca(querySearch);
-    }, [searchParams]);
-
-    useEffect(() => {
-        const delayDebounce = setTimeout(() => {
-            if (busca) {
-                setSearchParams({ search: busca }, { replace: true });
-            } else {
-                const novosParams = new URLSearchParams(searchParams);
-                novosParams.delete("search");
-                setSearchParams(novosParams, { replace: true });
-            }
-        }, 500);
-
-        return () => clearTimeout(delayDebounce);
-    }, [busca, setSearchParams]);
-
     const todasCategorias = useMemo(() => {
         const setCategorias = new Set(projetos.flatMap(repo => repo.topicos || []));
         return ["Tudo", ...[...setCategorias].map(t => t.charAt(0).toUpperCase() + t.slice(1))];
@@ -51,6 +32,25 @@ export default function Projeto() {
     const projetosExibidos = useMemo(() => projetosFiltrados.slice(0, limiteVisivel), [projetosFiltrados, limiteVisivel]);
 
     useEffect(() => {
+        const querySearch = searchParams.get("search") || "";
+        if (querySearch !== busca) setBusca(querySearch);
+    }, [searchParams]);
+
+    useEffect(() => {
+        const delay = setTimeout(() => {
+            if (busca) {
+                setSearchParams({ search: busca }, { replace: true });
+            } else {
+                const novosParams = new URLSearchParams(searchParams);
+                novosParams.delete("search");
+                setSearchParams(novosParams, { replace: true });
+            }
+        }, 400);
+
+        return () => clearTimeout(delay);
+    }, [busca, setSearchParams]);
+
+    useEffect(() => {
         let montado = true;
         const controller = new AbortController();
 
@@ -70,28 +70,38 @@ export default function Projeto() {
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && projetosFiltrados.length > limiteVisivel) setLimiteVisivel((prev) => prev + 9);
-        }, { rootMargin: "200px" });
+            const elementoFim = entries[0];
+
+            if (elementoFim.isIntersecting && projetosFiltrados.length > limiteVisivel) {
+                setLimiteVisivel((prev) => prev + 9)
+            }
+        }, { threshold: 0.6 });
 
         const elementoAtual = fimDaPaginaRef.current;
-        if (elementoAtual) observer.observe(elementoAtual);
+        if (elementoAtual) {
+            observer.observe(elementoAtual);
+        }
 
-        return () => { if (elementoAtual) observer.unobserve(elementoAtual); };
-    }, [projetosFiltrados.length]);
+        return () => {
+            if (elementoAtual) {
+                observer.unobserve(elementoAtual)
+            }
+        }
+    }, [limiteVisivel, projetosFiltrados.length]);
 
     if (projetos.length === 0) return <EsqueletoProjetos />
 
     return (
         <>
-            <div className="md:sticky top-0 z-2 bg-principal-bg transition-colors duration-200 flex flex-col items-center px-4 pt-4 pb-2 select-none">
-                <div className="flex items-center gap-2 w-full max-w-md border border-[#888] rounded-md px-4">
-                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 text-[#888] bg-transparent outline-none w-full max-w-md" type="search" placeholder="Pesquisar..." value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
+            <div className="md:sticky top-0 z-2 bg-principal-bg transition-colors duration-200 flex flex-col items-center px-2 md:px-4 pt-4 pb-2 select-none">
+                <div className="flex items-center gap-2 w-full max-w-md border border-[#888] rounded-lg px-3">
+                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 placeholder-[#888] bg-transparent outline-none w-full max-w-md" type="search" placeholder="Pesquisar..." value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
                     <p>🔍</p>
                 </div>
 
-                <div className="w-full flex flex-row gap-2 mt-3 pb-2 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
+                <div className="w-full flex flex-row gap-2 mt-3 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
                     {todasCategorias.map((categoria) => (
-                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-3 py-1 rounded-full font-medium cursor-pointer shrink-0 transition-colors ${filtroAtivo === categoria ? "bg-[#F8F9FA] text-black" : "bg-zinc-800 text-white"}`}>
+                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-3 py-1 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
                             {categoria}
                         </button>
                     ))}
@@ -103,19 +113,28 @@ export default function Projeto() {
                     <div className="text-center text-[#999] col-span-full pt-10">Nenhum projeto encontrado.</div>
                 ) : (
                     projetosExibidos.map((repo, i) => (
-                        <Link to={`/projetos/${repo.name}`} key={repo.id} className="hover:bg-[#999]/25 rounded-xl flex flex-col cursor-pointer">
-                            <img loading={i < 9 ? "eager" : "lazy"} fetchPriority={i < 9 ? "high" : "low"} width="540" height="360" className="w-full p-1 aspect-video object-cover rounded-xl select-none" src={repo.imagem} alt={`Projeto ${repo.name}`} />
+                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
+                            <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading={i < 9 ? "auto" : "lazy"} fetchPriority={i < 9 ? "high" : "low"} width="540" height="360" className="w-full p-1 aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/FALLBACK.webp";
+                                }}
+                            />
 
-                            <div className="mb-1 mx-2">
+                            <div className="mb-1.5 mx-2">
                                 <p className="truncate font-bold text-lg first-letter:uppercase">{repo.nome}</p>
-                                <p className="text-[12px] font-semibold text-[#888]">{repo.ano} {repo.atualizado}</p>
+                                <p className="text-[12px] font-semibold text-[#888]">{repo.data.ano} {repo.atualizado}</p>
                             </div>
                         </Link>
                     ))
                 )}
             </div>
 
-            {projetosFiltrados.length > limiteVisivel && <div ref={fimDaPaginaRef} className="h-10 w-full" />}
+            {projetosFiltrados.length > limiteVisivel && (
+                <div ref={fimDaPaginaRef} className="h-12 w-full flex items-center justify-center">
+                    <div  className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-black" />
+                </div>
+            )}
         </>
-    );
+    )
 }

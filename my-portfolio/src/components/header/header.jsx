@@ -31,7 +31,7 @@ function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
     }
 
     return (
-        <div className={`flex flex-row items-center gap-3 ${className}`}>
+        <div className={`flex flex-row items-center gap-6 md:gap-3 ${className}`}>
             {/* TEMA */}
             <button type="button" onClick={alterarTema} className="cursor-pointer" title={ativadoLight ? "Modo Escuro" : "Modo Claro"} aria-label={ativadoLight ? "Ativar modo escuro" : "Ativar modo claro"}>
                 {ativadoLight ? "🌙" : "☀️"}
@@ -77,7 +77,7 @@ export default function MenuHamburguer() {
     return (
         <>
             {/* NOTIFICACAO */}
-            {mostrarNotificacao && <Notificacao mensagem={"E-mail copiado!"} className="select-none p-3 px-4 text-sm font-bold rounded-md bg-blue-100 text-blue-700" />}
+            {mostrarNotificacao && <Notificacao mensagem={"E-mail copiado!"} className="p-4 text-md rounded-lg border-l-6 bg-blue-100 text-blue-700 border-blue-700" />}
 
             {/* MOBILE */}
             <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-3">

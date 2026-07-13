@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ScrollToTop from "../../components/header/ScrollToTop";
 
 export default function Agradecimento() {
     const [segundos, setSegundos] = useState(10);
@@ -67,6 +68,8 @@ export default function Agradecimento() {
 
     return (
         <div className="py-8 px-4 flex flex-col items-center justify-center min-h-screen space-y-4 w-full text-center relative overflow-hidden">
+            <ScrollToTop />
+            
             <style>
                 {`
                     @keyframes confete {

@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Disallow: /404
+
+Sitemap: https://ryancunha.vercel.app/sitemap.xml

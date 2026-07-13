@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import BACK from "/banners/Background.webp";
 
 export default function Pessoal() {
     return (
         <div className="rounded-tl-xl rounded-br-xl flex flex-col md:grid md:grid-cols-2 h-100 md:h-100 w-full bg-[#F2F2F2]">
             <div className="flex-1 relative w-full h-1/2 md:h-full">
-                <img src={BACK} className="rounded-tl-xl absolute inset-0 w-full h-full object-cover brightness-60 pointer-events-none select-none" width="665" height="398" loading="eager" fetchPriority="high" alt="" decoding="async" aria-hidden="true" />
+                <img src="/banners/Background.webp" className="rounded-tl-xl absolute inset-0 w-full h-full object-cover brightness-60 pointer-events-none select-none" width="665" height="398" loading="eager" fetchPriority="high" alt="" decoding="async" aria-hidden="true" />
             </div>
 
             <div className="flex-1 flex flex-col justify-center items-start p-6 gap-3">

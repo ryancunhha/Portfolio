@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { redes, email } from "../../config/config";
 import Notificacao from "../../components/notificacao/notificacao";
-import fotoRyan from "/ryan.png";
 
 export default function Sobre() {
     const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
@@ -19,17 +18,18 @@ export default function Sobre() {
 
     return (
         <>
-            {mostrarNotificacao && <Notificacao mensagem={"E-mail copiado!"} className="p-3 text-sm rounded-lg md:rounded-r-lg border-l-6 bg-blue-100 text-blue-700 border-blue-700" />}
+            {mostrarNotificacao && (
+                <Notificacao mensagem={"E-mail copiado!"} className="p-4 text-md rounded-lg border-l-6 bg-blue-100 text-blue-700 border-blue-700" />
+            )}
 
-            <div className="flex flex-col items-center gap-6 mx-auto p-6 my-7">
-                {/* Foto e Redes */}
+            <div className="flex flex-col items-center gap-6 mx-auto p-6 my-7 max-w-4xl">
                 <div className="flex flex-col items-center text-center space-y-6 w-full">
-                    <img loading="lazy" src={fotoRyan} alt="Foto de Ryan Cunha" className="w-48 rounded-full object-cover" />
+                    <img loading="lazy" height="192" width="192" src="/ryan.png" alt="Foto de Ryan Cunha" className="w-48 h-48 rounded-full object-cover border-6 border-white" />
 
                     <div className="flex flex-wrap justify-center gap-4 bg-[#18181B] p-2 rounded-sm">
                         {redes?.map((rede, index) => (
-                            <a title={rede.label} className="h-8 w-8" key={index} href={rede.url} target="_blank" rel="noopener noreferrer">
-                                <img src={rede.icon} alt={rede.label} alt={`Acessar meu perfil no ${rede.label}`} />
+                            <a key={index} href={rede.url} target="_blank" rel="noopener noreferrer" title={rede.label}>
+                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-8 w-8" height="32" width="32" />
                             </a>
                         ))}
 
@@ -38,24 +38,17 @@ export default function Sobre() {
                 </div>
 
                 {/* Biografia */}
-                <div className="w-full space-y-4 max-w-3xl text-left">
-                    <style>{`
-                            @keyframes wave { 
-                                0%, 
-                                100% { transform: rotate(0deg); } 
-                                50% { transform: rotate(15deg); }
-                            }
-                    `}</style>
-
-                    <h1 className="text-3xl text-left font-bold tracking-tight">Olá, eu sou o <span className="bg-amber-100 text-gray-800 px-1 rounded">Ryan</span>
-                        <span className="inline-block ml-2" style={{ animation: "wave 1s ease-in-out infinite", transformOrigin: "70% 70%" }}>
-                            👋
-                        </span>
+                <div className="w-full space-y-4 text-left">
+                    <h1 className="text-3xl text-left font-bold tracking-tight">Olá, eu sou o Ryan
+                        <span className="inline-block ml-2 animate-wave-hand">👋</span>
                     </h1>
 
                     <h2 className="text-xl font-semibold ">Sou <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">desenvolvedor Full-Stack</span> e em <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">automações</span>. Este é o espaço onde compartilho meus projetos, estudos e como traduzo visões em valor de mercado.</h2>
 
-                    <h3 className="ml-2 font-semibold text-lg">🛠️ Minha Metodologia</h3>
+                    <div className="flex items-center gap-3">
+                        <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+                        <h3 className="font-semibold text-xl">🛠️ Minha Metodologia</h3>
+                    </div>
                     <p className="leading-relaxed text-lg">
                         Gosto de criar projetos organizados, focados em{" "}
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
@@ -68,7 +61,10 @@ export default function Sobre() {
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">facilidade de manutenção</span>. Os projetos apresentados neste portfólio refletem a forma como penso, organizo e desenvolvo soluções.
                     </p>
 
-                    <h3 className="ml-2 font-semibold text-lg">🌱 O Começo</h3>
+                    <div className="flex items-center gap-3">
+                        <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+                        <h3 className="font-semibold text-xl">🌱 O Começo</h3>
+                    </div>
                     <p className="leading-relaxed text-lg">
                         Meu interesse pelo desenvolvimento surgiu de forma espontânea. Meu
                         irmão fazia um curso de front-end e ao acompanhar seus estudos, despertei curiosidade pela área.
@@ -78,11 +74,10 @@ export default function Sobre() {
                         </span> e fui evoluindo naturalmente.
                     </p>
 
-                    <h3 className="ml-2 font-semibold text-lg">
-                        <span className="inline-block mr-1">
-                            🎓
-                        </span>
-                        Formação e Evolução</h3>
+                    <div className="flex items-center gap-3">
+                        <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+                        <h3 className="font-semibold text-xl">🎓 Formação e Evolução</h3>
+                    </div>
                     <p className="leading-relaxed text-lg">
                         Com o tempo, decidi ingressar na graduação de{" "}
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
@@ -95,8 +90,6 @@ export default function Sobre() {
                         , áreas que hoje fazem parte do meu dia a dia nos estudos e no desenvolvimento dos meus projetos.
                     </p>
                 </div>
-
-                {/* CARROSEL DE TECNOLOGIA */}
             </div>
         </>
     )

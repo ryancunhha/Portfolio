@@ -29,16 +29,6 @@ function formatarTempoAtras(dataString) {
     return "• Atualizado há 1seg";
 }
 
-function verificacaoImagemGitHub(url) {
-    return new Promise((resolve) => {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = url;
-        img.onload = () => resolve(url);
-        img.onerror = () => resolve(FALLBACK);
-    })
-}
-
 // DADO LEVES
 export async function obterProjetosGithub(signal) {
     try {
@@ -52,28 +42,23 @@ export async function obterProjetosGithub(signal) {
         if (!response.ok) throw new Error(`Erro na API do GitHub: ${response.status}`);
 
         const dados = await response.json();
-        if (!Array.isArray(dados)) return [];
 
-        const reposFiltrados = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name));
-
-        // INFORMAÇÔES
-        const meusProjetos = await Promise.all(
-            reposFiltrados.map(async ({ id, name, topics = [], created_at, pushed_at, homepage, html_url, description, default_branch }) => {
-                const branch = default_branch || "main";
-                const imagemFinal = await verificacaoImagemGitHub(`https://raw.githubusercontent.com/ryancunhha/${name}/${branch}/thumbnail.png`);
-
+        // DADOS
+        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch }) => {
                 return {
                     id,
                     name,
                     nome: name.replace(/-/g, " "),
                     topicos: topics,
-                    ano: new Date(created_at).getFullYear(),
-                    mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
+                    data: {
+                        ano: new Date(created_at).getFullYear(),
+                        mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
+                    },
                     atualizado: formatarTempoAtras(pushed_at),
-                    imagem: imagemFinal,
+                    imagem: `https://raw.githubusercontent.com/ryancunhha/${name}/${default_branch}/thumbnail.png`,
                     homepage,
                     description,
-                };
+                }
             })
         )
 
@@ -89,6 +74,39 @@ export async function obterProjetosGithub(signal) {
     }
 }
 
+// Dados Leves unicos
+export async function obterUnicoProjeto(nomeRepo, signal) {
+    try {
+        const response = await fetch(`https://api.github.com/repos/ryancunhha/${nomeRepo}`, { signal });
+
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar repositório específico: ${response.status}`);
+        }
+
+        const dados = await response.json();
+        console.log(dados)
+
+        return {
+            id: dados.id,
+            name: dados.name,
+            nome: dados.name.replace(/-/g, " "),
+            topicos: dados.topics || [],
+            data: {
+                ano: new Date(dados.created_at).getFullYear(),
+                mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
+            },
+            atualizado: formatarTempoAtras(dados.updated_at),
+            imagem: `https://raw.githubusercontent.com/ryancunhha/${dados.name}/${dados.default_branch}/thumbnail.png`,
+            homepage: dados.homepage,
+            description: dados.description,
+        };
+    } catch (error) {
+        if (error.name === "AbortError") throw error;
+        console.error(`Erro ao obter o projeto ${nomeRepo}:`, error);
+        return null;
+    }
+}
+
 // README
 export async function obterReadmeDoProjeto(repo, signal) {
     try {
@@ -97,7 +115,7 @@ export async function obterReadmeDoProjeto(repo, signal) {
         return await response.text();
     } catch (error) {
         if (error.name === "AbortError") return "";
-        console.error("Erro ao buscar o README:", error);
-        return "# Erro ao carregar o conteúdo do README.";
+        console.error("Erro ao buscar o conteúdo do README", error);
+        return "Erro ao buscar o conteúdo do README";
     }
 }

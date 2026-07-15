@@ -38,28 +38,36 @@ export async function obterProjetosGithub(signal) {
 
         if (cache && tempo && (agora - Number(tempo) < 300000)) return JSON.parse(cache);
 
-        const response = await fetch("https://api.github.com/users/ryancunhha/repos?sort=pushed&per_page=100", { signal });
-        if (!response.ok) throw new Error(`Erro na API do GitHub: ${response.status}`);
+        const [responseOrgs, responsePerfil] = await Promise.all([
+            fetch("https://api.github.com/orgs/estudos-ryan/repos?per_page=30", { signal }),
+            fetch("https://api.github.com/users/ryancunhha/repos?sort=pushed&per_page=30", { signal })
+        ]);
 
-        const dados = await response.json();
+        if (!responseOrgs.ok) throw new Error(`Erro na API Organzizações: ${responseOrgs.status}`);
+        if (!responsePerfil.ok) throw new Error(`Erro na API Github: ${responsePerfil.status}`);
+
+        const dadosOrgs = await responseOrgs.json();
+        const dadosPerfil = await responsePerfil.json();
+
+        const dados = [...dadosOrgs, ...dadosPerfil];
 
         // DADOS
         const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description }) => {
-                return {
-                    id,
-                    name,
-                    nome: name.replace(/-/g, " "),
-                    topicos: topics,
-                    data: {
-                        ano: new Date(created_at).getFullYear(),
-                        mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
-                    },
-                    atualizado: formatarTempoAtras(pushed_at),
-                    imagem: `https://raw.githubusercontent.com/ryancunhha/${name}/${default_branch}/thumbnail.png`,
-                    homepage,
-                    description,
-                }
-            })
+            return {
+                id,
+                name,
+                nome: name.replace(/-/g, " "),
+                topicos: topics,
+                data: {
+                    ano: new Date(created_at).getFullYear(),
+                    mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
+                },
+                atualizado: formatarTempoAtras(pushed_at),
+                imagem: `https://raw.githubusercontent.com/ryancunhha/${name}/${default_branch}/thumbnail.png`,
+                homepage,
+                description,
+            }
+        })
         )
 
         sessionStorage.setItem(CACHE_KEY, JSON.stringify(meusProjetos));

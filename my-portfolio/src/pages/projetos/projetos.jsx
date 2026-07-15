@@ -20,12 +20,28 @@ export default function Projeto() {
         const buscaMinusculo = busca.toLowerCase().trim();
         const filtroMinusculo = filtroAtivo.toLowerCase();
 
-        return projetos.filter((repo) => {
+        const filtrados = projetos.filter((repo) => {
             if (!repo) return false;
             const matchesFiltroBotao = filtroAtivo === "Tudo" || (repo.topicos && repo.topicos.map(t => t.toLowerCase()).includes(filtroMinusculo));
             const matchesInput = !buscaMinusculo || repo.nome.toLowerCase().includes(buscaMinusculo) || (repo.topicos && repo.topicos.some(t => t.toLowerCase().includes(buscaMinusculo)));
 
             return matchesFiltroBotao && matchesInput;
+        });
+
+        const checarAtualizado = (repo) => {
+            const temNaTag = repo.topicos && repo.topicos.some(t => t.toLowerCase().includes("atualizado"));
+            const temNaPropriedadeString = typeof repo.atualizado === 'string' && repo.atualizado.toLowerCase().includes("atualizado");
+            const temNaPropriedadeBool = repo.atualizado === true;
+            return temNaTag || temNaPropriedadeString || temNaPropriedadeBool;
+        };
+
+        return filtrados.sort((a, b) => {
+            const temAtualizadoA = checarAtualizado(a);
+            const temAtualizadoB = checarAtualizado(b);
+
+            if (temAtualizadoA && !temAtualizadoB) return -1;
+            if (!temAtualizadoA && temAtualizadoB) return 1;
+            return 0;
         });
     }, [projetos, busca, filtroAtivo]);
 
@@ -132,7 +148,7 @@ export default function Projeto() {
 
             {projetosFiltrados.length > limiteVisivel && (
                 <div ref={fimDaPaginaRef} className="h-12 w-full flex items-center justify-center">
-                    <div  className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-black" />
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-black" />
                 </div>
             )}
         </>

@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback } from "react";
+import { useState, useRef, useMemo, useCallback, useEffect } from "react";
 
 export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     const [status, setStatus] = useState("parado");
@@ -6,6 +6,12 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     const [velocidade, setVelocidade] = useState(1);
     const progressoRef = useRef(0);
     const utteranceRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            window.speechSynthesis.cancel();
+        };
+    }, []);
 
     const tempoTotalBase = useMemo(() => {
         if (!textoAudio) return 0;
@@ -37,6 +43,7 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
         const fala = new SpeechSynthesisUtterance(textoRestante);
         fala.lang = "pt-BR";
         fala.rate = velocidadeAtual;
+        window._referenciaFalaAcessibilidade = fala;
         utteranceRef.current = fala;
 
         fala.onboundary = (event) => {
@@ -60,7 +67,10 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
             }
         };
 
-        window.speechSynthesis.speak(fala);
+        setTimeout(() => {
+            window.speechSynthesis.speak(fala);
+        }, 50);
+
     }, [textoAudio, velocidade, atualizarProgressoVisual]);
 
     const alternarLeitura = () => {

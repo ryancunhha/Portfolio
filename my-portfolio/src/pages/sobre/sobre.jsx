@@ -24,7 +24,13 @@ export default function Sobre() {
 
             <div className="flex flex-col items-center gap-6 mx-auto p-6 my-7 max-w-4xl">
                 <div className="flex flex-col items-center text-center space-y-6 w-full">
-                    <img loading="lazy" height="192" width="192" src="/ryan.png" alt="Foto de Ryan Cunha" className="w-48 h-48 rounded-full object-cover border-6 border-white" />
+                    <img loading="lazy" height="192" width="192" src="https://github.com/ryancunhha.png?size=40" alt="Foto de Perfil GitHub de Ryan Cunha" className="w-48 h-48 rounded-full object-cover border-6 border-gray-300 transition-transform"
+                        onClick={(e) => {
+                            const img = e.currentTarget;
+                            img.dataset.cliques = String(Number(img.dataset.cliques || 0) + 1);
+                            if (Number(img.dataset.cliques) >= 15) img.classList.add("animate-spin");
+                        }}
+                    />
 
                     <div className="flex flex-wrap justify-center gap-4 bg-[#18181B] p-2 rounded-sm">
                         {redes?.map((rede, index) => (
@@ -46,7 +52,7 @@ export default function Sobre() {
                     <h2 className="text-xl font-semibold ">Sou <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">desenvolvedor Full-Stack</span> e em <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">automações</span>. Este é o espaço onde compartilho meus projetos, estudos e como traduzo visões em valor de mercado.</h2>
 
                     <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
                         <h3 className="font-semibold text-xl">🛠️ Minha Metodologia</h3>
                     </div>
                     <p className="leading-relaxed text-lg">
@@ -62,7 +68,7 @@ export default function Sobre() {
                     </p>
 
                     <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
                         <h3 className="font-semibold text-xl">🌱 O Começo</h3>
                     </div>
                     <p className="leading-relaxed text-lg">
@@ -75,7 +81,7 @@ export default function Sobre() {
                     </p>
 
                     <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
                         <h3 className="font-semibold text-xl">🎓 Formação e Evolução</h3>
                     </div>
                     <p className="leading-relaxed text-lg">

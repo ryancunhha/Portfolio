@@ -4,6 +4,7 @@ import EsqueletoProjetos from "./projetosEsqueleto";
 import { obterProjetosGithub } from "../../services/repoGitHub";
 
 export default function Projeto() {
+    const cardRef = useRef(null);
     const [projetos, setProjetos] = useState([]);
     const [busca, setBusca] = useState("");
     const [filtroAtivo, setFiltroAtivo] = useState("Tudo");
@@ -89,9 +90,11 @@ export default function Projeto() {
             const elementoFim = entries[0];
 
             if (elementoFim.isIntersecting && projetosFiltrados.length > limiteVisivel) {
-                setLimiteVisivel((prev) => prev + 9)
+                setTimeout(() => {
+                    setLimiteVisivel((prev) => prev + 9);
+                }, 400);
             }
-        }, { threshold: 0.6 });
+        }, { threshold: 0.7 });
 
         const elementoAtual = fimDaPaginaRef.current;
         if (elementoAtual) {
@@ -104,6 +107,50 @@ export default function Projeto() {
             }
         }
     }, [limiteVisivel, projetosFiltrados.length]);
+
+    useEffect(() => {
+        const elemento = cardRef.current;
+        if (!elemento) return;
+
+        let tempoEfeito = null;
+        let tempoParada = null;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                const gifImg = elemento.querySelector(".img-gif-preview");
+
+                if (!gifImg) return;
+
+                if (entry.isIntersecting) {
+                    clearTimeout(tempoParada);
+                    clearTimeout(tempoEfeito);
+
+                    tempoParada = setTimeout(() => {
+                        gifImg.classList.add("opacity-100", "scale-100");
+
+                        tempoEfeito = setTimeout(() => {
+                            gifImg.classList.remove("opacity-100", "scale-100");
+                        }, 4000);
+                    }, 400);
+
+                } else {
+                    clearTimeout(tempoParada);
+                    clearTimeout(tempoEfeito);
+                    gifImg.classList.remove("opacity-100", "scale-100");
+                }
+            },
+            { threshold: 0.95 }
+        );
+
+        observer.observe(elemento);
+
+        return () => {
+            clearTimeout(tempoParada);
+            clearTimeout(tempoEfeito);
+            observer.disconnect();
+        };
+    }, []);
 
     if (projetos.length === 0) return <EsqueletoProjetos />
 
@@ -129,13 +176,59 @@ export default function Projeto() {
                     <div className="text-center text-[#999] col-span-full pt-10">Nenhum projeto encontrado.</div>
                 ) : (
                     projetosExibidos.map((repo, i) => (
-                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
-                            <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading={i < 9 ? "auto" : "lazy"} fetchPriority={i < 9 ? "high" : "low"} width="540" height="360" className="w-full p-1 aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
-                                onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "/FALLBACK.webp";
+                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="group hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
+                            <div className="relative w-full aspect-video p-1 overflow-hidden"
+                                ref={(elemento) => {
+                                    if (!elemento || elemento.dataset.observed) return;
+                                    elemento.dataset.observed = "true";
+                                    const eDesktop = window.matchMedia("(hover: hover)").matches;
+                                    if (eDesktop) return;
+
+                                    let tempoEfeito = null;
+                                    let tempoParada = null;
+
+                                    const observer = new IntersectionObserver((entries) => {
+                                        const entry = entries[0];
+                                        const gifImg = elemento.querySelector(".img-gif-preview");
+                                        if (!gifImg) return;
+
+                                        if (entry.isIntersecting) {
+                                            clearTimeout(tempoParada);
+                                            clearTimeout(tempoEfeito);
+
+                                            tempoParada = setTimeout(() => {
+                                                gifImg.classList.add("opacity-100", "scale-100");
+
+                                                tempoEfeito = setTimeout(() => {
+                                                    gifImg.classList.remove("opacity-100", "scale-100");
+                                                }, 3500);
+                                            }, 400);
+                                        } else {
+                                            clearTimeout(tempoParada);
+                                            clearTimeout(tempoEfeito);
+                                            gifImg.classList.remove("opacity-100", "scale-100");
+                                        }
+                                    }, { threshold: 0.7 });
+
+                                    observer.observe(elemento);
                                 }}
-                            />
+                            >
+                                {/* 1. Imagem PNG  */}
+                                <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading={i < 9 ? "auto" : "lazy"} fetchPriority={i < 9 ? "high" : "low"} width="540" height="360" className="w-full h-full p-1 aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/fallbacks/FALLBACK.webp";
+                                    }}
+                                />
+
+                                {/* 2. GIF */}
+                                <img src={repo.imagemGif} alt="" loading="lazy" width="540" height="360" className="img-gif-preview absolute inset-0 w-full h-full p-1 object-cover rounded-xl select-none opacity-0 scale-95 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:scale-100 transition-all duration-300 ease-in-out pointer-events-none" crossOrigin="anonymous"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/fallbacks/erroGif.webp";
+                                    }}
+                                />
+                            </div>
 
                             <div className="mb-1.5 mx-2">
                                 <p className="truncate font-bold text-lg first-letter:uppercase">{repo.nome}</p>

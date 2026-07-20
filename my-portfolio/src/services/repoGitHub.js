@@ -52,7 +52,9 @@ export async function obterProjetosGithub(signal) {
         const dados = [...dadosOrgs, ...dadosPerfil];
 
         // DADOS
-        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description }) => {
+        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description, owner }) => {
+            const baseImagemUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/assets`;
+
             return {
                 id,
                 name,
@@ -63,7 +65,8 @@ export async function obterProjetosGithub(signal) {
                     mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
                 },
                 atualizado: formatarTempoAtras(pushed_at),
-                imagem: `https://raw.githubusercontent.com/ryancunhha/${name}/${default_branch}/thumbnail.png`,
+                imagem: `${baseImagemUrl}/thumbnail.png`,
+                imagemGif: `${baseImagemUrl}/thumbnail.gif`,
                 homepage,
                 description,
             }

@@ -11,7 +11,9 @@ export default function DetalhePagina() {
     const [projeto, setProjeto] = useState(null);
     const [readmeMarkdown, setReadmeMarkdown] = useState("");
     const [loading, setLoading] = useState(true);
-    const [tamanhoFonte, setTamanhoFonte] = useState(16)
+    const [tamanhoFonte, setTamanhoFonte] = useState(16);
+    const [mostrarGif, setMostrarGif] = useState(false);
+    const [erroGif, setErroGif] = useState(false);
 
     // DADOS
     useEffect(() => {
@@ -127,13 +129,29 @@ export default function DetalhePagina() {
                     </div>
                 </div>
 
-                <img loading="eager" fetchPriority="low" className="max-auto h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`}
-                    crossOrigin="anonymous"
-                    onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/FALLBACK.webp";
-                    }}
-                />
+                <div className="relative max-w-4xl mx-auto">
+                    <img loading="eager" fetchPriority="high" className="w-full h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} crossOrigin="anonymous"
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/fallbacks/FALLBACK.webp";
+                        }}
+                    />
+
+                    {projeto.imagemGif && !erroGif && (
+                        <img loading="lazy" className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${mostrarGif ? "opacity-100" : "opacity-0 pointer-events-none"}`} src={projeto.imagemGif} alt={`GIF ${projeto.nome}`} crossOrigin="anonymous"
+                            onError={() => {
+                                setErroGif(true);
+                                setMostrarGif(false);
+                            }}
+                        />
+                    )}
+                    
+                    {projeto.imagemGif && !erroGif && (
+                        <button type="button" onClick={() => setMostrarGif((prev) => !prev)} className="absolute top-0 left-0 rounded-br-lg bg-white text-black text-xs p-2 cursor-pointer">
+                            {mostrarGif ? "❚❚" : "▶︎"}
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* FAz com que se exista ser tiver readme */}

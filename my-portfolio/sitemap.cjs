@@ -3,18 +3,20 @@ const fs = require("fs");
 let rotasMenu = [];
 let ignorarRepo = [];
 
+// 1. Importa as configurações
 try {
     const config = require("./src/config/config.js");
     ignorarRepo = config.ignorarRepo || [];
+    rotasMenu = config.rotasMenu || [];
 } catch (e) {
     ignorarRepo = [];
+    rotasMenu = [];
 }
 
 async function generateSitemap() {
-    const baseUrl = "https://ryancunha.vercel.app";
-
     let dynamicRoutes = [];
 
+    // 2. Busca os projetos do GitHub
     try {
         const response = await fetch(`https://api.github.com/users/ryancunhha/repos?sort=pushed&per_page=100`);
         const dados = await response.json();
@@ -23,7 +25,7 @@ async function generateSitemap() {
         console.error("Erro ao buscar projetos do GitHub:", error);
     }
 
-    const staticRoutes = ["", "/projetos", "/sobre", "/solicitacao", "/curriculos"]; // seria "/" inves de ""
+    const staticRoutes = rotasMenu.map(rota => rota.path === "/" ? "" : rota.path);
     const allRoutes = [...staticRoutes, ...dynamicRoutes];
     const currentDate = new Date().toISOString().split("T")[0];
 
@@ -38,7 +40,7 @@ async function generateSitemap() {
         const freq = isHome ? "daily" : (isDynamicProject ? "monthly" : "weekly");
 
         xml += `  <url>\n`;
-        xml += `    <loc>${baseUrl}${route}</loc>\n`;
+        xml += `    <loc>https://ryancunha.vercel.app${route}</loc>\n`;
         xml += `    <lastmod>${currentDate}</lastmod>\n`;
         xml += `    <changefreq>${freq}</changefreq>\n`;
         xml += `    <priority>${priority}</priority>\n`;

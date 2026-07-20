@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="256x256" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="512x512" />
   <link rel="apple-touch-icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfólio | Ryan Cunha</title>
@@ -14,31 +14,40 @@
 
   <!-- Config -->
   <link rel="manifest" href="/manifest.json" />
-  <meta name="color-scheme" content="dark light" />
   <meta id="meta-theme" name="theme-color" content="#18181B" />
 
   <!-- SEO -->
   <meta name="description"
-    content="Portfólio de Ryan Cunha, Desenvolvedor Full Stack, confira meus principais projetos." />
-  <meta name="keywords" content="Ryan Cunha, Desenvolvedor, Full Stack, Web, React, Portfólio, Projetos" />
+    content="Portfólio de Ryan Cunha, Desenvolvedor Full Stack. Acompanhe meus projetos recentes e atualizados. Veja meu projeto atualizado..." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ryancunha.vercel.app/" />
-  <meta property="og:title" content="Portfólio | Ryan Cunha" />
+  <meta property="og:title" content="Portfólio de Ryan Cunha" />
   <meta property="og:description"
-    content="Portfólio de Ryan Cunha, Desenvolvedor Full Stack, confira meus principais projetos." />
+    content="Portfólio de Ryan Cunha, Desenvolvedor Full Stack. Acompanhe meus projetos recentes e atualizados. Veja meu projeto atualizado..." />
   <meta property="og:image" content="https://ryancunha.vercel.app/favicon.ico" />
-  <meta property="og:image:width" content="256" />
-  <meta property="og:image:height" content="256" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Portfólio de Ryan Cunha" />
+  <meta property="og:image" content="https://ryancunha.vercel.app/favicon.ico" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+
+  <!-- Google -->
   <meta name="google-site-verification" content="LguxdrWtG6tD81N0OGohNc4nOFtboLUMg-EzE4Z5MOI" />
 
   <script>
-    const salvo = localStorage.getItem("theme");
     const metaTheme = document.getElementById("meta-theme");
 
-    if (salvo === "light") {
+    if (localStorage.getItem("theme") === "light") {
       document.documentElement.classList.add("light");
-      metaTheme.setAttribute("content", "#fff");
+      document.documentElement.classList.remove("dark");
+      metaTheme.setAttribute("content", "#ffffff");
     } else {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("dark");
       metaTheme.setAttribute("content", "#18181B");
     }
   </script>

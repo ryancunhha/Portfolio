@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
 @theme {
   --color-principal-bg: var(--bg-color);
   --color-principal-text: var(--text-color);

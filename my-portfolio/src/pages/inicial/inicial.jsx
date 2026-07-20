@@ -46,14 +46,14 @@ export default function TelaInicial() {
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
                     <h1 className="leading-tight brightness-120 text-[7.5vw] sm:text-4xl md:text-6xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Menos complexidade. Mais escala.</h1>
-                    <Link className="mt-2 py-2 px-8 border-2 rounded-full bg-transparent hover:bg-black/10 text-sm font-semibold tracking-wide" to="/projetos">Ver Projetos</Link>
+                    <Link className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide" to="/projetos">Ver Projetos</Link>
                 </div>
 
                 {/* BANNER */}
                 <div className="w-full">
                     {totalBanners > 0 ? (
                         <div className="w-full h-100 overflow-hidden">
-                            <div key={indexAtual} className={direcao === "direita" ? "animacao-direita" : "animacao-esquerda"}>
+                            <div key={indexAtual} className={indexAtual === 0 && direcao === "direita" && rodando ? "" : (direcao === "direita" ? "animacao-direita" : "animacao-esquerda")}>
                                 {ComponenteBanner && <ComponenteBanner />}
                             </div>
                         </div>
@@ -98,7 +98,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/color/48/python--v1.png" width="40" height="40" alt="Python" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link aria-label="Filtrar projetos por automação" className="mt-1 py-2 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=automacao"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por automação" className="mt-1 py-2.5 px-5 border rounded-full text-xs font-medium border-slate-300" to={"/projetos?search=automacao"}>Ver exemplos</Link>
                         </div>
 
                         <div>
@@ -114,7 +114,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React-Native" width="40" height="40" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link aria-label="Filtrar projetos por mobile" className="mt-1 py-2 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=mobile"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por mobile" className="mt-1 py-2.5 px-5 border rounded-full text-xs font-medium border-slate-300" to={"/projetos?search=mobile"}>Ver exemplos</Link>
                         </div>
 
                         <div>
@@ -130,7 +130,7 @@ export default function TelaInicial() {
                                 <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" decoding="async" />
                             </div>
 
-                            <Link aria-label="Filtrar projetos por Web" className="mt-1 py-2 px-3 border rounded-full bg-transparent text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
+                            <Link aria-label="Filtrar projetos por Web" className="mt-1 py-2.5 px-5 border rounded-full text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
                         </div>
 
                         <div>
@@ -151,7 +151,7 @@ export default function TelaInicial() {
                         </div>
 
                         <div className="flex items-center justify-center relative w-32 h-32 md:w-40 md:h-40 z-2">
-                            <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React" width="40" height="40" className="select-none w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(97,218,251,0.3)] animate-[spin_20s_linear_infinite]" loading="lazy" decoding="async" />
+                            <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React" width="40" height="40" className="w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(97,218,251,0.3)] animate-[spin_20s_linear_infinite]" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </div>

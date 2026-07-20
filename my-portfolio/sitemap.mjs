@@ -1,24 +1,14 @@
-const fs = require("fs");
-
-let rotasMenu = [];
-let ignorarRepo = [];
-
-// 1. Importa as configurações
-try {
-    const config = require("./src/config/config.js");
-    ignorarRepo = config.ignorarRepo || [];
-    rotasMenu = config.rotasMenu || [];
-} catch (e) {
-    ignorarRepo = [];
-    rotasMenu = [];
-}
+import fs from "fs";
+import { rotasMenu, ignorarRepo } from "./src/config/rotas.js";
 
 async function generateSitemap() {
     let dynamicRoutes = [];
 
-    // 2. Busca os projetos do GitHub
     try {
-        const response = await fetch(`https://api.github.com/users/ryancunhha/repos?sort=pushed&per_page=100`);
+        const response = await fetch(`https://api.github.com/orgs/estudos-ryan/repos?per_page=50`);
+
+        if (!response.ok)  throw new Error(`GitHub API: ${response.status}`);
+        
         const dados = await response.json();
         dynamicRoutes = dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(repo => `/projetos/${repo.name}`);
     } catch (error) {
@@ -49,11 +39,9 @@ async function generateSitemap() {
 
     xml += `</urlset>`;
 
-    if (!fs.existsSync("./public")) {
-        fs.mkdirSync("./public");
-    }
-
+    fs.mkdirSync("./public", { recursive: true });
     fs.writeFileSync("./public/sitemap.xml", xml);
+    
     console.log("✅ sitemap.xml gerado!");
 }
 

@@ -95,6 +95,7 @@ export async function obterUnicoProjeto(nomeRepo, signal) {
         }
 
         const dados = await response.json();
+        const baseImagemUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/assets`;
 
         return {
             id: dados.id,
@@ -106,7 +107,8 @@ export async function obterUnicoProjeto(nomeRepo, signal) {
                 mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
             },
             atualizado: formatarTempoAtras(dados.updated_at),
-            imagem: `https://raw.githubusercontent.com/ryancunhha/${dados.name}/${dados.default_branch}/thumbnail.png`,
+            imagem: `${baseImagemUrl}/thumbnail.png`,
+            imagemGif: `${baseImagemUrl}/thumbnail.gif`,
             homepage: dados.homepage,
             description: dados.description,
         };

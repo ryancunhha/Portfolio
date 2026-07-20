@@ -147,7 +147,7 @@ export default function TelaInicial() {
                             <span className="text-xs font-semibold tracking-wider text-blue-400 uppercase">Mais Solicitado</span>
                             <h3 className="font-bold text-2xl md:text-3xl tracking-tight">Desenvolvimento Full-Stack (Front & Back)</h3>
                             <p className="tracking-tight text-sm text-[#888]">Sistemas web completos. Do design, performance, segurança até a arquitetura do banco de dados do sistema.</p>
-                            <Link className="mt-2 p-2 px-5 rounded-full bg-white text-slate-950 hover:bg-slate-200 transition-colors text-xs font-semibold shadow-sm" to={"/solicitacao"}>Iniciar meu projeto</Link>
+                            <Link className="mt-2 p-2.5 px-5 rounded-full bg-white text-slate-950 hover:bg-slate-200 transition-colors text-xs font-semibold shadow-sm" to={"/solicitacao"}>Iniciar meu projeto</Link>
                         </div>
 
                         <div className="flex items-center justify-center relative w-32 h-32 md:w-40 md:h-40 z-2">

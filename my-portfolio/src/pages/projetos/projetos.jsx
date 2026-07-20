@@ -4,13 +4,12 @@ import EsqueletoProjetos from "./projetosEsqueleto";
 import { obterProjetosGithub } from "../../services/repoGitHub";
 
 export default function Projeto() {
-    const cardRef = useRef(null);
+    const fimDaPaginaRef = useRef(null);
+    const [searchParams, setSearchParams] = useSearchParams();
     const [projetos, setProjetos] = useState([]);
     const [busca, setBusca] = useState("");
     const [filtroAtivo, setFiltroAtivo] = useState("Tudo");
     const [limiteVisivel, setLimiteVisivel] = useState(9);
-    const fimDaPaginaRef = useRef(null);
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const todasCategorias = useMemo(() => {
         const setCategorias = new Set(projetos.flatMap(repo => repo.topicos || []));
@@ -108,50 +107,6 @@ export default function Projeto() {
         }
     }, [limiteVisivel, projetosFiltrados.length]);
 
-    useEffect(() => {
-        const elemento = cardRef.current;
-        if (!elemento) return;
-
-        let tempoEfeito = null;
-        let tempoParada = null;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const entry = entries[0];
-                const gifImg = elemento.querySelector(".img-gif-preview");
-
-                if (!gifImg) return;
-
-                if (entry.isIntersecting) {
-                    clearTimeout(tempoParada);
-                    clearTimeout(tempoEfeito);
-
-                    tempoParada = setTimeout(() => {
-                        gifImg.classList.add("opacity-100", "scale-100");
-
-                        tempoEfeito = setTimeout(() => {
-                            gifImg.classList.remove("opacity-100", "scale-100");
-                        }, 4000);
-                    }, 400);
-
-                } else {
-                    clearTimeout(tempoParada);
-                    clearTimeout(tempoEfeito);
-                    gifImg.classList.remove("opacity-100", "scale-100");
-                }
-            },
-            { threshold: 0.95 }
-        );
-
-        observer.observe(elemento);
-
-        return () => {
-            clearTimeout(tempoParada);
-            clearTimeout(tempoEfeito);
-            observer.disconnect();
-        };
-    }, []);
-
     if (projetos.length === 0) return <EsqueletoProjetos />
 
     return (
@@ -162,9 +117,9 @@ export default function Projeto() {
                     <p>🔍</p>
                 </div>
 
-                <div className="w-full flex flex-row gap-2 mt-3 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
+                <div className="w-full flex flex-row gap-2 mt-3 px-1 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
                     {todasCategorias.map((categoria) => (
-                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-3 py-1 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
+                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-3 py-1 mb-2 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
                             {categoria}
                         </button>
                     ))}
@@ -177,42 +132,7 @@ export default function Projeto() {
                 ) : (
                     projetosExibidos.map((repo, i) => (
                         <Link key={repo.id} to={`/projetos/${repo.name}`} className="group hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
-                            <div className="relative w-full aspect-video p-1 overflow-hidden"
-                                ref={(elemento) => {
-                                    if (!elemento || elemento.dataset.observed) return;
-                                    elemento.dataset.observed = "true";
-                                    const eDesktop = window.matchMedia("(hover: hover)").matches;
-                                    if (eDesktop) return;
-
-                                    let tempoEfeito = null;
-                                    let tempoParada = null;
-
-                                    const observer = new IntersectionObserver((entries) => {
-                                        const entry = entries[0];
-                                        const gifImg = elemento.querySelector(".img-gif-preview");
-                                        if (!gifImg) return;
-
-                                        if (entry.isIntersecting) {
-                                            clearTimeout(tempoParada);
-                                            clearTimeout(tempoEfeito);
-
-                                            tempoParada = setTimeout(() => {
-                                                gifImg.classList.add("opacity-100", "scale-100");
-
-                                                tempoEfeito = setTimeout(() => {
-                                                    gifImg.classList.remove("opacity-100", "scale-100");
-                                                }, 3500);
-                                            }, 400);
-                                        } else {
-                                            clearTimeout(tempoParada);
-                                            clearTimeout(tempoEfeito);
-                                            gifImg.classList.remove("opacity-100", "scale-100");
-                                        }
-                                    }, { threshold: 0.7 });
-
-                                    observer.observe(elemento);
-                                }}
-                            >
+                            <div className="relative w-full aspect-video p-1 overflow-hidden">
                                 {/* 1. Imagem PNG  */}
                                 <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading={i < 9 ? "auto" : "lazy"} fetchPriority={i < 9 ? "high" : "low"} width="540" height="360" className="w-full h-full p-1 aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
                                     onError={(e) => {
@@ -222,7 +142,7 @@ export default function Projeto() {
                                 />
 
                                 {/* 2. GIF */}
-                                <img src={repo.imagemGif} alt="" loading="lazy" width="540" height="360" className="img-gif-preview absolute inset-0 w-full h-full p-1 object-cover rounded-xl select-none opacity-0 scale-95 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:scale-100 transition-all duration-300 ease-in-out pointer-events-none" crossOrigin="anonymous"
+                                <img src={repo.imagemGif} alt="" loading="lazy" width="540" height="360" className="absolute inset-0 w-full h-full p-1 object-cover rounded-xl select-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out pointer-events-none" crossOrigin="anonymous"
                                     onError={(e) => {
                                         e.target.onerror = null;
                                         e.target.src = "/fallbacks/erroGif.webp";

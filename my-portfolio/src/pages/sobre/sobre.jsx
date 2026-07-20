@@ -24,7 +24,7 @@ export default function Sobre() {
 
             <div className="flex flex-col items-center gap-6 mx-auto p-6 my-7 max-w-4xl">
                 <div className="flex flex-col items-center text-center space-y-6 w-full">
-                    <img loading="lazy" height="192" width="192" src="https://github.com/ryancunhha.png?size=40" alt="Foto de Perfil GitHub de Ryan Cunha" className="w-48 h-48 rounded-full object-cover border-6 border-gray-300 transition-transform"
+                    <img loading="lazy" height="192" width="192" src="https://github.com/ryancunhha.png?size=40" alt="Foto de Perfil GitHub de Ryan Cunha" className="w-48 h-48 rounded-full object-cover transition-transform"
                         onClick={(e) => {
                             const img = e.currentTarget;
                             img.dataset.cliques = String(Number(img.dataset.cliques || 0) + 1);
@@ -35,11 +35,11 @@ export default function Sobre() {
                     <div className="flex flex-wrap justify-center gap-4 bg-[#18181B] p-2 rounded-sm">
                         {redes?.map((rede, index) => (
                             <a key={index} href={rede.url} target="_blank" rel="noopener noreferrer" title={rede.label}>
-                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-8 w-8" height="32" width="32" />
+                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-8 w-8 hover:scale-105" height="32" width="32" />
                             </a>
                         ))}
 
-                        <button title="Copiar Email" onClick={copiarEmail} className="px-1 cursor-pointer bg-white rounded text-lg">📧</button>
+                        <button title="Copiar Email" onClick={copiarEmail} className="px-1 cursor-pointer bg-white rounded text-lg hover:scale-105">📧</button>
                     </div>
                 </div>
 

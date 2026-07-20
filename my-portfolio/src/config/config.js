@@ -1,17 +1,10 @@
+import { rotasMenu, ignorarRepo } from "./rotas.js";
 import BannerPessoal from "./banners/Pessoal";
 import BannerAutomacao from "./banners/Automacao";
 
 const BANNERS = [
     BannerPessoal,
 ];
-
-const rotasMenu = [
-    { nome: "Inicio", path: "/" },
-    { nome: "Projetos", path: "/projetos" },
-    { nome: "Sobre Mim", path: "/sobre" },
-    { nome: "Solicitação", path: "/solicitacao" },
-    { nome: "Curriculos", path: "/curriculos" },
-]
 
 const email = "ryancunhha@outlook.com"
 
@@ -20,9 +13,5 @@ const redes = [
     { label: "GitHub", url: "https://github.com/ryancunhha", icon: "https://img.icons8.com/ios-filled/50/FFFFFF/github.png" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/ryancunhha", icon: "https://img.icons8.com/ios-filled/50/FFFFFF/linkedin.png" },
 ]
-
-const ignorarRepo = [
-    "ryancunhha"
-] || []
 
 export { rotasMenu, redes, email, ignorarRepo, BANNERS }

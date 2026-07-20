@@ -1,4 +1,4 @@
-name: Generate Sitemap
+name: Gerar Sitemap
 
 on:
   schedule:
@@ -29,10 +29,10 @@ jobs:
 
       - name: Run sitemap script
         working-directory: ./my-portfolio
-        run: node sitemap.cjs 
+        run: node sitemap.mjs
 
       - name: Commit and Push sitemap.xml
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: update sitemap.xml [skip ci]"
+          commit_message: "Chore: update sitemap.xml [skip ci]"
           file_pattern: 'my-portfolio/public/sitemap.xml'

@@ -141,13 +141,16 @@ export default function Projeto() {
                                     }}
                                 />
 
-                                {/* 2. GIF */}
-                                <img src={repo.imagemGif} alt="" loading="lazy" width="540" height="360" className="absolute inset-0 w-full h-full p-1 object-cover rounded-xl select-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out pointer-events-none" crossOrigin="anonymous"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "/fallbacks/erroGif.webp";
-                                    }}
-                                />
+                                <div className="absolute inset-0 p-1 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+                                    <div className="w-full h-full bg-black rounded-xl scale-95 group-hover:scale-99 transition-all duration-300 ease-in-out ointer-events-none">
+                                        <img src={repo.imagemGif} alt="" loading="lazy" width="540" height="360" className="w-full h-full aspect-video object-cover rounded-xl select-none ointer-events-none" crossOrigin="anonymous"
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = "/fallbacks/erroGif.webp";
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="mb-1.5 mx-2">

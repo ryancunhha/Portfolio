@@ -7,6 +7,11 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     const progressoRef = useRef(0);
     const utteranceRef = useRef(null);
 
+    const textoLimpo = useMemo(() => {
+        if (!textoAudio) return "";
+        return textoAudio.replace(/https?:\/\/\S+/g, "").replace(/[#*`_\-\[\]()]/g, "").replace(/[\p{Extended_Pictographic}\p{Emoji_Presentation}]/gu, "");
+    }, [textoAudio]);
+
     useEffect(() => {
         return () => {
             window.speechSynthesis.cancel();
@@ -14,10 +19,10 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     }, []);
 
     const tempoTotalBase = useMemo(() => {
-        if (!textoAudio) return 0;
-        const totalPalavras = textoAudio.trim().split(/\s+/).length;
+        if (!textoLimpo) return 0;
+        const totalPalavras = textoLimpo.trim().split(/\s+/).length;
         return Math.ceil((totalPalavras / 140) * 60);
-    }, [textoAudio]);
+    }, [textoLimpo]);
 
     const tempoAtual = (progresso / 100) * tempoTotalBase / velocidade;
 
@@ -28,11 +33,11 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
 
     const executarFala = useCallback((porcentagemAlvo, velocidadeAtual = velocidade) => {
         window.speechSynthesis.cancel();
-        if (!textoAudio) return;
+        if (!textoLimpo) return;
 
-        const totalCaracteres = textoAudio.length;
+        const totalCaracteres = textoLimpo.length;
         const caractereInicial = Math.floor((porcentagemAlvo / 100) * totalCaracteres);
-        const textoRestante = textoAudio.slice(caractereInicial);
+        const textoRestante = textoLimpo.slice(caractereInicial);
 
         if (!textoRestante.trim() || porcentagemAlvo >= 100) {
             atualizarProgressoVisual(100);
@@ -71,10 +76,10 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
             window.speechSynthesis.speak(fala);
         }, 50);
 
-    }, [textoAudio, velocidade, atualizarProgressoVisual]);
+    }, [textoLimpo, velocidade, atualizarProgressoVisual]);
 
     const alternarLeitura = () => {
-        if (!textoAudio) return;
+        if (!textoLimpo) return;
 
         if (status === "tocando") {
             window.speechSynthesis.cancel();
@@ -110,7 +115,7 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     const formatarTempo = (segundos) => `${Math.floor(segundos / 60).toString().padStart(2, "0")}:${Math.floor(segundos % 60).toString().padStart(2, "0")}`;
 
     return (
-        <div className="flex flex-col flex-wrap gap-2 select-none">
+        <div className="flex flex-col flex-wrap gap-2">
             <span className="text-xs font-medium">Ouvir:</span>
 
             <div className="flex flex-wrap gap-4">
@@ -128,7 +133,7 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
                 </select>
 
                 <div className="flex items-center gap-3">
-                    <span className="text-xs font-medium">Fonte:</span>
+                    <span className="text-xs font-medium select-none">Fonte:</span>
                     <button onClick={() => setTamanhoFonte(prev => Math.max(12, prev - 2))} className="text-lg cursor-pointer font-bold px-1">A-</button>
                     <button onClick={() => setTamanhoFonte(prev => Math.min(28, prev + 2))} className="text-lg cursor-pointer font-bold px-1">A+</button>
                 </div>

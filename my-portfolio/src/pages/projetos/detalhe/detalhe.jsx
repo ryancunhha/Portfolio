@@ -12,8 +12,6 @@ export default function DetalhePagina() {
     const [readmeMarkdown, setReadmeMarkdown] = useState("");
     const [loading, setLoading] = useState(true);
     const [tamanhoFonte, setTamanhoFonte] = useState(16);
-    const [mostrarGif, setMostrarGif] = useState(false);
-    const [erroGif, setErroGif] = useState(false);
 
     // DADOS
     useEffect(() => {
@@ -77,12 +75,6 @@ export default function DetalhePagina() {
         return DOMPurify.sanitize(marked.parse(readmeMarkdown));
     }, [readmeMarkdown]);
 
-    // REGAEZ
-    const readmeTextoVoz = useMemo(() => {
-        if (!readmeMarkdown) return "";
-        return readmeMarkdown.replace(/https?:\/\/\S+/g, "").replace(/[#*`_\-\[\]()]/g, "").replace(/[\p{Extended_Pictographic}\p{Emoji_Presentation}]/gu, "");;
-    }, [readmeMarkdown]);
-
     if (loading) return <DetalheEsqueleto />;
     if (!projeto) return <Navigate to="/404" replace />;
 
@@ -92,27 +84,27 @@ export default function DetalhePagina() {
             <div className="flex flex-col gap-2">
                 {/* BREADCRUMB */}
                 <div className="flex items-center gap-2">
-                    <Link className="hover:underline text-base md:text-sm" to="/projetos">← Projetos</Link>
+                    <Link className="hover:underline text-md" to="/projetos">← Projetos</Link>
 
                     {projeto.topicos && projeto.topicos.length > 0 && (
                         <>
                             <span className="cursor-default text-neutral-400">&gt;</span>
-                            <Link className="capitalize hover:underline text-base md:text-sm" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>
+                            <Link className="capitalize hover:underline text-md" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>
                         </>
                     )}
                 </div>
 
-                <div className="flex flex-col gap-1">
-                    {projeto.topicos[0] && <p className="capitalize text-sm">{projeto.topicos[0]}</p>}
-                    <h1 className="text-4xl font-bold capitalize">{projeto.nome}</h1>
-                    {projeto.description && <h2>{`${projeto.description}`}</h2>}
+                <div className="flex flex-col gap-1.5">
+                    {projeto.topicos[0] && <p className="capitalize text-sm text-gray-400">{projeto.topicos[0]}</p>}
+                    <h1 className="text-4xl font-extrabold tracking-tight capitalize">{projeto.nome}</h1>
+                    {projeto.description && <h2 className="max-w-3xl text-wrap text-lg leading-relaxed">{`${projeto.description}`}</h2>}
                     <p className="text-sm">Criado em {`${projeto.data.mes}/${projeto.data.ano}`} {projeto.atualizado && <span>{projeto.atualizado}</span>}</p>
                 </div>
 
-                <div className="flex flex-col gap-1">
-                    <p className="text-sm">Links úteis:</p>
+                <div className="flex flex-col gap-1.5">
+                    <p className="text-sm text-gray-400">Links úteis:</p>
 
-                    <div className="flex flex-row flex-wrap gap-2">
+                    <div className="flex flex-row flex-wrap gap-2.5">
                         {projeto.homepage && (
                             <a title="Visitar o site" href={projeto.homepage} className="cursor-pointer" target="_blank" rel="noreferrer">
                                 <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />
@@ -129,33 +121,15 @@ export default function DetalhePagina() {
                     </div>
                 </div>
 
-                <div className="relative max-w-4xl mx-auto">
-                    <img loading="eager" fetchPriority="high" className="w-full h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} crossOrigin="anonymous"
-                        onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = "/fallbacks/FALLBACK.webp";
-                        }}
-                    />
-
-                    {projeto.imagemGif && !erroGif && (
-                        <img loading="lazy" className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${mostrarGif ? "opacity-100" : "opacity-0 pointer-events-none"}`} src={projeto.imagemGif} alt={`GIF ${projeto.nome}`} crossOrigin="anonymous"
-                            onError={() => {
-                                setErroGif(true);
-                                setMostrarGif(false);
-                            }}
-                        />
-                    )}
-                    
-                    {projeto.imagemGif && !erroGif && (
-                        <button type="button" onClick={() => setMostrarGif((prev) => !prev)} className="absolute top-0 left-0 rounded-br-lg bg-white text-black text-xs p-2 cursor-pointer">
-                            {mostrarGif ? "❚❚" : "▶︎"}
-                        </button>
-                    )}
-                </div>
+                <img loading="eager" fetchPriority="high" className="bg-neutral-600/40 w-full h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} crossOrigin="anonymous"
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/fallbacks/FALLBACK.webp";
+                    }}
+                />
             </div>
 
-            {/* FAz com que se exista ser tiver readme */}
-            <BarraAcessibilidade textoAudio={readmeTextoVoz} tamanhoFonte={tamanhoFonte} setTamanhoFonte={setTamanhoFonte} />
+            <BarraAcessibilidade textoAudio={readmeMarkdown} tamanhoFonte={tamanhoFonte} setTamanhoFonte={setTamanhoFonte} />
 
             {/* CONTEÚDO DO README.MD */}
             <div className="wrap-break-word [&_pre]:overflow-x-auto [&_pre]:w-full [&_p]:mb-4 [&_a]:underline [&_a]:text-[#5b88c3] [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:mt-2 [&_h3]:mb-3 [&_strong]:font-bold [&_em]:italic [&_pre]:bg-neutral-800 [&_pre]:text-white [&_pre]:p-4 [&_pre]:rounded-md [&_hr]:my-6 [&_hr]:border-neutral-300" style={{ fontSize: `${tamanhoFonte}px` }} dangerouslySetInnerHTML={{ __html: readmeHtml }} />

@@ -92,8 +92,7 @@ export async function obterProjetosGithub(signal) {
 export async function obterUnicoProjeto(nomeRepo, signal) {
     try {
         let dono = "ryancunhha"
-
-        const response = await fetch(`https://api.github.com/repos/ryancunhha/${nomeRepo}`, { signal });
+        let response = await fetch(`https://api.github.com/repos/ryancunhha/${nomeRepo}`, { signal });
 
         if (!response.ok) {
             dono = "estudos-ryan";

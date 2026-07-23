@@ -26,11 +26,9 @@ export default function DetalhePagina() {
                 let projetoEncontrado = null;
 
                 if (cache) {
-                    // --- CAMINHO NORMAL ---
                     projetoEncontrado = JSON.parse(cache).find(p => p.name.toLowerCase() === id.toLowerCase());
                     textoMarkdown = await obterReadmeDoProjeto(id, controller.signal);
                 } else {
-                    // --- CAMINHO UNICO ---
                     projetoEncontrado = await obterUnicoProjeto(id);
                     textoMarkdown = await obterReadmeDoProjeto(id, controller.signal);
                 }
@@ -65,15 +63,20 @@ export default function DetalhePagina() {
         if (!readmeMarkdown) return "";
 
         const renderer = {
-            heading({ tokens, depth, text }) {
-                const newDepth = depth === 1 || 2 ? 3 : depth;
+            heading(token) {
+                const text = typeof token === "object" ? token.text : arguments[1];
+                const depth = typeof token === "object" ? token.depth : arguments[0];
+
+                const newDepth = (depth === 1 || depth === 2) ? 3 : depth;
                 return `<h${newDepth}>${text}</h${newDepth}>`;
             }
         };
 
         marked.use({ renderer });
-        return DOMPurify.sanitize(marked.parse(readmeMarkdown));
-    }, [readmeMarkdown]);
+
+        const rawHtml = marked.parse(readmeMarkdown);
+        return DOMPurify.sanitize(rawHtml);
+    }, [readmeMarkdown])
 
     if (loading) return <DetalheEsqueleto />;
     if (!projeto) return <Navigate to="/404" replace />;
@@ -83,26 +86,27 @@ export default function DetalhePagina() {
             {/* APRESENTAÇÃO DO PROJETO */}
             <div className="flex flex-col gap-2">
                 {/* BREADCRUMB */}
-                <div className="flex items-center gap-2">
-                    <Link className="hover:underline text-md" to="/projetos">← Projetos</Link>
+                <div className="flex items-center gap-2 w-max px-1">
+                    <span className="cursor-default text-gray-400">←</span>
+                    <Link className="hover:underline text-lg" to="/projetos">Projetos</Link>
 
-                    {projeto.topicos && projeto.topicos.length > 0 && (
+                    {projeto.topicos[0] && projeto.topicos.length > 0 && (
                         <>
-                            <span className="cursor-default text-neutral-400">&gt;</span>
-                            <Link className="capitalize hover:underline text-md" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>
+                            <span className="cursor-default text-gray-400">&gt;</span>
+                            <Link className="capitalize hover:underline text-lg" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>
                         </>
                     )}
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                    {projeto.topicos[0] && <p className="capitalize text-sm text-gray-400">{projeto.topicos[0]}</p>}
+                    {projeto.topicos[0] && <Link className="capitalize w-max" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>}
                     <h1 className="text-4xl font-extrabold tracking-tight capitalize">{projeto.nome}</h1>
                     {projeto.description && <h2 className="max-w-3xl text-wrap text-lg leading-relaxed">{`${projeto.description}`}</h2>}
-                    <p className="text-sm">Criado em {`${projeto.data.mes}/${projeto.data.ano}`} {projeto.atualizado && <span>{projeto.atualizado}</span>}</p>
+                    <p className="text-sm">Criado em {`${projeto.data.mes}/${projeto.data.ano}`} {projeto.atualizado && <span className="text-gray-400">{projeto.atualizado}</span>}</p>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                    <p className="text-sm text-gray-400">Links úteis:</p>
+                <div className="flex flex-col gap-1.5 select-none">
+                    <p className="text-sm text-gray-400">Utilidades:</p>
 
                     <div className="flex flex-row flex-wrap gap-2.5">
                         {projeto.homepage && (
@@ -115,16 +119,44 @@ export default function DetalhePagina() {
                             <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/github.png" alt={`GitHub do projeto ${projeto.name}`} />
                         </a>
 
-                        <button title="Compartilhar projeto" onClick={() => navigator.share && navigator.share({ title: projeto?.nome, url: window.location.href }).catch(console.error)} className="cursor-pointer">
-                            <img className="rounded-full" height="40" width="40" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar projeto" />
-                        </button>
+                        {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
+                            <button type="button" title="Compartilhar projeto"
+                                onClick={() => {
+                                    navigator.share({
+                                        title: projeto.name,
+                                        text: `Confira o projeto ${projeto.nome}:`,
+                                        url: window.location.href
+                                    }).catch(() => { });
+                                }} className="cursor-pointer">
+                                <img className="rounded-full" height="40" width="40" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar projeto" />
+                            </button>
+                        )}
+
+                        {projeto.clone_url && (
+                            <button type="button" title="Copiar comando Git clone" className="cursor-pointer"
+                                onClick={() => {
+                                    const comando = `git clone ${projeto.clone_url}`;
+                                    navigator.clipboard.writeText(comando);
+                                }}
+                            >
+                                <img className="rounded-full bg-white" height="40" width="40" src="https://img.icons8.com/color/48/git.png" alt="Git" />
+                            </button>
+                        )}
+
+                        <a title="Reportar bug ou sugestão" href={`https://github.com/ryancunhha/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
+                            <img className="rounded-full bg-white p-1.5" height="40" width="40" src="https://img.icons8.com/ios-filled/50/bug.png" alt="Reportar issue" />
+                        </a>
+
+                        <a title="Abrir no VS Code Web" href={`https://github.dev/${projeto.organizacao}/${projeto.name}`} target="_blank" rel="noreferrer" className="cursor-pointer">
+                            <img className="rounded-full bg-white p-1" height="40" width="40" src="https://img.icons8.com/color/48/visual-studio-code-2019.png" alt="VS Code Web" />
+                        </a>
                     </div>
                 </div>
 
                 <img loading="eager" fetchPriority="high" className="bg-neutral-600/40 w-full h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} crossOrigin="anonymous"
                     onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = "/fallbacks/FALLBACK.webp";
+                        e.target.src = "/FALLBACK.webp";
                     }}
                 />
             </div>

@@ -24,7 +24,7 @@ export default function Dropdown({ items, aoFechar }) {
             <div className="flex flex-col min-w-0 divide-y divide-[#3E3E49]/40">
                 {items.map((item, index) => (
                     <a title={item.label} key={index} href={item.url} target="_blank" rel="noopener noreferrer" onClick={aoFechar} className={`flex w-full items-center gap-2 px-3 py-4 min-w-0`}>
-                        {item.icon && <img className="rounded" height="25" width="25" src={item.icon} loading="lazy" alt={`Acessar meu perfil no ${items.label}`} />}
+                        {item.icon && <img className="rounded" height="25" width="25" src={item.icon} loading="lazy" fetchPriority="low" alt={`Acessar meu perfil no ${items.label}`} />}
                         <p className="w-full text-left text-sm font-medium text-white truncate">{item.label}</p>
                     </a>
                 ))}

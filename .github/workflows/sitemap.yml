@@ -2,7 +2,7 @@ name: Gerar Sitemap
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * 0"
   workflow_dispatch:
 
 permissions:
@@ -39,5 +39,5 @@ jobs:
       - name: Commit and Push sitemap.xml
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "Chore: update sitemap.xml [skip ci]"
+          commit_message: "Chore: update sitemap.xml [CI/CD]"
           file_pattern: "my-portfolio/public/sitemap.xml"

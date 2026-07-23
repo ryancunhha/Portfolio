@@ -26,7 +26,7 @@ export default function AlertError({ mensagem, className }) {
         <div
             className={`
                 /* Posicionamento fixo */
-                fixed z-3 break-words whitespace-pre-line
+                fixed z-3 wrap-break-word whitespace-pre-line
                 
                 /* ESTILO */
                 ${className}
@@ -36,7 +36,7 @@ export default function AlertError({ mensagem, className }) {
                 ${animarSaida ? "animate-slide-out-top" : "animate-slide-in-top"}
                 
                 /* COMPUTADOR */
-                md:top-auto md:bottom-3 md:left-67 md:w-auto md:max-w-xs 
+                md:top-auto md:bottom-3 md:left-70 md:w-auto md:max-w-xs 
                 ${animarSaida ? "animate-notification-out" : "animate-notification-in"}
             `}
         >

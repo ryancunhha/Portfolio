@@ -7,5 +7,10 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-    event.respondWith(fetch(event.request));
+    event.respondWith(
+        fetch(event.request).catch((err) => {
+            console.warn("Falha de rede no Service Worker:", event.request.url);
+            return new Response("", { status: 408, statusText: "Fetch failed" });
+        })
+    );
 });

@@ -18,9 +18,7 @@ export default function Sobre() {
 
     return (
         <>
-            {mostrarNotificacao && (
-                <Notificacao mensagem={"E-mail copiado!"} className="p-4 text-md rounded-lg border-l-6 bg-blue-100 text-blue-700 border-blue-700" />
-            )}
+            {mostrarNotificacao && <Notificacao mensagem={`🔔 E-mail: ${email} copiado!`} className="px-3 py-4 text-[13px] font-medium text-white bg-zinc-900 rounded-md border border-zinc-800" />}
 
             <div className="flex flex-col items-center gap-6 mx-auto p-6 my-7 max-w-4xl">
                 <div className="flex flex-col items-center text-center space-y-6 w-full">

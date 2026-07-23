@@ -1,6 +1,5 @@
 import { rotasMenu, ignorarRepo } from "./rotas.js";
 import BannerPessoal from "./banners/Pessoal";
-import BannerAutomacao from "./banners/Automacao";
 
 const BANNERS = [
     BannerPessoal,

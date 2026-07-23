@@ -36,7 +36,7 @@ export async function obterProjetosGithub(signal) {
         const tempo = sessionStorage.getItem(CACHE_TIME_KEY);
         const agora = Date.now();
 
-        if (cache && tempo && (agora - Number(tempo) < 300000)) return JSON.parse(cache);
+        if (cache && tempo && (agora - Number(tempo) < 3600000)) return JSON.parse(cache);
 
         const [responseOrgs, responsePerfil] = await Promise.all([
             fetch("https://api.github.com/orgs/estudos-ryan/repos?per_page=30", { signal }),
@@ -52,13 +52,14 @@ export async function obterProjetosGithub(signal) {
         const dados = [...dadosOrgs, ...dadosPerfil];
 
         // DADOS
-        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description, owner }) => {
+        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description, owner, clone_url }) => {
             const baseImagemUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/assets`;
 
             return {
                 id,
                 name,
                 nome: name.replace(/-/g, " "),
+                organizacao: owner.login,
                 topicos: topics,
                 data: {
                     ano: new Date(created_at).getFullYear(),
@@ -67,8 +68,10 @@ export async function obterProjetosGithub(signal) {
                 atualizado: formatarTempoAtras(pushed_at),
                 imagem: `${baseImagemUrl}/thumbnail.png`,
                 imagemGif: `${baseImagemUrl}/thumbnail.gif`,
+                branch: default_branch,
                 homepage,
                 description,
+                clone_url,
             }
         })
         )
@@ -88,29 +91,38 @@ export async function obterProjetosGithub(signal) {
 // Dados Leves unicos
 export async function obterUnicoProjeto(nomeRepo, signal) {
     try {
+        let dono = "ryancunhha"
+
         const response = await fetch(`https://api.github.com/repos/ryancunhha/${nomeRepo}`, { signal });
 
         if (!response.ok) {
-            throw new Error(`Erro ao buscar repositório específico: ${response.status}`);
+            dono = "estudos-ryan";
+            response = await fetch(`https://api.github.com/repos/${dono}/${nomeRepo}`, { signal });
+        }
+
+        if (!response.ok) {
+            throw new Error(`Repositório não encontrado em nenhuma das contas`);
         }
 
         const dados = await response.json();
-        const baseImagemUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/assets`;
+        const branchPadrao = dados.default_branch || "main";
 
         return {
             id: dados.id,
             name: dados.name,
             nome: dados.name.replace(/-/g, " "),
+            organizacao: dados.owner.login,
             topicos: dados.topics || [],
             data: {
                 ano: new Date(dados.created_at).getFullYear(),
                 mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
             },
             atualizado: formatarTempoAtras(dados.updated_at),
-            imagem: `${baseImagemUrl}/thumbnail.png`,
-            imagemGif: `${baseImagemUrl}/thumbnail.gif`,
+            imagem: `https://raw.githubusercontent.com/${dados.owner.login}/${dados.name}/${branchPadrao}/assets/thumbnail.png`,
+            branch: branchPadrao,
             homepage: dados.homepage,
             description: dados.description,
+            clone_url: dados.clone_url
         };
     } catch (error) {
         if (error.name === "AbortError") throw error;

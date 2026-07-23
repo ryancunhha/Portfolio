@@ -94,7 +94,7 @@ export default function TelaInicial() {
                     {/* Card Automações */}
                     <div className="flex gap-4 border-y border-slate-300 flex-col items-start justify-between w-full p-6">
                         <div className="flex flex-wrap gap-3 justify-between items-start w-full">
-                            <div className="bg-[#FFDE57]/10 p-3 rounded-xl">
+                            <div className="bg-[#FFDE57]/20 p-3 rounded-xl">
                                 <img src="https://img.icons8.com/color/48/python--v1.png" width="40" height="40" alt="Python" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
                             </div>
 
@@ -110,7 +110,7 @@ export default function TelaInicial() {
                     {/* Card Mobile */}
                     <div className="flex gap-4 border-y border-slate-300 flex-col items-start justify-between w-full p-6">
                         <div className="flex flex-wrap gap-3 justify-between items-start w-full">
-                            <div className="bg-[#61DAFB]/10 p-3 rounded-xl">
+                            <div className="bg-[#61DAFB]/20 p-3 rounded-xl">
                                 <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React-Native" width="40" height="40" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
                             </div>
 
@@ -126,8 +126,8 @@ export default function TelaInicial() {
                     {/* Card Web */}
                     <div className="flex gap-4 border-y border-slate-300 flex-col items-start justify-between w-full p-6">
                         <div className="flex flex-wrap gap-3 justify-between items-start w-full">
-                            <div className="bg-[#E34C26]/10 p-3 rounded-xl">
-                                <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" decoding="async" />
+                            <div className="bg-[#FFDE57]/20 p-3 rounded-xl">
+                                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="javascript" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" decoding="async" />
                             </div>
 
                             <Link aria-label="Filtrar projetos por Web" className="mt-1 py-2.5 px-5 border rounded-full text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>

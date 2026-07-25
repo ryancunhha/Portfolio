@@ -1,18 +1,20 @@
 # Portfólio - Ryan Cunha
 
-Olá! Este é o portfólio de **Ryan Cunha**.
+Olá! Este é meu portfólio **Ryan Cunha**.
 
-Meu objetivo com este site é reunir meus projetos, experiências, estudos e ideias em um único lugar, apresentando meu trabalho de forma organizada para recrutadores, desenvolvedores e qualquer pessoa interessada em conhecer o que venho construindo.
+## Objetivo
+
+Meu objetivo com este site é reunir meus projetos, experiências, estudos e ideias em um único lugar.
 
 ## Sobre
 
-Sou desenvolvedor e estou constantemente estudando novas tecnologias, buscando escrever código limpo, criar soluções escaláveis e desenvolver aplicações que resolvam problemas reais.
+Sou desenvolvedor e estou constantemente estudando novas tecnologias, buscando escrever código limpo, criar soluções escaláveis e desenvolver aplicações que resolvam problemas.
 
 Acredito que simplicidade, organização e automação são fundamentais para manter projetos de qualidade e fáceis de evoluir.
 
 ## O que você encontrará
 
-- Projetos desenvolvidos
+- Projetos desenvolvidos ou em desenvolvimento
 - Informações sobre mim
 - Currículo
 - Formas de contato
@@ -21,7 +23,7 @@ Acredito que simplicidade, organização e automação são fundamentais para ma
 
 ## Tecnologias
 
-Entre as tecnologias e ferramentas utilizadas neste projeto estão:
+Ferramentas utilizadas neste projeto:
 
 - JavaScript
 - React
@@ -29,10 +31,6 @@ Entre as tecnologias e ferramentas utilizadas neste projeto estão:
 - GitHub
 - Vercel
 
-## Objetivo
-
-Mais do que exibir projetos, este portfólio representa minha evolução como desenvolvedor.
-
-Cada novo projeto publicado demonstra um pouco do meu aprendizado, da minha forma de resolver problemas e da busca constante por criar soluções cada vez melhores.
+---
 
 Obrigado por visitar meu portfólio!

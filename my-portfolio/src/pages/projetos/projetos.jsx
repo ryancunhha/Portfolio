@@ -112,7 +112,7 @@ export default function Projeto() {
 
     return (
         <>
-            <div className="md:sticky top-0 z-2 bg-principal-bg transition-colors duration-200 flex flex-col items-center px-3 pt-4 pb-2 select-none">
+            <div className="md:sticky top-0 z-2 bg-principal-bg transition-colors duration-200 flex flex-col items-center px-4 pt-4 pb-2">
                 <div className="flex items-center gap-2 w-full max-w-md border border-[#888] rounded-lg px-3">
                     <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 placeholder-[#888] bg-transparent outline-none w-full max-w-md" type="search" placeholder="Pesquisar..." value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
                     <p>🔍</p>
@@ -120,7 +120,7 @@ export default function Projeto() {
 
                 <div className="w-full flex flex-row gap-2 mt-3 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
                     {todasCategorias.map((categoria) => (
-                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-3 py-1 mb-2 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
+                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); setLimiteVisivel(9); }} className={`px-4 md:px-3 py-2.5 md:py-1 mb-2 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
                             {categoria}
                         </button>
                     ))}

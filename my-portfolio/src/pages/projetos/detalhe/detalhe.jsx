@@ -108,7 +108,7 @@ export default function DetalhePagina() {
                 <div className="flex flex-col gap-1.5 select-none">
                     <p className="text-sm text-gray-400">Utilidades:</p>
 
-                    <div className="flex flex-row flex-wrap gap-4">
+                    <div className="flex flex-row flex-wrap gap-3.5">
                         {projeto.homepage && (
                             <a title="Visitar o site" href={projeto.homepage} className="cursor-pointer" target="_blank" rel="noreferrer">
                                 <img loading="lazy" fetchPriority="low" className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />

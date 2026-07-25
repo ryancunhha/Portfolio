@@ -102,7 +102,7 @@ export default function Solicitacao() {
                     </div>
 
                     <div className="flex justify-start w-full overflow-x-auto h-20">
-                        {/* <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_RECAPTCHA_KEY} /> */}
+                        <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_RECAPTCHA_KEY} />
                     </div>
 
                     <button title="Enviar" type="submit" disabled={carregando} className={`w-full py-3 px-6 text-white font-semibold rounded-sm ${carregando ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800 outline-none cursor-pointer"}`}>

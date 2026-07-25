@@ -88,9 +88,12 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
         if (!textoLimpo) return;
 
         if (status === "tocando") {
+            canceladoManualmenteRef.current = true;
             window.speechSynthesis.cancel();
             setStatus("pausado");
         } else {
+            canceladoManualmenteRef.current = true;
+            window.speechSynthesis.cancel();
             setStatus("tocando");
             executarFala(progressoRef.current >= 100 ? 0 : progressoRef.current);
         }
@@ -125,17 +128,17 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
 
     return (
         <div className="flex flex-row flex-wrap items-center gap-3">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 flex-1 w-full min-w-62">
                 <span className="text-xs font-medium">Ouvir:</span>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-row items-center gap-3 w-full">
                     <button type="button" onClick={alternarLeitura} className="cursor-pointer font-bold w-6">
                         {status === "tocando" ? "❚❚" : "▶︎"}
                     </button>
 
-                    <div className="flex items-center gap-2 flex-1 min-w-20">
-                        <input id="progresso-audio" name="progressoAudio" type="range" min="0" max="100" step="0.1" value={progresso} onChange={atualizarVisualAoArrastar} onMouseUp={aplicarMudancaDeAudio} onTouchEnd={aplicarMudancaDeAudio} className="w-full accent-blue-500 h-1 rounded-lg cursor-pointer" />
-                        <span className="text-xs">{formatarTempo(tempoAtual)}</span>
+                    <div className="flex items-center gap-2 flex-1 w-full">
+                        <input id="progresso-audio" name="progressoAudio" type="range" min="0" max="100" step="0.1" value={progresso} onChange={atualizarVisualAoArrastar} onMouseUp={aplicarMudancaDeAudio} onTouchEnd={aplicarMudancaDeAudio} className="flex-1 w-full accent-blue-500 h-3 rounded-lg cursor-pointer" />
+                        <span className="text-xs font-mono min-w-10 text-right">{formatarTempo(tempoAtual)}</span>
                     </div>
 
                     <select id="velocidade-select" name="velocidadeSelect" value={velocidade} onChange={(e) => alterarVelocidade(Number(e.target.value))} className="text-xs outline-none cursor-pointer bg-principal-bg transition-colors duration-200" >
@@ -148,8 +151,8 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
                 <span className="text-xs font-medium">Fonte:</span>
 
                 <div className="flex gap-4">
-                    <button onClick={() => setTamanhoFonte(prev => Math.max(12, prev - 2))} className="text-2xl cursor-pointer font-bold">A-</button>
-                    <button onClick={() => setTamanhoFonte(prev => Math.min(28, prev + 2))} className="text-2xl cursor-pointer font-bold">A+</button>
+                    <button onClick={() => setTamanhoFonte(prev => Math.max(12, prev - 2))} className="text-3xl md:text-2xl cursor-pointer font-bold">A-</button>
+                    <button onClick={() => setTamanhoFonte(prev => Math.min(28, prev + 2))} className="text-3xl md:text-2xl cursor-pointer font-bold">A+</button>
                 </div>
             </div>
         </div>

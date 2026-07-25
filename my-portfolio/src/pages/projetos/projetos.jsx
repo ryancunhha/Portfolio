@@ -7,6 +7,7 @@ export default function Projeto() {
     const fimDaPaginaRef = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const [projetos, setProjetos] = useState([]);
+    const [carregando, setCarregando] = useState(true);
     const [busca, setBusca] = useState("");
     const [filtroAtivo, setFiltroAtivo] = useState("Tudo");
     const [limiteVisivel, setLimiteVisivel] = useState(9);
@@ -75,6 +76,8 @@ export default function Projeto() {
                 if (montado) setProjetos(await obterProjetosGithub(controller.signal))
             } catch (error) {
                 console.error(error);
+            } finally {
+                if (montado) setCarregando(false);
             }
         })();
 
@@ -105,7 +108,7 @@ export default function Projeto() {
         }
     }, [limiteVisivel, projetosFiltrados.length]);
 
-    if (projetos.length === 0) return <EsqueletoProjetos />
+    if (carregando) return <EsqueletoProjetos />
 
     return (
         <>
@@ -129,17 +132,18 @@ export default function Projeto() {
                     <p className="text-center text-[#999] col-span-full pt-8">Nenhum projeto encontrado.</p>
                 ) : (
                     projetosExibidos.map((repo, i) => (
-                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
+                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer"
+                            onMouseEnter={(e) => {
+                                const img = e.currentTarget.querySelector("img");
+                                if (img) img.src = repo.imagemGif;
+                            }}
+                            onMouseLeave={(e) => {
+                                const img = e.currentTarget.querySelector("img");
+                                if (img) img.src = repo.imagem;
+                            }}
+                        >
                             <div className="relative w-full aspect-video p-1 overflow-hidden">
-                                <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading="eager" fetchPriority={i < 6 ? "high" : "auto"} width="540" height="360" className="bg-black w-full h-full aspect-video object-cover rounded-xl select-none transition-all duration-300" crossOrigin="anonymous"
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.src = repo.imagemGif;
-                                    }}
-
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.src = repo.imagem;
-                                    }}
-
+                                <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading="eager" fetchPriority={i < 6 ? "high" : "auto"} width="540" height="360" className="bg-black w-full h-full aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
                                     onError={(e) => {
                                         e.currentTarget.onerror = null;
                                         e.currentTarget.src = "/FALLBACK.webp";

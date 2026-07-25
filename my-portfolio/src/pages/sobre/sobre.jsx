@@ -4,6 +4,9 @@ import Notificacao from "../../components/notificacao/notificacao";
 
 export default function Sobre() {
     const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
+    const tecnologias = [
+        "React.js", "Node.js", "TailwindCSS", "Python", "React Native", "Expo GO", "Docker", "Git", "Figma"
+    ];
 
     const copiarEmail = () => {
         navigator.clipboard.writeText(email);
@@ -33,11 +36,27 @@ export default function Sobre() {
                     <div className="flex flex-wrap justify-center gap-4 bg-[#18181B] p-2 rounded-sm">
                         {redes?.map((rede, index) => (
                             <a key={index} href={rede.url} target="_blank" rel="noopener noreferrer" title={rede.label}>
-                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-8 w-8 hover:scale-105" height="32" width="32" />
+                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-8 w-8" height="32" width="32" />
                             </a>
                         ))}
 
-                        <button title="Copiar Email" onClick={copiarEmail} className="px-1 cursor-pointer bg-white rounded text-lg hover:scale-105">📧</button>
+                        <button title="Copiar Email" onClick={copiarEmail} className="px-1 cursor-pointer bg-white rounded text-lg">📧</button>
+                    </div>
+                </div>
+
+                <div className="h-18 w-full overflow-hidden flex items-center">
+                    <div className="flex w-max animar-scroll">
+                        {tecnologias.map((tech, index) => (
+                            <div key={index} className="mx-8 text-lg font-semibold text-gray-500 whitespace-nowrap">
+                                {tech}
+                            </div>
+                        ))}
+
+                        {tecnologias.map((tech, index) => (
+                            <div key={`dup-${index}`} className="mx-8 text-lg font-semibold text-gray-500 whitespace-nowrap">
+                                {tech}
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -47,11 +66,11 @@ export default function Sobre() {
                         <span className="inline-block ml-2 animate-wave-hand">👋</span>
                     </h1>
 
-                    <h2 className="text-xl font-semibold ">Sou <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">desenvolvedor Full-Stack</span> e em <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">automações</span>. Este é o espaço onde compartilho meus projetos, estudos e como traduzo visões em valor de mercado.</h2>
+                    <h2 className="text-xl font-semibold ">Sou <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">desenvolvedor Full-Stack</span>, <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">mobile</span> e <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">automação</span>. Este é o espaço onde compartilho meus projetos e estudos.</h2>
 
                     <div className="flex items-center gap-3">
                         <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
-                        <h3 className="font-semibold text-xl">🛠️ Minha Metodologia</h3>
+                        <h3 className="font-semibold text-2xl">🛠️ Meu método</h3>
                     </div>
                     <p className="leading-relaxed text-lg">
                         Gosto de criar projetos organizados, focados em{" "}
@@ -62,16 +81,16 @@ export default function Sobre() {
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
                             escalabilidade
                         </span> e{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">facilidade de manutenção</span>. Os projetos apresentados neste portfólio refletem a forma como penso, organizo e desenvolvo soluções.
+                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">facilidade de manutenção</span>. Os projetos apresentados neste portfólio refletem a como penso, organizo e desenvolvo.
                     </p>
 
                     <div className="flex items-center gap-3">
                         <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
-                        <h3 className="font-semibold text-xl">🌱 O Começo</h3>
+                        <h3 className="font-semibold text-2xl">🌱 O Começo</h3>
                     </div>
                     <p className="leading-relaxed text-lg">
                         Meu interesse pelo desenvolvimento surgiu de forma espontânea. Meu
-                        irmão fazia um curso de front-end e ao acompanhar seus estudos, despertei curiosidade pela área.
+                        irmão realizava um curso online de programação e ao acompanhar seus estudos, despertei curiosidade pela área.
                         A curiosidade rapidamente virou interesse, comecei pelo{" "}
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
                             Front-end
@@ -80,18 +99,18 @@ export default function Sobre() {
 
                     <div className="flex items-center gap-3">
                         <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
-                        <h3 className="font-semibold text-xl">🎓 Formação e Evolução</h3>
+                        <h3 className="font-semibold text-2xl">🎓 Formação e Evolução</h3>
                     </div>
                     <p className="leading-relaxed text-lg">
-                        Com o tempo, decidi ingressar na graduação de{" "}
+                        Com o tempo, decidi ingressar numa graduação de{" "}
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
                             Análise e Desenvolvimento de Sistemas (ADS)
                         </span>{" "}
-                        no IBMR (Barra da Tijuca), conquistando uma bolsa de 100% por meio do ENEM. Durante essa jornada, me interessei por{" "}
+                        na Barra da Tijuca (IBMR), conquistando uma bolsa de 100% por meio do ENEM. Durante essa jornada, me interessei por{" "}
                         <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
                             Back-end, Bancos de dados e Automações
                         </span>
-                        , áreas que hoje fazem parte do meu dia a dia nos estudos e no desenvolvimento dos meus projetos.
+                        , áreas que hoje fazem parte do meu dia a dia, nos estudos e no desenvolvimento dos meus projetos.
                     </p>
                 </div>
             </div>

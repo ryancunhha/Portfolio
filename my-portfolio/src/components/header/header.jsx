@@ -95,7 +95,7 @@ export default function MenuHamburguer() {
             {menuAberto && <div onClick={fecharMenu} className="fixed inset-0 bg-black/20 z-4 md:hidden animate-fade-in" />}
 
             {/* MENU */}
-            <div className={`bg-[#0A0A0A] fixed top-0 left-0 h-screen z-5 flex flex-col justify-between transition-transform duration-150 ease-in-out w-[calc(100%-8px)] max-w-68 ${menuAberto ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0`}>
+            <div className={`bg-[#0A0A0A] fixed top-0 left-0 h-screen z-5 flex flex-col justify-between transition-transform duration-150 ease-in-out w-[calc(100%-8px)] max-w-74 ${menuAberto ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0`}>
                 {/* HEAEDAR */}
                 <div className="border-b border-[#29292A]">
                     {/* botao de fechar (mobile) */}
@@ -105,7 +105,7 @@ export default function MenuHamburguer() {
 
                     {/* logo / nome */}
                     <div className="flex flex-row items-center m-4 p-3 rounded-lg bg-[#161616] text-white">
-                        <img className="border rounded-full border-[#232323] h-7 w-7" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil GitHub de Ryan Cunha" width="40" height="40" decoding="async" loading="auto" fetchPriority="low" />
+                        <img className="border rounded-full border-[#232323] h-10 w-10" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil GitHub de Ryan Cunha" width="40" height="40" decoding="async" loading="auto" fetchPriority="low" />
                         <p className="ml-2 text-white text-wrap font-semibold">Ryan <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-500 select-none" aria-hidden="true">_</span></span></p>
                     </div>
                 </div>

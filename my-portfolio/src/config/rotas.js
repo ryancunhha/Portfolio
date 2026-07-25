@@ -7,7 +7,8 @@ const rotasMenu = [
 ]
 
 const ignorarRepo = [
-    "ryancunhha"
+    "ryancunhha",
+    "Portfolio"
 ] || []
 
 export { rotasMenu, ignorarRepo }

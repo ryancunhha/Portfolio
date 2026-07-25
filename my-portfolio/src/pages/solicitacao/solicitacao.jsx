@@ -9,6 +9,7 @@ export default function Solicitacao() {
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(null);
     const recaptchaRef = useRef(null);
+
     const mostrarErro = (mensagem) => {
         setErro(mensagem);
         setTimeout(() => setErro(null), 4000);
@@ -27,13 +28,12 @@ export default function Solicitacao() {
         }
 
         const formData = new FormData(e.target);
+        formData.delete("g-recaptcha-response");
         for (let [key, value] of formData.entries()) {
             if (typeof value === "string") {
                 formData.set(key, value.trim());
             }
         }
-
-        formData.append("recaptcha", token);
 
         try {
             const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
@@ -61,13 +61,13 @@ export default function Solicitacao() {
     if (enviado) return <Agradecimento />;
 
     const label = "block text-sm font-semibold mb-1";
-    const input = "w-full px-4 py-3 border-2 border-gray-300 rounded-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 invalid:border-red-500 transition-colors duration-50";
+    const input = "text-xl w-full px-4 py-3 border-2 border-gray-300 rounded-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 invalid:border-red-500 transition-colors duration-50";
 
     return (
         <>
             <Notificacao mensagem={erro} className="p-4 text-sm rounded-lg border-l-6 bg-red-100 text-red-700 border-red-700" />
 
-            <div className="py-8 px-4 flex flex-col items-center justify-center min-h-screen space-y-6 w-full">
+            <div className="py-8 px-4 flex flex-col items-center min-h-screen space-y-6 w-full">
                 <div className="text-center space-y-3 max-w-2xl w-full">
                     <h1 className="text-4xl font-extrabold tracking-tight">Solicitação de Serviço</h1>
                     <h2 className="text-xl">Como fazer a sua solicitação?</h2>
@@ -79,7 +79,7 @@ export default function Solicitacao() {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="px-4 md:px-10 py-8 space-y-4 max-w-2xl w-full border border-gray-400 rounded-xl">
+                <form onSubmit={handleSubmit} className="px-4 md:px-10 py-8 space-y-4 max-w-2xl w-full border-y-3 border-gray-400">
                     {/* Configurações do FormSubmit (Oculto) */}
                     <input type="hidden" name="_captcha" value="false" />
                     <input type="text" name="_honey" style={{ display: "none" }} />
@@ -101,8 +101,8 @@ export default function Solicitacao() {
                         <textarea className={`${input} h-30 resize-none`} id="descricao" name="descricao" placeholder="" required />
                     </div>
 
-                    <div className="flex justify-start w-full overflow-x-auto py-1">
-                        <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_RECAPTCHA_KEY} />
+                    <div className="flex justify-start w-full overflow-x-auto h-20">
+                        {/* <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_RECAPTCHA_KEY} /> */}
                     </div>
 
                     <button title="Enviar" type="submit" disabled={carregando} className={`w-full py-3 px-6 text-white font-semibold rounded-sm ${carregando ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800 outline-none cursor-pointer"}`}>

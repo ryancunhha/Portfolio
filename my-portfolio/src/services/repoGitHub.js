@@ -116,7 +116,7 @@ export async function obterUnicoProjeto(nomeRepo, signal) {
                 ano: new Date(dados.created_at).getFullYear(),
                 mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
             },
-            atualizado: formatarTempoAtras(dados.updated_at),
+            atualizado: formatarTempoAtras(dados.pushed_at),
             imagem: `https://raw.githubusercontent.com/${dados.owner.login}/${dados.name}/${branchPadrao}/assets/thumbnail.png`,
             branch: branchPadrao,
             homepage: dados.homepage,

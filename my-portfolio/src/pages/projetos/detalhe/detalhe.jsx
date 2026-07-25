@@ -99,7 +99,7 @@ export default function DetalhePagina() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                    {projeto.topicos[0] && <Link className="capitalize w-max" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>}
+                    {projeto.topicos[0] && <Link className="capitalize w-max text-gray-400" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>}
                     <h1 className="text-4xl font-extrabold tracking-tight capitalize">{projeto.nome}</h1>
                     {projeto.description && <h2 className="max-w-3xl text-wrap text-lg leading-relaxed">{`${projeto.description}`}</h2>}
                     <p className="text-sm">Criado em {`${projeto.data.mes}/${projeto.data.ano}`} {projeto.atualizado && <span className="text-gray-400">{projeto.atualizado}</span>}</p>
@@ -108,15 +108,15 @@ export default function DetalhePagina() {
                 <div className="flex flex-col gap-1.5 select-none">
                     <p className="text-sm text-gray-400">Utilidades:</p>
 
-                    <div className="flex flex-row flex-wrap gap-2.5">
+                    <div className="flex flex-row flex-wrap gap-4">
                         {projeto.homepage && (
                             <a title="Visitar o site" href={projeto.homepage} className="cursor-pointer" target="_blank" rel="noreferrer">
-                                <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />
+                                <img loading="lazy" fetchPriority="low" className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />
                             </a>
                         )}
 
                         <a title="Link do repositório" href={`https://github.com/ryancunhha/${projeto.name}`} target="_blank" rel="noreferrer">
-                            <img className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/github.png" alt={`GitHub do projeto ${projeto.name}`} />
+                            <img loading="eager" fetchPriority="low" className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/github.png" alt={`GitHub do projeto ${projeto.name}`} />
                         </a>
 
                         {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
@@ -128,7 +128,7 @@ export default function DetalhePagina() {
                                         url: window.location.href
                                     }).catch(() => { });
                                 }} className="cursor-pointer">
-                                <img className="rounded-full" height="40" width="40" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar projeto" />
+                                <img loading="lazy" fetchPriority="low" className="rounded-full bg-white p-0.5" height="40" width="40" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar projeto" />
                             </button>
                         )}
 
@@ -139,21 +139,17 @@ export default function DetalhePagina() {
                                     navigator.clipboard.writeText(comando);
                                 }}
                             >
-                                <img className="rounded-full bg-white" height="40" width="40" src="https://img.icons8.com/color/48/git.png" alt="Git" />
+                                <img loading="lazy" fetchPriority="low" className="rounded-full bg-white p-0.5" height="40" width="40" src="https://img.icons8.com/color/48/git.png" alt="Git" />
                             </button>
                         )}
 
                         <a title="Reportar bug ou sugestão" href={`https://github.com/ryancunhha/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
-                            <img className="rounded-full bg-white p-1.5" height="40" width="40" src="https://img.icons8.com/ios-filled/50/bug.png" alt="Reportar issue" />
-                        </a>
-
-                        <a title="Abrir no VS Code Web" href={`https://github.dev/${projeto.organizacao}/${projeto.name}`} target="_blank" rel="noreferrer" className="cursor-pointer">
-                            <img className="rounded-full bg-white p-1" height="40" width="40" src="https://img.icons8.com/color/48/visual-studio-code-2019.png" alt="VS Code Web" />
+                            <img loading="lazy" fetchPriority="low" className="rounded-full bg-white p-1.5" height="40" width="40" src="https://img.icons8.com/ios-filled/50/bug.png" alt="Reportar issue" />
                         </a>
                     </div>
                 </div>
 
-                <img loading="eager" fetchPriority="high" className="bg-neutral-600/40 w-full h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} crossOrigin="anonymous"
+                <img loading="eager" fetchPriority="high" className="w-full h-64 md:h-96 object-contain" src={projeto.imagem} alt={`Projeto ${projeto.nome}`} crossOrigin="anonymous"
                     onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = "/FALLBACK.webp";

@@ -53,8 +53,6 @@ export async function obterProjetosGithub(signal) {
 
         // DADOS
         const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, homepage, default_branch, description, owner, clone_url }) => {
-            const baseImagemUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/assets`;
-
             return {
                 id,
                 name,
@@ -66,8 +64,7 @@ export async function obterProjetosGithub(signal) {
                     mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
                 },
                 atualizado: formatarTempoAtras(pushed_at),
-                imagem: `${baseImagemUrl}/thumbnail.png`,
-                imagemGif: `${baseImagemUrl}/thumbnail.gif`,
+                imagem: `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/assets/thumbnail.png`,
                 branch: default_branch,
                 homepage,
                 description,
@@ -104,7 +101,6 @@ export async function obterUnicoProjeto(nomeRepo, signal) {
         }
 
         const dados = await response.json();
-        const branchPadrao = dados.default_branch || "main";
 
         return {
             id: dados.id,
@@ -117,8 +113,8 @@ export async function obterUnicoProjeto(nomeRepo, signal) {
                 mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
             },
             atualizado: formatarTempoAtras(dados.pushed_at),
-            imagem: `https://raw.githubusercontent.com/${dados.owner.login}/${dados.name}/${branchPadrao}/assets/thumbnail.png`,
-            branch: branchPadrao,
+            imagem: `https://raw.githubusercontent.com/${dados.owner.login}/${dados.name}/main/assets/thumbnail.png`,
+            branch: dados.default_branch,
             homepage: dados.homepage,
             description: dados.description,
             clone_url: dados.clone_url

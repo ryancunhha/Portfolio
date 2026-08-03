@@ -33,11 +33,11 @@ function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
     return (
         <div className={`flex flex-row items-center gap-6 md:gap-3 ${className}`}>
             {/* TEMA */}
-            <button type="button" onClick={alterarTema} className="cursor-pointer text-md" title={ativadoLight ? "Modo Escuro" : "Modo Claro"} aria-label={ativadoLight ? "Ativar modo escuro" : "Ativar modo claro"}>
+            <button type="button" onClick={alterarTema} className="cursor-pointer text-xl" title={ativadoLight ? "Modo Escuro" : "Modo Claro"} aria-label={ativadoLight ? "Ativar modo escuro" : "Ativar modo claro"}>
                 {ativadoLight ? "🌙" : "☀️"}
             </button>
 
-            <button type="button" onClick={copiarEmail} title="Copiar Email" className="cursor-pointer text-lg" aria-label="Copiar Email">📧</button>
+            <button type="button" onClick={copiarEmail} title="Copiar Email" className="cursor-pointer text-xl" aria-label="Copiar Email">📧</button>
 
             {/* REDES */}
             <div className="mr-2 relative flex flex-row items-center">
@@ -53,7 +53,7 @@ function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
                 <div className="hidden md:flex flex-row items-center gap-3">
                     {redes.map((rede, id) => (
                         <a key={id} title={rede.label} href={rede.url} target="_blank" rel="noopener noreferrer" className="opacity-90">
-                            <img className="object-contain w-7 h-7" height="30" width="30" src={rede.icon} loading="auto" fetchPriority="low" alt={`Acessar meu perfil no ${rede.label}`} />
+                            <img className="object-contain w-7 h-7" height="30" width="30" src={rede.icon} loading="eager" fetchPriority="low" alt={`Acessar meu perfil no ${rede.label}`} />
                         </a>
                     ))}
                 </div>
@@ -105,8 +105,8 @@ export default function MenuHamburguer() {
 
                     {/* logo / nome */}
                     <div className="flex flex-row items-center m-4 p-3 rounded-lg bg-[#161616] text-white">
-                        <img className="border rounded-full border-[#232323] h-10 w-10" src="https://github.com/ryancunhha.png?size=40" alt="Foto de perfil GitHub de Ryan Cunha" width="40" height="40" decoding="async" loading="auto" fetchPriority="low" />
-                        <p className="ml-2 text-white text-wrap font-semibold">Ryan <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-500 select-none" aria-hidden="true">_</span></span></p>
+                        <p className="flex items-center justify-center font-black border rounded-full border-[#232323] h-10 w-10">RC</p>
+                        <p className="ml-2 text-white text-wrap font-semibold">Ryan Cunha <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none" aria-hidden="true">_</span></span></p>
                     </div>
                 </div>
 

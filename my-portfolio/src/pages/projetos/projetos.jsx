@@ -113,8 +113,8 @@ export default function Projeto() {
     return (
         <>
             <div className="md:sticky top-0 z-2 bg-principal-bg transition-colors duration-200 flex flex-col items-center px-4 pt-4 pb-2">
-                <div className="flex items-center gap-2 w-full max-w-md border border-[#888] rounded-lg px-3">
-                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 placeholder-[#888] bg-transparent outline-none w-full max-w-md" type="search" placeholder="Pesquisar..." value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
+                <div className="flex items-center gap-2 w-full max-w-xl border-2 border-[#888] rounded-lg px-4">
+                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 placeholder-[#888] bg-transparent outline-none w-full" type="search" placeholder="Pesquisar" value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
                     <p>🔍</p>
                 </div>
 
@@ -129,21 +129,12 @@ export default function Projeto() {
 
             <div className="mx-4 mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {projetosExibidos.length === 0 ? (
-                    <p className="text-center text-[#999] col-span-full pt-8">Nenhum projeto encontrado.</p>
+                    <p className="text-center col-span-full pt-8 h-screen">Nenhum projeto encontrado.</p>
                 ) : (
                     projetosExibidos.map((repo, i) => (
-                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer"
-                            onMouseEnter={(e) => {
-                                const img = e.currentTarget.querySelector("img");
-                                if (img) img.src = repo.imagemGif;
-                            }}
-                            onMouseLeave={(e) => {
-                                const img = e.currentTarget.querySelector("img");
-                                if (img) img.src = repo.imagem;
-                            }}
-                        >
-                            <div className="relative w-full aspect-video p-1 overflow-hidden">
-                                <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading="eager" fetchPriority={i < 6 ? "high" : "auto"} width="540" height="360" className="bg-black w-full h-full aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
+                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
+                            <div className="relative w-full aspect-video p-1">
+                                <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading="eager" fetchPriority={i < 9 ? "high" : "auto"} width="540" height="360" className="bg-black w-full h-full aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
                                     onError={(e) => {
                                         e.currentTarget.onerror = null;
                                         e.currentTarget.src = "/FALLBACK.webp";

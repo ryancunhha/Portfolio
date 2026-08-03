@@ -87,8 +87,10 @@ export default function DetalhePagina() {
             <div className="flex flex-col gap-2">
                 {/* BREADCRUMB */}
                 <div className="flex items-center gap-2 w-max px-1">
-                    <span className="cursor-default text-gray-400">←</span>
-                    <Link className="hover:underline text-lg" to="/projetos">Projetos</Link>
+                    <Link className="group flex gap-2 text-lg" to="/projetos">
+                        <span className="text-gray-400">←</span>
+                        <p className="group-hover:underline">Projetos</p>
+                    </Link>
 
                     {projeto.topicos[0] && projeto.topicos.length > 0 && (
                         <>
@@ -99,16 +101,16 @@ export default function DetalhePagina() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                    {projeto.topicos[0] && <Link className="capitalize w-max text-gray-400" to={`/projetos?search=${projeto.topicos[0]}`}>{projeto.topicos[0]}</Link>}
+                    {projeto.topicos[0] && <p className="capitalize w-max text-gray-500">{projeto.topicos[0]}</p>}
                     <h1 className="text-4xl font-extrabold tracking-tight capitalize">{projeto.nome}</h1>
                     {projeto.description && <h2 className="max-w-3xl text-wrap text-lg leading-relaxed">{`${projeto.description}`}</h2>}
-                    <p className="text-sm">Criado em {`${projeto.data.mes}/${projeto.data.ano}`} {projeto.atualizado && <span className="text-gray-400">{projeto.atualizado}</span>}</p>
+                    <p className="text-sm">Criado em {`${projeto.data.mes}/${projeto.data.ano}`} {projeto.atualizado && <span className="text-gray-500">{projeto.atualizado}</span>}</p>
                 </div>
 
-                <div className="flex flex-col gap-1.5 select-none">
+                <div className="flex flex-col gap-1.5">
                     <p className="text-sm text-gray-400">Utilidades:</p>
 
-                    <div className="flex flex-row flex-wrap gap-3.5">
+                    <div className="flex flex-row flex-wrap gap-3">
                         {projeto.homepage && (
                             <a title="Visitar o site" href={projeto.homepage} className="cursor-pointer" target="_blank" rel="noreferrer">
                                 <img loading="lazy" fetchPriority="low" className="bg-white rounded-full" height="40" width="40" src="https://img.icons8.com/ios-filled/50/domain.png" alt={`Site do projeto ${projeto.name}`} />

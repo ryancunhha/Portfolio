@@ -5,7 +5,7 @@ async function generateSitemap() {
     let dynamicRoutes = [];
 
     try {
-        const response = await fetch(`https://api.github.com/orgs/estudos-ryan/repos?per_page=50`);
+        const response = await fetch(`https://api.github.com/orgs/estudos-ryan/repos?per_page=100`);
 
         if (!response.ok)  throw new Error(`GitHub API: ${response.status}`);
         
@@ -42,7 +42,7 @@ async function generateSitemap() {
     fs.mkdirSync("./public", { recursive: true });
     fs.writeFileSync("./public/sitemap.xml", xml);
     
-    console.log("✅ sitemap.xml gerado!");
+    console.log("sitemap.xml gerado!");
 }
 
 generateSitemap();

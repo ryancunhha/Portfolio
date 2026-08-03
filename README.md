@@ -8,7 +8,7 @@ Meu objetivo com este site é reunir meus projetos, experiências, estudos e ide
 
 ## Sobre
 
-Sou desenvolvedor e estou constantemente estudando novas tecnologias, buscando escrever código limpo, criar soluções escaláveis e desenvolver aplicações que resolvam problemas.
+Estou constantemente estudando novas tecnologias, buscando escrever código limpo, criar soluções escaláveis e desenvolver aplicações que resolvam problemas.
 
 Acredito que simplicidade, organização e automação são fundamentais para manter projetos de qualidade e fáceis de evoluir.
 
@@ -19,18 +19,5 @@ Acredito que simplicidade, organização e automação são fundamentais para ma
 - Currículo
 - Formas de contato
 - Repositórios públicos
-- Documentados em README.md
-
-## Tecnologias
-
-Ferramentas utilizadas neste projeto:
-
-- JavaScript
-- React
-- TailwindCSS
-- GitHub
-- Vercel
-
----
 
 Obrigado por visitar meu portfólio!

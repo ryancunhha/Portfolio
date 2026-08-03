@@ -11,7 +11,7 @@ export default function LayoutPrincipal() {
     useEffect(() => {
         if (path.startsWith("/projetos/") && path !== "/projetos") {
             const nomeFormatado = path.split("/")[2]?.replace(/-/g, " ")?.replace(/\b\w/g, (l) => l.toUpperCase());
-            document.title = `Projeto | ${nomeFormatado}`;
+            document.title = `${nomeFormatado}`;
             return;
         }
 
@@ -21,7 +21,7 @@ export default function LayoutPrincipal() {
             if (path === "/") {
                 document.title = "Portfólio | Ryan Cunha";
             } else {
-                document.title = `${rotaEncontrada.nome} | Ryan Cunha`;
+                document.title = `${rotaEncontrada.nome}`;
             }
         } else {
             document.title = "Portfólio | Ryan Cunha";

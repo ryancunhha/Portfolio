@@ -1,7 +1,7 @@
 export default function Esqueleto() {
     return (
         <div className="w-full max-w-7xl mx-auto p-4 animate-pulse">
-            <div className="h-22 flex flex-col items-center pb-2">
+            <div className="h-14 flex flex-col items-center">
                 <div className="h-11 border rounded-md border-gray-400 bg-transparent w-full max-w-md flex items-center px-3">
                     <div className="h-5 bg-gray-400 rounded w-15" />
                 </div>

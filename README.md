@@ -1,6 +1,6 @@
 # Portfólio - Ryan Cunha
 
-Olá! Este é meu portfólio **Ryan Cunha**.
+Olá! Este é meu portfólio.
 
 ## Objetivo
 
@@ -21,3 +21,6 @@ Acredito que simplicidade, organização e automação são fundamentais para ma
 - Repositórios públicos
 
 Obrigado por visitar meu portfólio!
+
+## Base READMEs
+**Em Desenvolvimento**

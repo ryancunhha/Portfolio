@@ -1,30 +1,31 @@
-import { useState, useEffect, useRef, useMemo } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import EsqueletoProjetos from "./projetosEsqueleto";
-import { obterProjetosGithub } from "../../services/repoGitHub";
+import { obterProjetosGithubPessoal, obterProjetosGithubOrganizacao } from "../../services/repoGitHub";
+import { CardProjeto } from "../../components/cards/cards";
 
 export default function Projeto() {
-    const fimDaPaginaRef = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [projetos, setProjetos] = useState([]);
+    const [projetosPessoal, setProjetosPessoal] = useState([]);
+    const [projetosOrg, setProjetosOrg] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [busca, setBusca] = useState("");
     const [filtroAtivo, setFiltroAtivo] = useState("Tudo");
-    const [limiteVisivel, setLimiteVisivel] = useState(9);
 
     const todasCategorias = useMemo(() => {
-        const setCategorias = new Set(projetos.flatMap(repo => repo.topicos || []));
+        const todosOsProjetos = [...projetosPessoal, ...projetosOrg];
+        const setCategorias = new Set(todosOsProjetos.flatMap(repo => repo.topicos || []));
         return ["Tudo", ...[...setCategorias].map(t => t.charAt(0).toUpperCase() + t.slice(1))];
-    }, [projetos]);
+    }, [projetosPessoal, projetosOrg]);
 
-    const projetosFiltrados = useMemo(() => {
+    const filtrarOrdenarProjetos = (listaProjetos) => {
         const buscaMinusculo = busca.toLowerCase().trim();
         const filtroMinusculo = filtroAtivo.toLowerCase();
 
-        const filtrados = projetos.filter((repo) => {
+        const filtrados = listaProjetos.filter((repo) => {
             if (!repo) return false;
             const matchesFiltroBotao = filtroAtivo === "Tudo" || (repo.topicos && repo.topicos.map(t => t.toLowerCase()).includes(filtroMinusculo));
-            const matchesInput = !buscaMinusculo || repo.nome.toLowerCase().includes(buscaMinusculo) || (repo.topicos && repo.topicos.some(t => t.toLowerCase().includes(buscaMinusculo)));
+            const matchesInput = !buscaMinusculo || (repo.name && repo.name.toLowerCase().includes(buscaMinusculo)) || (repo.topicos && repo.topicos.some(t => t.toLowerCase().includes(buscaMinusculo)));
 
             return matchesFiltroBotao && matchesInput;
         });
@@ -44,9 +45,11 @@ export default function Projeto() {
             if (!temAtualizadoA && temAtualizadoB) return 1;
             return 0;
         });
-    }, [projetos, busca, filtroAtivo]);
+    };
 
-    const projetosExibidos = useMemo(() => projetosFiltrados.slice(0, limiteVisivel), [projetosFiltrados, limiteVisivel]);
+    const projetosPessoalFiltrados = useMemo(() => filtrarOrdenarProjetos(projetosPessoal), [projetosPessoal, busca, filtroAtivo]);
+    const projetosOrgFiltrados = useMemo(() => filtrarOrdenarProjetos(projetosOrg), [projetosOrg, busca, filtroAtivo]);
+    const projetosOrgExibidos = useMemo(() => projetosOrgFiltrados.slice(0), [projetosOrgFiltrados]);
 
     useEffect(() => {
         const querySearch = searchParams.get("search") || "";
@@ -71,15 +74,25 @@ export default function Projeto() {
         let montado = true;
         const controller = new AbortController();
 
-        (async () => {
+        async function CarregarDados(params) {
             try {
-                if (montado) setProjetos(await obterProjetosGithub(controller.signal))
+                const [dadosPessoal, dadosOrg] = await Promise.all([
+                    obterProjetosGithubPessoal(controller.signal),
+                    obterProjetosGithubOrganizacao(controller.signal)
+                ]);
+
+                if (montado) {
+                    setProjetosPessoal(dadosPessoal || []);
+                    setProjetosOrg(dadosOrg || []);
+                }
             } catch (error) {
-                console.error(error);
+                console.error("Erro ao buscar projetos:", error);
             } finally {
                 if (montado) setCarregando(false);
             }
-        })();
+        }
+
+        CarregarDados()
 
         return () => {
             montado = false;
@@ -87,35 +100,14 @@ export default function Projeto() {
         };
     }, []);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            const elementoFim = entries[0];
-
-            if (elementoFim.isIntersecting && projetosFiltrados.length > limiteVisivel) {
-                setLimiteVisivel((prev) => prev + 6);
-            }
-        }, { threshold: 0 });
-
-        const elementoAtual = fimDaPaginaRef.current;
-        if (elementoAtual) {
-            observer.observe(elementoAtual);
-        }
-
-        return () => {
-            if (elementoAtual) {
-                observer.unobserve(elementoAtual)
-            }
-        }
-    }, [limiteVisivel, projetosFiltrados.length]);
-
     if (carregando) return <EsqueletoProjetos />
 
     return (
         <>
-            <div className="md:sticky top-0 z-2 bg-principal-bg transition-colors duration-200 flex flex-col items-center px-4 pt-4 pb-2">
-                <div className="flex items-center gap-2 w-full max-w-xl border-2 border-[#888] rounded-lg px-4">
-                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 placeholder-[#888] bg-transparent outline-none w-full" type="search" placeholder="Pesquisar" value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
-                    <p>🔍</p>
+            <div className="top-0 z-2 transition-colors duration-200 flex flex-col items-center px-4 pt-4 pb-2">
+                <div className="flex items-center w-full max-w-xl border-2 border-[#888] rounded-lg">
+                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 px-4 placeholder-[#888] bg-transparent outline-none w-full" type="search" placeholder="Pesquisar" value={busca} onChange={(e) => { setBusca(e.target.value); setLimiteVisivel(9); }} />
+                    <p className="px-4 border-l">🔍</p>
                 </div>
 
                 <div className="w-full flex flex-row gap-2 mt-3 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
@@ -127,35 +119,43 @@ export default function Projeto() {
                 </div>
             </div>
 
-            <div className="mx-4 mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                {projetosExibidos.length === 0 ? (
+            <div>
+                {projetosOrgExibidos.length === 0 && projetosPessoalFiltrados.length === 0 ? (
                     <p className="text-center col-span-full pt-8 h-screen">Nenhum projeto encontrado.</p>
                 ) : (
-                    projetosExibidos.map((repo, i) => (
-                        <Link key={repo.id} to={`/projetos/${repo.name}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
-                            <div className="relative w-full aspect-video p-1">
-                                <img src={repo.imagem} alt={`Projeto ${repo.name}`} loading="eager" fetchPriority={i < 9 ? "high" : "auto"} width="540" height="360" className="bg-black w-full h-full aspect-video object-cover rounded-xl select-none" crossOrigin="anonymous"
-                                    onError={(e) => {
-                                        e.currentTarget.onerror = null;
-                                        e.currentTarget.src = "/FALLBACK.webp";
-                                    }}
-                                />
-                            </div>
+                    <>
+                        {projetosPessoalFiltrados.length > 0 && (
+                            <div className="mx-4 mb-4">
+                                <div className="flex flex-row items-center gap-4 mb-4">
+                                    <a className="font-bold text-lg whitespace-nowrap underline" href="https://github.com/ryancunhha" target="_blank" rel="noopener noreferrer">Ryancunhha</a>
+                                    <div className="flex-1 bg-zinc-700 h-px" />
+                                </div>
 
-                            <div className="mb-1.5 mx-2">
-                                <p className="truncate font-bold text-lg first-letter:uppercase">{repo.nome}</p>
-                                <p className="text-[12px] font-semibold text-[#888]">{repo.data.ano} {repo.atualizado}</p>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                                    {projetosPessoalFiltrados.map((repo) => (
+                                        <CardProjeto key={repo.id} repo={repo} />
+                                    ))}
+                                </div>
                             </div>
-                        </Link>
-                    ))
+                        )}
+
+                        {projetosOrgFiltrados.length > 0 && (
+                            <div className="mx-4 mb-4">
+                                <div className="flex flex-row items-center gap-4 mb-4">
+                                    <a className="font-bold text-lg whitespace-nowrap underline" href="https://github.com/orgs/estudos-ryan" target="_blank" rel="noopener noreferrer">Estudos Ryan</a>
+                                    <div className="flex-1 bg-zinc-700 h-px" />
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                                    {projetosOrgFiltrados.map((repo) => (
+                                        <CardProjeto key={repo.id} repo={repo} />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
-
-            {projetosFiltrados.length > limiteVisivel && (
-                <div ref={fimDaPaginaRef} className="h-12 w-full flex items-center justify-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-black" />
-                </div>
-            )}
         </>
     )
 }

@@ -1,8 +1,8 @@
 const rotasMenu = [
-    { nome: "Inicio", path: "/" },
+    { nome: "Início", path: "/" },
     { nome: "Projetos", path: "/projetos" },
     { nome: "Sobre Mim", path: "/sobre" },
-    { nome: "Curriculos", path: "/curriculos" },
+    { nome: "Curriculos / CV", path: "/curriculos" },
 ]
 
 const ignorarRepo = [

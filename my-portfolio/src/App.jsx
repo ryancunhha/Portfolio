@@ -10,15 +10,13 @@ const Projetos = lazy(() => import("./pages/projetos/projetos"));
 const Sobre = lazy(() => import("./pages/sobre/sobre"));
 const Solicitacao = lazy(() => import("./pages/solicitacao/solicitacao"));
 const Curriculo = lazy(() => import("./pages/curriculos/curriculo"));
-const DetalheProjeto = lazy(() => import("./pages/projetos/detalhe/detalhe"));
+const DetalheProjeto = lazy(() => import("./pages/detalhe/detalhe"));
 
 export default function App() {
   return (
     <BrowserRouter>
       <ErrorLimite>
-        <Suspense fallback={
-          <div className="bg-[#18181B] h-screen" />
-        }>
+        <Suspense fallback={<div className="bg-[#18181B] h-screen w-screen" />}>
           <Routes>
             <Route path="/" element={<LayoutPrincipal />}>
               <Route index element={<TelaInicial />} />

@@ -20,7 +20,7 @@ export default function Dropdown({ items, aoFechar }) {
     }, [])
 
     return (
-        <div ref={dropdownRef} className="fixed z-2 flex flex-col rounded-lg border border-[#3E3E49] bg-[#232327] right-2 top-14 w-[calc(100vw-1rem)] max-w-60">
+        <div ref={dropdownRef} className="fixed z-2 flex flex-col border border-[#3E3E49] bg-[#232327] right-2 top-14 md:top-42 w-[calc(100vw-1rem)] max-w-70">
             <div className="flex flex-col min-w-0 divide-y divide-[#3E3E49]/40">
                 {items.map((item, index) => (
                     <a title={item.label} key={index} href={item.url} target="_blank" rel="noopener noreferrer" onClick={aoFechar} className={`flex w-full items-center gap-2 px-3 py-4 min-w-0`}>

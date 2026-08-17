@@ -1,46 +1,52 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 
-export default function AlertError({ mensagem, className }) {
-    const [renderizar, setRenderizar] = useState(false);
-    const [animarSaida, setAnimarSaida] = useState(false);
+export function notificar(dados) {
+    const payload = typeof dados === "string" ? { texto: dados } : dados;
+    window.dispatchEvent(new CustomEvent("nova-notificacao", { detail: payload }));
+}
 
-    if (!mensagem) return null;
+const estilosTipo = {
+    sucesso: "border-emerald-500 text-emerald-400 bg-emerald-950",
+    info: "border-zinc-800 text-white bg-zinc-900",
+}
+
+export default function Notificacao({ mensagem }) {
+    const [fila, setFila] = useState([]);
 
     useEffect(() => {
-        if (mensagem) {
-            setRenderizar(true);
-            setAnimarSaida(false);
-        } else if (renderizar) {
-            setAnimarSaida(true);
-            const timer = setTimeout(() => {
-                setRenderizar(false);
-            }, 400);
+        const handleNovaNotificacao = (e) => {
+            if (e.detail) {
+                setFila((prev) => [...prev, e.detail]);
+            }
+        };
 
-            return () => clearTimeout(timer);
-        }
-    }, [mensagem, renderizar]);
+        window.addEventListener("nova-notificacao", handleNovaNotificacao);
+        return () => window.removeEventListener("nova-notificacao", handleNovaNotificacao);
+    }, []);
 
-    if (!renderizar) return null;
+    useEffect(() => {
+        if (fila.length === 0) return;
 
-    return (
-        <div
-            className={`
-                /* Posicionamento fixo */
-                fixed z-3 wrap-break-word whitespace-pre-line
-                
-                /* ESTILO */
-                ${className}
-                
-                /* Celular */
-                top-14 left-1/2 w-[90%] max-w-sm
-                ${animarSaida ? "animate-slide-out-top" : "animate-slide-in-top"}
-                
-                /* COMPUTADOR */
-                md:top-auto md:bottom-2 md:left-76 md:w-auto md:max-w-xs 
-                ${animarSaida ? "animate-notification-out" : "animate-notification-in"}
-            `}
-        >
-            {mensagem}
-        </div>
+        const duracao = fila[0]?.duracao || 3500;
+
+        const timer = setTimeout(() => {
+            setFila((prev) => prev.slice(1));
+        }, duracao);
+
+        return () => clearTimeout(timer);
+    }, [fila]);
+
+    if (!fila || fila.length === 0 || !fila[0]) return null;
+
+    const itemAtual = fila[0];
+    const tipo = itemAtual.tipo || "info";
+    const tipoEstilo = estilosTipo[tipo] || estilosTipo.info;
+
+    return ReactDOM.createPortal(
+        <div className={`fixed left-1/2 -translate-x-1/2 top-14 md:top-5 z-3 w-full max-w-sm px-4 py-3 font-medium text-center wrap-break-word rounded border ${tipoEstilo} ${itemAtual.className || ""}`}>
+            {itemAtual.texto}
+        </div>,
+        document.body
     )
 }

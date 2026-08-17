@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown";
 import { rotasMenu, redes, email } from "../../config/config";
-import Notificacao from "../notificacao/notificacao";
+import { notificar } from "../notificacao/notificacao";
 
 function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
     const [dropdownAberto, setDropdownAberto] = useState(false)
-    const [ativadoLight, setAtivadoLight] = useState(() => {
-        if (typeof window !== "undefined") {
-            return document.documentElement.classList.contains("light")
-        }
-        return false
-    })
 
     const copiarEmail = () => {
         navigator.clipboard.writeText(email);
-        setMostrarNotificacao(true);
+        notificar({
+            texto: "✅ E-mail copiado!",
+            tipo: "sucesso",
+        });
     };
 
     useEffect(() => {
@@ -24,66 +21,47 @@ function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
         return () => clearTimeout(timer);
     }, [mostrarNotificacao, setMostrarNotificacao]);
 
-    const alterarTema = () => {
-        const Light = document.documentElement.classList.toggle("light")
-        localStorage.setItem("theme", Light ? "light" : "dark")
-        setAtivadoLight(Light)
-    }
-
     return (
-        <div className={`flex flex-row items-center gap-6 md:gap-3 ${className}`}>
-            {/* TEMA */}
-            <button type="button" onClick={alterarTema} className="cursor-pointer text-xl" title={ativadoLight ? "Modo Escuro" : "Modo Claro"} aria-label={ativadoLight ? "Ativar modo escuro" : "Ativar modo claro"}>
-                {ativadoLight ? "🌙" : "☀️"}
-            </button>
+        <>
+            <div className={`flex flex-row items-center gap-4 ${className}`}>
+                <button type="button" onClick={copiarEmail} title="Copiar Email" className="cursor-pointer text-xl" aria-label="Copiar Email">📧</button>
 
-            <button type="button" onClick={copiarEmail} title="Copiar Email" className="cursor-pointer text-xl" aria-label="Copiar Email">📧</button>
+                <div className="mr-2 relative flex flex-row items-center">
+                    <button className="text-[#999] text-xl cursor-pointer" type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }}>
+                        {dropdownAberto ? "▴" : "▾"}
+                    </button>
 
-            {/* REDES */}
-            <div className="mr-2 relative flex flex-row items-center">
-                <button aria-label="Links das redes sociais" aria-expanded={dropdownAberto} type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }} className="p-1 md:hidden">
-                    <p className="text-[#999] text-xl" aria-hidden="true">{dropdownAberto ? "▴" : "▾"}</p>
-                </button>
-
-                {dropdownAberto && (
-                    <Dropdown className="md:hidden" items={redes} aoFechar={() => setDropdownAberto(false)} />
-                )}
-
-                {/* NO PC */}
-                <div className="hidden md:flex flex-row items-center gap-3">
-                    {redes.map((rede, id) => (
-                        <a key={id} title={rede.label} href={rede.url} target="_blank" rel="noopener noreferrer" className="opacity-90">
-                            <img className="object-contain w-7 h-7" height="30" width="30" src={rede.icon} loading="eager" fetchPriority="low" alt={`Acessar meu perfil no ${rede.label}`} />
-                        </a>
-                    ))}
+                    {dropdownAberto && <Dropdown items={redes} aoFechar={() => setDropdownAberto(false)} />}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
 export default function MenuHamburguer() {
+    const { pathname } = useLocation();
     const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
     const [menuAberto, setMenuAberto] = useState(false)
 
-    const alterarMenu = () => {
-        setMenuAberto(!menuAberto)
-    };
+    const alterarMenu = () => setMenuAberto(!menuAberto);
 
-    const fecharMenu = () => {
-        setMenuAberto(false)
-    };
+    useEffect(() => {
+        const elementoMain = document.querySelector("main");
+
+        if (elementoMain) {
+            elementoMain.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            });
+        }
+    }, [pathname]);
 
     return (
         <>
-            {/* NOTIFICACAO */}
-            {mostrarNotificacao && <Notificacao mensagem={`🔔 E-mail: ${email} copiado!`} className="px-3 py-4 text-[13px] font-medium text-white bg-zinc-900 rounded-md border border-zinc-800" />}
-
-            {/* MOBILE */}
-            <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-3">
-                {/* botao hamburguer mobile */}
-                <button aria-label="Abrir menu de navegação" type="button" onClick={alterarMenu} className="p-3">
-                    <div className="flex flex-col gap-1 w-6" aria-hidden="true">
+            <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-1">
+                <button type="button" onClick={alterarMenu} className="p-3">
+                    <div className="flex flex-col gap-1 w-6">
                         <span className="h-1 bg-[#8B8B94] w-[80%]" />
                         <span className="h-1 bg-[#8B8B94] w-[80%]" />
                     </div>
@@ -92,35 +70,30 @@ export default function MenuHamburguer() {
                 <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} />
             </div>
 
-            {menuAberto && <div onClick={fecharMenu} className="fixed inset-0 bg-black/20 z-4 md:hidden animate-fade-in" />}
+            {menuAberto && <div onClick={alterarMenu} className="fixed inset-0 bg-black/50 z-4 md:hidden" />}
 
-            {/* MENU */}
-            <div className={`bg-[#0A0A0A] fixed top-0 left-0 h-screen z-5 flex flex-col justify-between transition-transform duration-150 ease-in-out w-[calc(100%-8px)] max-w-74 ${menuAberto ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0`}>
-                {/* HEAEDAR */}
-                <div className="border-b border-[#29292A]">
-                    {/* botao de fechar (mobile) */}
+            <header className={`bg-[#0A0A0A] fixed top-0 left-0 h-screen z-5 flex flex-col justify-between transition-transform duration-150 ease-in-out w-[calc(100%-8px)] max-w-74 ${menuAberto ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0`}>
+                <div>
                     <div className="bg-[#18181B] pt-5 px-3 flex md:hidden">
-                        <button type="button" onClick={alterarMenu} className="text-3xl text-white p-3" aria-label="Fechar menu de navegação">×</button>
+                        <button type="button" onClick={alterarMenu} className="text-3xl text-white p-3">×</button>
                     </div>
 
-                    {/* logo / nome */}
                     <div className="flex flex-row items-center m-4 p-3 rounded-lg bg-[#161616] text-white">
                         <p className="flex items-center justify-center font-black border rounded-full border-[#232323] h-10 w-10">RC</p>
-                        <p className="ml-2 text-white text-wrap font-semibold">Ryan Cunha <span className="font-mono">Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none" aria-hidden="true">_</span></span></p>
+                        <p className="ml-2 text-white font-semibold">Ryan Cunha <span>Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none">_</span></span></p>
                     </div>
                 </div>
 
-                <nav className="flex-1 overflow-y-auto px-4 space-y-2 py-2 md:mb-0 scrollbar-thumb-[#9F9F9F]">
+                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} className="hidden md:flex flex-wrap p-8" />
+
+                <nav className="flex-1 overflow-y-auto px-4 space-y-2 py-2 scrollbar-thumb-[#9F9F9F]">
                     {rotasMenu.map((link, index) => (
                         <NavLink key={index} to={link.path} onClick={() => setMenuAberto(false)} className={({ isActive }) => `flex p-4 rounded-md ${isActive ? "text-white bg-[#161616] border-l-8 border-white" : "text-[#999] hover:text-white hover:bg-[#161616] border-l-8 border-transparent"}`}>
                             {link.nome}
                         </NavLink>
                     ))}
                 </nav>
-
-                {/* rodape do menu (PC) */}
-                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} className="hidden md:flex flex-wrap border-t border-[#29292A] py-8 px-6" />
-            </div>
+            </header>
         </>
-    );
+    )
 }

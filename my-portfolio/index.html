@@ -6,7 +6,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="512x512" />
   <link rel="apple-touch-icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfólio | Ryan Cunha</title>
+  <title>Ryan Cunha</title>
 
   <!-- Pre-conexoes -->
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin />
@@ -14,7 +14,7 @@
 
   <!-- Config -->
   <link rel="manifest" href="/manifest.json" />
-  <meta name="color-scheme" content="dark light" />
+  <meta name="color-scheme" content="dark" />
   <meta id="meta-theme" name="theme-color" content="#18181B" />
 
   <!-- SEO -->
@@ -38,20 +38,6 @@
 
   <!-- Google -->
   <meta name="google-site-verification" content="LguxdrWtG6tD81N0OGohNc4nOFtboLUMg-EzE4Z5MOI" />
-
-  <script>
-    const metaTheme = document.getElementById("meta-theme");
-
-    if (localStorage.getItem("theme") === "light") {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-      metaTheme.setAttribute("content", "#ffffff");
-    } else {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("dark");
-      metaTheme.setAttribute("content", "#18181B");
-    }
-  </script>
 </head>
 
 <body>

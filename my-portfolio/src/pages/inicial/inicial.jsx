@@ -46,10 +46,9 @@ export default function TelaInicial() {
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
                     <h1 className="leading-tight brightness-120 text-[7.5vw] sm:text-4xl md:text-6xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
-                    <Link className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide" to="/projetos">Ver Projetos</Link>
+                    <Link className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white hover:text-black transition-colors" to="/projetos">Explorar Portfólio</Link>
                 </div>
 
-                {/* BANNER */}
                 <div className="w-full">
                     {totalBanners > 0 ? (
                         <div className="w-full h-100 overflow-hidden">
@@ -61,20 +60,17 @@ export default function TelaInicial() {
                         null
                     )}
 
-                    {/* Controles */}
                     {totalBanners > 1 &&
                         <div className="w-full flex justify-between items-center pt-2 px-4 select-none">
                             <button title="Anterior" onClick={bannerAnterior} className="p-2 px-4 border-2 rounded-full cursor-pointer">❮</button>
 
                             <div className="flex items-center gap-1">
-                                {/* VISUAL */}
                                 <div className="flex flex-wrap gap-1">
                                     {BANNERS.map((_, index) => (
                                         <div key={index} className={`h-0.5 w-7 rounded-full ${index === indexAtual ? " bg-[#2A446F]" : "bg-[#E5ECF1]"}`} />
                                     ))}
                                 </div>
 
-                                {/* Botão Play/Pausa */}
                                 <button title={rodando ? "Pausar" : "Play"} onClick={() => setRodando(!rodando)} className="border-2 rounded cursor-pointer px-1">
                                     {rodando ? "❚❚" : "▶︎"}
                                 </button>
@@ -86,62 +82,53 @@ export default function TelaInicial() {
                 </div>
             </section>
 
-            {/* Projetos */}
             <section className="flex flex-col gap-8 p-6 max-w-6xl mx-auto w-full">
                 <h2 className="text-center font-bold text-2xl tracking-tight">Como posso te ajudar?</h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className="flex gap-4 border-y border-slate-300 flex-col items-start justify-between w-full p-6">
-                        <div className="flex flex-wrap gap-3 justify-between items-start w-full">
-                            <div className="bg-[#FFDE57]/20 p-3 rounded-xl">
-                                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="javascript" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" decoding="async" />
-                            </div>
-
-                            <Link aria-label="Filtrar projetos por Web" className="mt-1 py-2.5 px-5 border rounded-full text-xs font-medium border-slate-300" to={"/projetos?search=web"}>Ver exemplos</Link>
+                    <div className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
+                        <div className="bg-[#FFDE57]/20 p-3 rounded-xl">
+                            <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="javascript" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" fetchPriority="auto" />
                         </div>
 
                         <div>
-                            <h3 className="font-bold text-lg tracking-tight">Aplicações Web</h3>
-                            <p className="tracking-tight text-sm text-[#888]">Criação de sites institucionais, landing pages e plataformas web rápidas e responsivas.</p>
+                            <h3 className="font-bold text-lg tracking-tight">Design e Front-end</h3>
+                            <p className="tracking-tight text-[#888]">Criação de sites institucionais, landing pages e plataformas rápidas e responsivas.</p>
                         </div>
+
+                        <Link className="mt-1 py-2.5 px-5 border rounded-full text-sm font-medium hover:text-black hover:bg-white transition-colors border-slate-300" to={"/projetos?search=web"}>Ver Interfaces</Link>
                     </div>
 
-                    <div className="flex gap-4 border-y border-slate-300 flex-col items-start justify-between w-full p-6">
-                        <div className="flex flex-wrap gap-3 justify-between items-start w-full">
-                            <div className="bg-[#28b071]/20 p-3 rounded-xl">
-                                <img src="https://img.icons8.com/color/48/nodejs.png" width="40" height="40" alt="Node" className="object-contain h-8 w-8" loading="lazy" decoding="async" />
-                            </div>
-
-                            <Link aria-label="Filtrar projetos por automação" className="mt-1 py-2.5 px-5 border rounded-full text-xs font-medium border-slate-300" to={"/projetos?search=back"}>Ver exemplos</Link>
+                    <div className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
+                        <div className="bg-[#28b071]/20 p-3 rounded-xl">
+                            <img src="https://img.icons8.com/color/48/nodejs.png" width="40" height="40" alt="Node" className="object-contain h-8 w-8" loading="lazy" fetchPriority="auto" />
                         </div>
 
                         <div>
                             <h3 className="font-bold text-lg tracking-tight">APIs e Back-end</h3>
-                            <p className="tracking-tight text-sm text-[#888]">Criação de APIs, autenticação, integrações e bancos de dados para conectar a suas necessidades.</p>
+                            <p className="tracking-tight text-[#888]">Criação de APIs, autenticação, integrações ao bancos de dados para a suas necessidades.</p>
                         </div>
+
+                        <Link className="mt-1 py-2.5 px-5 border rounded-full text-sm font-medium hover:text-black hover:bg-white transition-colors border-slate-300" to={"/projetos?search=back"}>Ver Integrações</Link>
                     </div>
 
-                    {/* Card Full */}
                     <div className="bg-slate-950 flex flex-col md:flex-row items-center justify-between w-full lg:col-span-3 rounded-2xl p-8 gap-6 text-white shadow-xl relative overflow-hidden mt-2">
-                        <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                        <div className="flex flex-col items-start gap-3 max-w-xl z-2">
-                            <span className="text-xs font-semibold tracking-wider text-blue-400 uppercase">Mais Solicitado</span>
-                            <h3 className="font-bold text-2xl md:text-3xl tracking-tight">Desenvolvimento Full-Stack (Front & Back)</h3>
-                            <p className="tracking-tight text-sm text-[#888]">Sistemas web completos. Do design, performance, segurança até a arquitetura do banco de dados do sistema.</p>
-                            {/* <Link className="mt-2 p-2.5 px-5 rounded-full bg-white text-slate-950 hover:bg-slate-200 transition-colors text-xs font-semibold shadow-sm" to={"/solicitacao"}>Iniciar meu projeto</Link> */}
+                        <div className="flex flex-col items-start gap-3 max-w-xl">
+                            <span className="text-sm font-semibold tracking-wider text-blue-400 uppercase">Mais Visto</span>
+                            <h3 className="font-bold text-3xl tracking-tight">Desenvolvimento Full-Stack (Front & Back)</h3>
+                            <p className="tracking-tight text-[#888]">Sistemas completos. Do design, performance, segurança até a arquitetura do sistema.</p>
+                            <Link className="mt-2 p-2.5 px-5 rounded-full bg-white text-slate-950 hover:bg-slate-200 transition-colors text-sm font-semibold" to={"/projetos"}>Ver Projetos Completos</Link>
                         </div>
 
-                        <div className="flex items-center justify-center relative w-32 h-32 md:w-40 md:h-40 z-2">
-                            <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React" width="40" height="40" className="w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(97,218,251,0.3)] animate-[spin_20s_linear_infinite]" loading="lazy" decoding="async" />
+                        <div className="flex items-center justify-center relative w-32 h-32 md:w-40 md:h-40">
+                            <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React" width="40" height="40" className="w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(97,218,251,0.3)] animate-[spin_20s_linear_infinite]" loading="lazy" fetchPriority="auto" />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Por que contratar */}
             <section className="p-4 max-w-6xl mx-auto w-full">
-                <h2 className="text-center font-bold text-2xl mb-6 tracking-tight">Por que contratar meu serviço?</h2>
+                <h2 className="text-center font-bold text-2xl mb-6 tracking-tight">Por que construir seu projeto comigo?</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
                     <div className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
@@ -166,5 +153,5 @@ export default function TelaInicial() {
                 </div>
             </section>
         </>
-    );
+    )
 }

@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { email } from "../../config/config";
 import ReCAPTCHA from "react-google-recaptcha";
-import Agradecimento from "./agradecimento";
 import Notificacao from "../../components/notificacao/notificacao";
 
 export default function Solicitacao() {
@@ -58,7 +57,7 @@ export default function Solicitacao() {
         }
     };
 
-    if (enviado) return <Agradecimento />;
+    if (enviado) return null;
 
     const label = "block text-sm font-semibold mb-1";
     const input = "text-xl w-full px-4 py-3 border-2 border-gray-300 rounded-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 invalid:border-red-500 transition-colors duration-50";

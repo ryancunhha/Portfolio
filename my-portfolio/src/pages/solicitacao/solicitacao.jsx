@@ -1,33 +1,16 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { email } from "../../config/config";
-import ReCAPTCHA from "react-google-recaptcha";
-import Notificacao from "../../components/notificacao/notificacao";
+import { notificar } from "../../components/notificacao/notificacao";
 
 export default function Solicitacao() {
-    const [enviado, setEnviado] = useState(false);
     const [carregando, setCarregando] = useState(false);
-    const [erro, setErro] = useState(null);
-    const recaptchaRef = useRef(null);
-
-    const mostrarErro = (mensagem) => {
-        setErro(mensagem);
-        setTimeout(() => setErro(null), 4000);
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setCarregando(true);
 
-        const token = recaptchaRef.current.getValue();
-        if (!token) {
-            setErro("Marque a caixa de verificação.");
-            setCarregando(false);
-            setTimeout(() => setErro(null), 3500);
-            return;
-        }
-
         const formData = new FormData(e.target);
-        formData.delete("g-recaptcha-response");
+
         for (let [key, value] of formData.entries()) {
             if (typeof value === "string") {
                 formData.set(key, value.trim());
@@ -43,29 +26,31 @@ export default function Solicitacao() {
                 }
             });
 
-            if (response.ok) {
-                setEnviado(true);
-            } else {
-                recaptchaRef.current?.reset();
-                mostrarErro("Algo deu errado.");
-            }
+            if (!response.ok) throw new Error("Erro ao enviar o formulário.");
+
+            notificar({
+                texto: "✅ Email Enviado com sucesso.",
+                tipo: "sucesso",
+            })
+
+            e.target.reset();
         } catch (error) {
-            recaptchaRef.current?.reset();
-            mostrarErro("Erro de conexão com o servidor.");
+            console.error(error);
+
+            notificar({
+                texto: "❌ Erro de conexão com o servidor.",
+                tipo: "falha",
+            })
         } finally {
             setCarregando(false);
         }
     };
-
-    if (enviado) return null;
 
     const label = "block text-sm font-semibold mb-1";
     const input = "text-xl w-full px-4 py-3 border-2 border-gray-300 rounded-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 invalid:border-red-500 transition-colors duration-50";
 
     return (
         <>
-            <Notificacao mensagem={erro} className="p-4 text-sm rounded-lg border-l-6 bg-red-100 text-red-700 border-red-700" />
-
             <div className="py-8 px-4 flex flex-col items-center min-h-screen space-y-6 w-full">
                 <div className="text-center space-y-3 max-w-2xl w-full">
                     <h1 className="text-4xl font-extrabold tracking-tight">Solicitação de Serviço</h1>
@@ -81,7 +66,7 @@ export default function Solicitacao() {
                 <form onSubmit={handleSubmit} className="px-4 md:px-10 py-8 space-y-4 max-w-2xl w-full border-y-3 border-gray-400">
                     {/* Configurações do FormSubmit (Oculto) */}
                     <input type="hidden" name="_captcha" value="false" />
-                    <input type="text" name="_honey" style={{ display: "none" }} />
+                    <input type="text" name="_honey" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
                     <input type="hidden" name="_subject" value="Solicitação de Serviço" />
 
                     {/* Campos de preenchimento (Visivel) */}
@@ -98,10 +83,6 @@ export default function Solicitacao() {
                     <div>
                         <label className={label} htmlFor="descricao">Descrição do Projeto<span className="text-red-600">*</span></label>
                         <textarea className={`${input} h-30 resize-none`} id="descricao" name="descricao" placeholder="" required />
-                    </div>
-
-                    <div className="flex justify-start w-full overflow-x-auto h-20">
-                        <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_RECAPTCHA_KEY} />
                     </div>
 
                     <button title="Enviar" type="submit" disabled={carregando} className={`w-full py-3 px-6 text-white font-semibold rounded-sm ${carregando ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800 outline-none cursor-pointer"}`}>

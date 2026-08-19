@@ -45,7 +45,7 @@ export default function TelaInicial() {
         <>
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
-                    <h1 className="leading-tight brightness-120 text-[7.5vw] sm:text-4xl md:text-6xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
+                    <h1 className="leading-tight brightness-120 text-[7.5vw] md:text-5xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
                     <Link className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white hover:text-black transition-colors" to="/projetos">Explorar Portfólio</Link>
                 </div>
 

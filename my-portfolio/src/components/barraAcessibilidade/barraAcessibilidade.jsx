@@ -3,6 +3,10 @@ import { useState, useRef, useMemo, useCallback, useEffect } from "react";
 export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     const [status, setStatus] = useState("parado");
     const [progresso, setProgresso] = useState(0);
+    const [tempoAtual, setTempoAtual] = useState(0);
+    const timerRef = useRef(null);
+    const inicioTimerRef = useRef(0);
+    const tempoInicialRef = useRef(0);
     const [velocidade, setVelocidade] = useState(1);
     const progressoRef = useRef(0);
     const utteranceRef = useRef(null);
@@ -16,6 +20,7 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     useEffect(() => {
         return () => {
             window.speechSynthesis.cancel();
+            clearInterval(timerRef.current);
         };
     }, []);
 
@@ -25,7 +30,22 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
         return Math.ceil((totalPalavras / 140) * 60);
     }, [textoLimpo]);
 
-    const tempoAtual = (progresso / 100) * tempoTotalBase / velocidade;
+    const iniciarTimer = useCallback((tempoInicial, velocidadeAtual) => {
+        clearInterval(timerRef.current);
+
+        tempoInicialRef.current = tempoInicial;
+        inicioTimerRef.current = Date.now();
+
+        timerRef.current = setInterval(() => {
+            const decorrido =
+                tempoInicialRef.current +
+                ((Date.now() - inicioTimerRef.current) / 1000);
+
+            const limite = tempoTotalBase / velocidadeAtual;
+
+            setTempoAtual(Math.min(decorrido, limite));
+        }, 250);
+    }, [tempoTotalBase]);
 
     const atualizarProgressoVisual = useCallback((valor) => {
         setProgresso(valor);
@@ -35,53 +55,84 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
     const executarFala = useCallback((porcentagemAlvo, velocidadeAtual = velocidade) => {
         canceladoManualmenteRef.current = true;
         window.speechSynthesis.cancel();
+
         if (!textoLimpo) return;
 
-        const totalCaracteres = textoLimpo.length;
-        const caractereInicial = Math.floor((porcentagemAlvo / 100) * totalCaracteres);
-        const textoRestante = textoLimpo.slice(caractereInicial);
+        const partes = textoLimpo.match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map(parte => parte.trim()).filter(Boolean) || [];
 
-        if (!textoRestante.trim() || porcentagemAlvo >= 100) {
+        if (!partes.length) return;
+
+        const totalPartes = partes.length;
+
+        let indiceInicial = Math.floor(
+            (porcentagemAlvo / 100) * totalPartes
+        );
+
+        if (indiceInicial >= totalPartes) {
             atualizarProgressoVisual(100);
             setStatus("parado");
             return;
         }
 
-        const fala = new SpeechSynthesisUtterance(textoRestante);
-        fala.lang = "pt-BR";
-        fala.rate = velocidadeAtual;
-        window._referenciaFalaAcessibilidade = fala;
-        utteranceRef.current = fala;
+        canceladoManualmenteRef.current = false;
 
-        fala.onboundary = (event) => {
-            if (event.name === "word") {
-                const caractereAtual = event.charIndex + caractereInicial;
-                const porcentagem = (caractereAtual / totalCaracteres) * 100;
-                atualizarProgressoVisual(Math.min(100, porcentagem));
+        const falarParte = (indice) => {
+            if (canceladoManualmenteRef.current || indice >= totalPartes) {
+                if (!canceladoManualmenteRef.current) {
+                    atualizarProgressoVisual(100);
+                    setStatus("parado");
+                }
+
+                return;
             }
-        };
 
-        fala.onstart = () => {
-            canceladoManualmenteRef.current = false;
-        };
+            const fala = new SpeechSynthesisUtterance(partes[indice]);
 
-        fala.onend = () => {
-            if (canceladoManualmenteRef.current) return;
+            fala.lang = "pt-BR";
+            fala.rate = velocidadeAtual;
 
-            setStatus("parado");
-            atualizarProgressoVisual(100);
-        };
+            utteranceRef.current = fala;
 
-        fala.onerror = (e) => {
-            if (e.error !== "interrupted" && !canceladoManualmenteRef.current) {
-                setStatus("parado");
-            }
-        };
+            fala.onstart = () => {
+                setStatus("tocando");
 
-        setTimeout(() => {
+                const tempoInicial =
+                    (indice / totalPartes) *
+                    (tempoTotalBase / velocidadeAtual);
+
+                iniciarTimer(tempoInicial, velocidadeAtual);
+            };
+
+            fala.onend = () => {
+                if (canceladoManualmenteRef.current) return;
+
+                const novoProgresso =
+                    ((indice + 1) / totalPartes) * 100;
+
+                atualizarProgressoVisual(novoProgresso);
+
+                if (indice + 1 >= totalPartes) {
+                    clearInterval(timerRef.current);
+                    setTempoAtual(tempoTotalBase / velocidadeAtual);
+                    setStatus("parado");
+                    return;
+                }
+
+                falarParte(indice + 1);
+            };
+
+            fala.onerror = (event) => {
+                clearInterval(timerRef.current);
+
+                if (event.error !== "interrupted" && !canceladoManualmenteRef.current) {
+                    setStatus("parado");
+                }
+            };
+
             window.speechSynthesis.speak(fala);
-        }, 50);
+        };
 
+        falarParte(indiceInicial);
     }, [textoLimpo, velocidade, atualizarProgressoVisual]);
 
     const alternarLeitura = () => {
@@ -90,6 +141,7 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
         if (status === "tocando") {
             canceladoManualmenteRef.current = true;
             window.speechSynthesis.cancel();
+            clearInterval(timerRef.current);
             setStatus("pausado");
         } else {
             canceladoManualmenteRef.current = true;
@@ -137,12 +189,12 @@ export default function BarraAcessibilidade({ textoAudio, setTamanhoFonte }) {
                     </button>
 
                     <div className="flex items-center gap-2 flex-1 w-full">
-                        <input id="progresso-audio" name="progressoAudio" type="range" min="0" max="100" step="0.1" value={progresso} onChange={atualizarVisualAoArrastar} onMouseUp={aplicarMudancaDeAudio} onTouchEnd={aplicarMudancaDeAudio} className="flex-1 w-full accent-blue-500 h-3 rounded-lg cursor-pointer" />
+                        <input id="progresso-audio" name="progressoAudio" type="range" min="0" max="100" step="1" value={progresso} onChange={atualizarVisualAoArrastar} onMouseUp={aplicarMudancaDeAudio} onTouchEnd={aplicarMudancaDeAudio} className="flex-1 w-full accent-blue-500 h-3 rounded-lg cursor-pointer" />
                         <span className="text-xs font-mono min-w-10 text-right">{formatarTempo(tempoAtual)}</span>
                     </div>
 
                     <select id="velocidade-select" name="velocidadeSelect" value={velocidade} onChange={(e) => alterarVelocidade(Number(e.target.value))} className="text-xs outline-none cursor-pointer bg-principal-bg transition-colors duration-200" >
-                        {[1, 1.15, 1.5, 2, 3].map(a => <option key={a} value={a}>{a}x</option>)}
+                        {[1, 1.15, 1.5, 2].map(a => <option key={a} value={a}>{a}x</option>)}
                     </select>
                 </div>
             </div>

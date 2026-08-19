@@ -59,7 +59,7 @@ export default function MenuHamburguer() {
 
     return (
         <>
-            <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-1">
+            <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-2">
                 <button aria-label="Abrir menu" type="button" onClick={alterarMenu} className="p-3">
                     <div className="flex flex-col gap-1 w-6">
                         <span className="h-1 bg-[#8B8B94] w-[80%]" />

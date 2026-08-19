@@ -23,7 +23,7 @@ export default function App() {
               <Route path="projetos" element={<Projetos />} />
               <Route path="projetos/:id" element={<DetalheProjeto />} />
               <Route path="sobre" element={<Sobre />} />
-              {/* <Route path="solicitacao" element={<Solicitacao />} /> */}
+              <Route path="solicitacao" element={<Solicitacao />} />
               <Route path="curriculos" element={<Curriculo />} />
             </Route>
             <Route path="*" element={<Erro404 />} />

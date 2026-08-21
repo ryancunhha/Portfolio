@@ -5,7 +5,7 @@ import DOMPurify from "dompurify";
 import { obterReadmeDoProjeto, obterUnicoProjeto } from "../../services/repoGitHub";
 import BarraAcessibilidade from "../../components/barraAcessibilidade/barraAcessibilidade";
 import DetalheEsqueleto from "./detalheEsqueleto";
-import { notificar } from "../../components/notificacao/notificacao";
+import ReadmeConteudo from "../../components/readme/readme";
 
 export default function DetalhePagina() {
     const { id } = useParams();
@@ -112,12 +112,12 @@ export default function DetalhePagina() {
                         </div>
 
                         {projeto.description && (
-                            <h2 className="max-w-3xl text-lg text-gray-400 leading-relaxed mt-2">
+                            <p className="max-w-3xl text-gray-400 leading-relaxed mt-2">
                                 {projeto.description}
-                            </h2>
+                            </p>
                         )}
 
-                        <div className="flex items-center gap-2 mt-2 text-xs text-gray-500 font-medium">
+                        <div className="flex items-center gap-2 mt-2 text-xs text-gray-400 font-medium">
                             <p>Criado em {projeto.data?.mes}/{projeto.data?.ano}</p>
                             {projeto.atualizado && (
                                 <p className="flex items-center gap-1.5">
@@ -130,12 +130,12 @@ export default function DetalhePagina() {
                     <div className="flex flex-row flex-wrap items-center gap-3 pt-4 border-t border-[#333]">
                         {projeto.homepage && (
                             <a title="Visitar o site" href={projeto.homepage} target="_blank" rel="noreferrer">
-                                <img loading="lazy" className="bg-white rounded-full p-0.5" height="38" width="38" src="https://img.icons8.com/ios-filled/50/domain.png" alt="Site" />
+                                <img loading="lazy" className="rounded-full" height="38" width="38" src="https://img.icons8.com/ios-filled/50/FFFFFF/domain.png" alt="Site" />
                             </a>
                         )}
 
                         <a title="Link do repositório" href={`https://github.com/${donoDoRepo}/${projeto.name}`} target="_blank" rel="noreferrer">
-                            <img loading="eager" className="bg-white rounded-full p-0.5" height="38" width="38" src="https://img.icons8.com/ios-filled/50/github.png" alt="GitHub" />
+                            <img loading="eager" className="rounded-full" height="38" width="38" src="https://img.icons8.com/ios-filled/64/FFFFFF/github.png" alt="GitHub" />
                         </a>
 
                         {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
@@ -147,24 +147,12 @@ export default function DetalhePagina() {
                                         url: window.location.href
                                     }).catch(() => { });
                                 }} className="cursor-pointer">
-                                <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar" />
-                            </button>
-                        )}
-
-                        {projeto.clone_url && (
-                            <button type="button" title="Copiar comando Git clone" className="cursor-pointer"
-                                onClick={() => {
-                                    navigator.clipboard.writeText(`git clone ${projeto.clone_url}`);
-                                    notificar({
-                                        texto: "✅ Comando copiado!",
-                                    })
-                                }}>
-                                <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/color/48/git.png" alt="Git" />
+                                <img loading="lazy" className="rounded-full" height="38" width="38" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar" />
                             </button>
                         )}
 
                         <a title="Reportar bug ou sugestão" href={`https://github.com/${donoDoRepo}/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
-                            <img loading="lazy" className="rounded-full bg-white p-1.5" height="38" width="38" src="https://img.icons8.com/ios-filled/50/bug.png" alt="Issue" />
+                            <img loading="lazy" className="rounded-full" height="38" width="38" src="https://img.icons8.com/color/48/error--v1.png" alt="erro" />
                         </a>
                     </div>
                 </div>
@@ -172,7 +160,7 @@ export default function DetalhePagina() {
 
             <BarraAcessibilidade textoAudio={readmeMarkdown} tamanhoFonte={tamanhoFonte} setTamanhoFonte={setTamanhoFonte} />
 
-            <div className="wrap-break-word [&_pre]:overflow-x-auto [&_pre]:w-full [&_p]:mb-4 [&_a]:underline [&_a]:text-[#5b88c3] [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:mt-2 [&_h3]:mb-3 [&_strong]:font-bold [&_em]:italic [&_pre]:bg-neutral-800 [&_pre]:text-white [&_pre]:p-4 [&_pre]:rounded-md [&_hr]:my-6 [&_hr]:border-neutral-300" style={{ fontSize: `${tamanhoFonte}px` }} dangerouslySetInnerHTML={{ __html: readmeHtml }} />
+            <ReadmeConteudo html={readmeHtml} tamanhoFonte={tamanhoFonte} />
         </div>
     )
 }

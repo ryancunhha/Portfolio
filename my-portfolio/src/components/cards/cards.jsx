@@ -6,7 +6,7 @@ export function CardProjeto({ repo }) {
     return (
         <Link key={repo.id} to={`/projetos/${repo.id}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
             <div className="aspect-video p-1">
-                <div className="relative overflow-hidden bg-linear-to-br from-[#1c1c1c] to-[#0a0a0a] border border-[#222] group-hover:border-[#555] w-full h-full rounded-xl p-4 flex flex-col justify-between">
+                <div className="brightness-150 relative overflow-hidden bg-linear-to-br from-[#1c1c1c] to-[#0a0a0a] border border-[#222] group-hover:border-[#555] w-full h-full rounded-xl p-4 flex flex-col justify-between">
                     <div className="absolute -bottom-8 -right-4 text-[120px] font-black text-[#2a2a2a]/60 rotate-[-10deg] select-none">{letraInicial}</div>
 
                     <div className="flex justify-end h-6">

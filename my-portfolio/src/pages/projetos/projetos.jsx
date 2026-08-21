@@ -106,13 +106,13 @@ export default function Projeto() {
         <>
             <div className="top-0 z-2 transition-colors duration-200 flex flex-col items-center px-4 pt-4 pb-2">
                 <div className="flex items-center w-full max-w-xl border-2 border-[#888] rounded-lg">
-                    <input maxLength="30" id="pesquisa" name="pesquisa" className="h-11 px-4 placeholder-[#888] bg-transparent outline-none w-full" type="search" placeholder="Pesquisar" value={busca} onChange={(e) => { setBusca(e.target.value); }} />
+                    <input maxLength="30" id="pesquisa" name="pesquisa" className="text-lg h-11 px-4 placeholder-[#888] outline-none w-full" type="search" placeholder="Pesquisar" value={busca} onChange={(e) => { setBusca(e.target.value); }} />
                     <p className="px-4 border-l">🔍</p>
                 </div>
 
-                <div className="w-full flex flex-row gap-2 mt-3 text-[15px] overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
+                <div className="w-full flex flex-row gap-2 mt-3 overflow-x-auto whitespace-nowrap scrollbar-hide structural-tabs">
                     {todasCategorias.map((categoria) => (
-                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); }} className={`px-4 md:px-3 py-2.5 md:py-1 mb-2 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
+                        <button key={categoria} onClick={() => { setFiltroAtivo(categoria); }} className={`px-4 py-2.5 md:py-1 mb-2 rounded-md font-medium cursor-pointer shrink-0 ${filtroAtivo === categoria ? "bg-white text-black" : "bg-zinc-800 text-white"}`}>
                             {categoria}
                         </button>
                     ))}
@@ -125,27 +125,31 @@ export default function Projeto() {
                 ) : (
                     <>
                         {projetosPessoalFiltrados.length > 0 && (
-                            <div className="mx-4">
-                                <div className="flex-1 bg-zinc-700 h-px mb-4" />
+                            <>
+                                <div className="flex-1 bg-zinc-700 h-px" />
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                                    {projetosPessoalFiltrados.map((repo) => (
+                                <div className="mx-4 my-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                                    {projetosPessoalFiltrados.filter(repo => {
+                                        const agora = new Date()
+                                        agora.setDate(agora.getDate() - 21)
+                                        return new Date(repo.data.ano, repo.data.mes - 1) <= agora
+                                    }).map((repo) => (
                                         <CardProjeto key={repo.id} repo={repo} />
                                     ))}
                                 </div>
-                            </div>
+                            </>
                         )}
 
                         {projetosOrgFiltrados.length > 0 && (
-                            <div className="mx-4">
-                                <div className="flex-1 bg-zinc-700 h-px my-4" />
+                            <>
+                                <div className="flex-1 bg-zinc-700 h-px" />
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                                <div className="mx-4 my-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                                     {projetosOrgFiltrados.map((repo) => (
                                         <CardProjeto key={repo.id} repo={repo} />
                                     ))}
                                 </div>
-                            </div>
+                            </>
                         )}
                     </>
                 )}

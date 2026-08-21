@@ -7,7 +7,6 @@ const CACHE_TIME_PESSOAL = "cache_time_pessoal";
 const CACHE_KEY_ORG = "repos_cache_org";
 const CACHE_TIME_ORG = "cache_time_org";
 
-const FALLBACK = "/FALLBACK.webp";
 const agora = Date.now();
 
 // DADO LEVES

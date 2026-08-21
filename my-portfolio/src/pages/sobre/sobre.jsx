@@ -1,112 +1,59 @@
 import { useState, useEffect } from "react";
 import { redes, email } from "../../config/config";
-import Notificacao from "../../components/notificacao/notificacao";
+import { notificar } from "../../components/notificacao/notificacao";
+import ReadmeConteudo from "../../components/readme/readme";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+import { buscarReadme } from "../../services/repoSobre";
 
 export default function Sobre() {
-    const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
-    const tecnologias = [
-        "React.js", "Node.js", "TailwindCSS", "Python", "React Native", "Expo GO", "Docker", "Git", "Figma"
-    ];
+    const [readmeHtml, setReadmeHtml] = useState("");
 
     const copiarEmail = () => {
         navigator.clipboard.writeText(email);
-        setMostrarNotificacao(true);
+        notificar({
+            texto: "✅ E-mail copiado!",
+            tipo: "sucesso",
+        });
     };
 
     useEffect(() => {
-        if (!mostrarNotificacao) return;
-        const timer = setTimeout(() => setMostrarNotificacao(false), 3500);
-        return () => clearTimeout(timer);
-    }, [mostrarNotificacao]);
+        const carregarReadme = async () => {
+            const resultado = await buscarReadme();
+
+            if (!resultado) return;
+
+            const html = marked.parse(resultado);
+            const htmlLimpo = DOMPurify.sanitize(html);
+
+            setReadmeHtml(htmlLimpo);
+        };
+
+        carregarReadme();
+    }, []);
 
     return (
         <>
-            {mostrarNotificacao && <Notificacao mensagem={`🔔 E-mail: ${email} copiado!`} className="px-3 py-4 text-[13px] font-medium text-white bg-zinc-900 rounded-md border border-zinc-800" />}
-
             <div className="flex flex-col items-center gap-6 mx-auto p-6 my-7 max-w-4xl">
-                <div className="flex flex-col items-center text-center space-y-6 w-full">
-                    <img loading="lazy" height="192" width="192" src="https://github.com/ryancunhha.png?size=40" alt="Foto de Perfil GitHub de Ryan Cunha" className="w-48 h-48 rounded-full object-cover transition-transform" />
+                <div className="flex flex-row rounded-xl items-center text-center space-y-6 w-full">
+                    <img loading="lazy" height="192" width="192" src="https://github.com/ryancunhha.png?size=40" alt="Foto de Perfil GitHub de Ryan Cunha" className="w-48 h-48 rounded-md object-cover transition-transform" />
 
-                    <div className="flex flex-wrap justify-center gap-4 bg-[#18181B] p-2 rounded-sm">
+                    <div className="flex flex-wrap justify-center gap-4 mx-5">
                         {redes?.map((rede, index) => (
-                            <a key={index} href={rede.url} target="_blank" rel="noopener noreferrer" title={rede.label}>
-                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-8 w-8" height="32" width="32" />
+                            <a className="flex h-11 px-4 gap-2 items-center justify-center rounded-lg bg-white/5" key={index} href={rede.url} target="_blank" rel="noopener noreferrer" title={rede.label}>
+                                <img src={rede.icon} alt={`Acessar meu perfil no ${rede.label}`} className="h-7 w-7 object-contain" height="32" width="32" />
+                                <span>{rede.label}</span>
                             </a>
                         ))}
 
-                        <button title="Copiar Email" onClick={copiarEmail} className="px-1 cursor-pointer text-2xl">📧</button>
+                        <button title="Copiar Email" onClick={copiarEmail} className="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-lg bg-white/5 px-4">
+                            <span className="text-xl">📧</span>
+                            <span className="text-sm">Email</span>
+                        </button>
                     </div>
                 </div>
 
-                <div className="h-18 w-full overflow-hidden flex items-center">
-                    <div className="flex w-max animar-scroll">
-                        {tecnologias.map((tech, index) => (
-                            <div key={index} className="mx-8 text-lg font-semibold text-gray-500 whitespace-nowrap">
-                                {tech}
-                            </div>
-                        ))}
-
-                        {tecnologias.map((tech, index) => (
-                            <div key={`dup-${index}`} className="mx-8 text-lg font-semibold text-gray-500 whitespace-nowrap">
-                                {tech}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Biografia */}
-                <div className="w-full space-y-4 text-left">
-                    <h1 className="text-3xl text-left font-bold tracking-tight">Olá, eu sou o Ryan
-                        <span className="inline-block ml-2 animate-wave-hand">👋</span>
-                    </h1>
-
-                    <h2 className="text-xl font-semibold ">Sou <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">desenvolvedor Full-Stack</span>, <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">mobile</span> e <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">automação</span>. Este é o espaço onde compartilho meus projetos e estudos.</h2>
-
-                    <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
-                        <h3 className="font-semibold text-2xl">🛠️ Meu método</h3>
-                    </div>
-                    <p className="leading-relaxed text-lg">
-                        Gosto de criar projetos organizados, focados em{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
-                            reutilização de código
-                        </span>
-                        ,{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
-                            escalabilidade
-                        </span> e{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">facilidade de manutenção</span>. Os projetos apresentados neste portfólio refletem a como penso, organizo e desenvolvo.
-                    </p>
-
-                    <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
-                        <h3 className="font-semibold text-2xl">🌱 O Começo</h3>
-                    </div>
-                    <p className="leading-relaxed text-lg">
-                        Meu interesse pelo desenvolvimento surgiu de forma espontânea. Meu
-                        irmão realizava um curso online de programação e ao acompanhar seus estudos, despertei curiosidade pela área.
-                        A curiosidade rapidamente virou interesse, comecei pelo{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
-                            Front-end
-                        </span> e fui evoluindo naturalmente.
-                    </p>
-
-                    <div className="flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-full bg-gray-300 shrink-0" />
-                        <h3 className="font-semibold text-2xl">🎓 Formação e Evolução</h3>
-                    </div>
-                    <p className="leading-relaxed text-lg">
-                        Com o tempo, decidi ingressar numa graduação de{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
-                            Análise e Desenvolvimento de Sistemas (ADS)
-                        </span>{" "}
-                        na Barra da Tijuca (IBMR), conquistando uma bolsa de 100% por meio do ENEM. Durante essa jornada, me interessei por{" "}
-                        <span className="bg-amber-100 text-gray-800 px-1 rounded font-medium">
-                            Back-end, Bancos de dados e Automações
-                        </span>
-                        , áreas que hoje fazem parte do meu dia a dia, nos estudos e no desenvolvimento dos meus projetos.
-                    </p>
-                </div>
+                {readmeHtml && <ReadmeConteudo html={readmeHtml} />}
             </div>
         </>
     )

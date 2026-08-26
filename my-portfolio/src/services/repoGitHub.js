@@ -24,11 +24,12 @@ export async function obterProjetosGithubPessoal(signal) {
         const dados = [...await responsePerfil.json()];
 
         // DADOS
-        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, language, homepage, default_branch, description, clone_url }) => {
+        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, language, homepage, default_branch, description, clone_url, owner }) => {
             return {
                 id,
                 name,
                 topicos: topics,
+                owner: owner.login,
                 data: {
                     ano: new Date(created_at).getFullYear(),
                     mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
@@ -68,11 +69,12 @@ export async function obterProjetosGithubOrganizacao(signal) {
         const dados = [...await responseOrgs.json()]
 
         // DADOS
-        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, language, homepage, default_branch, description, clone_url }) => {
+        const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, language, homepage, default_branch, description, clone_url, owner }) => {
             return {
                 id,
                 name,
                 topicos: topics,
+                owner: owner.login,
                 data: {
                     ano: new Date(created_at).getFullYear(),
                     mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
@@ -114,6 +116,7 @@ export async function obterUnicoProjeto(idRepo, signal) {
             name: dados.name,
             organizacao: dados.owner.login,
             topicos: dados.topics || [],
+            owner: dados.owner.login,
             data: {
                 ano: new Date(dados.created_at).getFullYear(),
                 mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
@@ -136,26 +139,14 @@ export async function obterUnicoProjeto(idRepo, signal) {
 export async function obterReadmeDoProjeto(idProjeto, signal) {
     try {
         const repoName = typeof idProjeto === 'string' ? idProjeto : idProjeto.name;
+        const dono = idProjeto?.organizacao || idProjeto?.clone_url?.split('/')[3] || "ryancunhha";
+        const branch = idProjeto?.branch || "main";
+        const baseUrl = "https://raw.githubusercontent.com";
 
-        let dono = "ryancunhha";
-        if (typeof idProjeto === "object" &&idProjeto !== null) {
-            if (idProjeto.organizacao) {
-                dono = idProjeto.organizacao;
-            } else if (idProjeto.clone_url) {
-                dono = idProjeto.clone_url.split('/')[3];
-            }
-        }
-
-        const branch = typeof idProjeto === "object" && idProjeto !== null && idProjeto.branch ? idProjeto.branch : "main";
-
-        let response = await fetch(`https://raw.githubusercontent.com/${dono}/${repoName}/${branch}/README.md`, { signal });
-
-        if (!response.ok) {
-            response = await fetch(`https://raw.githubusercontent.com/${dono}/${repoName}/${branch}/readme.md`, { signal });
-        }
+        let response = await fetch(`${baseUrl}/${dono}/${repoName}/${branch}/README.md`, { signal });
 
         if (!response.ok && dono === "ryancunhha") {
-            response = await fetch(`https://raw.githubusercontent.com/estudos-ryan/${repoName}/${branch}/README.md`, { signal });
+            response = await fetch(`${baseUrl}/estudos-ryan/${repoName}/${branch}/README.md`, { signal });
         }
 
         if (!response.ok) return "O README deste projeto não estar disponível no momento.";

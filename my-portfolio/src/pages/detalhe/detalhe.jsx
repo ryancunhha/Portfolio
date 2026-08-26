@@ -1,9 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
 import { obterReadmeDoProjeto, obterUnicoProjeto } from "../../services/repoGitHub";
-import BarraAcessibilidade from "../../components/barraAcessibilidade/barraAcessibilidade";
 import DetalheEsqueleto from "./detalheEsqueleto";
 import ReadmeConteudo from "../../components/readme/readme";
 
@@ -12,7 +9,6 @@ export default function DetalhePagina() {
     const [projeto, setProjeto] = useState(null);
     const [readmeMarkdown, setReadmeMarkdown] = useState("");
     const [loading, setLoading] = useState(true);
-    const [tamanhoFonte, setTamanhoFonte] = useState(16);
 
     // DADOS
     useEffect(() => {
@@ -56,23 +52,6 @@ export default function DetalhePagina() {
         };
     }, [id]);
 
-    // REAME
-    const readmeHtml = useMemo(() => {
-        if (!readmeMarkdown) return "";
-
-        const renderer = {
-            heading(token) {
-                const text = typeof token === "object" ? token.text : arguments[1];
-                const depth = typeof token === "object" ? token.depth : arguments[0];
-                const newDepth = (depth === 1 || depth === 2) ? 3 : depth;
-                return `<h${newDepth}>${text}</h${newDepth}>`;
-            }
-        };
-
-        marked.use({ renderer });
-        return DOMPurify.sanitize(marked.parse(readmeMarkdown));
-    }, [readmeMarkdown])
-
     if (loading) return <DetalheEsqueleto />;
     if (!projeto) return <Navigate to="/404" replace />;
 
@@ -80,7 +59,7 @@ export default function DetalhePagina() {
 
     return (
         <div className="flex flex-col gap-3 mx-auto max-w-4xl p-4">
-            <div className="flex flex-col gap-4 bg-[#111] border border-[#222] p-6 rounded-2xl relative overflow-hidden">
+            <div className="flex flex-col gap-4 bg-[#111] border border-[#222] p-6 rounded-lg relative overflow-hidden">
                 <div className="absolute -bottom-10 -right-6 text-[180px] font-black text-[#2a2a2a]/30 rotate-[-10deg] select-none">{projeto.name ? projeto.name.charAt(0).toUpperCase() : "</>"}</div>
 
                 <div className="relative flex flex-col gap-4">
@@ -89,15 +68,6 @@ export default function DetalhePagina() {
                             <span>←</span>
                             <span className="group-hover:underline">Projetos</span>
                         </Link>
-
-                        {projeto.topicos && projeto.topicos.length > 0 && (
-                            <>
-                                <span className="cursor-default text-gray-600">&gt;</span>
-                                <Link className="capitalize text-gray-400 hover:text-white hover:underline transition-colors" to={`/projetos?search=${projeto.topicos[0]}`}>
-                                    {projeto.topicos[0]}
-                                </Link>
-                            </>
-                        )}
                     </div>
 
                     <div className="flex flex-col gap-2 mt-2">
@@ -118,7 +88,10 @@ export default function DetalhePagina() {
                         )}
 
                         <div className="flex items-center gap-2 mt-2 text-xs text-gray-400 font-medium">
+                            <p className="capitalize">{projeto.owner.replace(/-/g, " ")}</p>
+                            
                             <p>Criado em {projeto.data?.mes}/{projeto.data?.ano}</p>
+                            
                             {projeto.atualizado && (
                                 <p className="flex items-center gap-1.5">
                                     {projeto.atualizado}
@@ -152,15 +125,13 @@ export default function DetalhePagina() {
                         )}
 
                         <a title="Reportar bug ou sugestão" href={`https://github.com/${donoDoRepo}/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
-                            <img loading="lazy" className="rounded-full" height="38" width="38" src="https://img.icons8.com/color/48/error--v1.png" alt="erro" />
+                            <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/pastel-glyph/64/speaker--v1.png" alt="Reportar" />
                         </a>
                     </div>
                 </div>
             </div>
 
-            <BarraAcessibilidade textoAudio={readmeMarkdown} tamanhoFonte={tamanhoFonte} setTamanhoFonte={setTamanhoFonte} />
-
-            <ReadmeConteudo html={readmeHtml} tamanhoFonte={tamanhoFonte} />
+            <ReadmeConteudo markdown={readmeMarkdown} />
         </div>
     )
 }

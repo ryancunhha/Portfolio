@@ -1,85 +1,18 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BANNERS } from "../../config/config";
+import Banner from "../../components/banner/banner";
 
 export default function TelaInicial() {
-    const [indexAtual, setIndexAtual] = useState(0);
-    const [rodando, setRodando] = useState(true);
-    const [direcao, setDirecao] = useState("direita");
-    const totalBanners = BANNERS ? BANNERS.length : 0;
-    const ComponenteBanner = (totalBanners > 0 && BANNERS[indexAtual]) ? BANNERS[indexAtual] : null;
-
-    useEffect(() => {
-        if (!rodando || totalBanners <= 1) return
-        const interval = setInterval(() => {
-            setIndexAtual((prev) => {
-                const proximo = (prev + 1) % BANNERS.length
-
-                if (proximo === 0) {
-                    setDirecao("esquerda");
-                } else {
-                    setDirecao("direita");
-                }
-
-                return proximo;
-            })
-        }, 7500);
-        return () => clearInterval(interval);
-    }, [rodando, totalBanners]);
-
-    const proximoBanner = () => {
-        if (totalBanners === 0) return;
-        setDirecao("direita");
-        setIndexAtual((prev) => (prev + 1) % BANNERS.length)
-        setRodando(false)
-    }
-
-    const bannerAnterior = () => {
-        if (totalBanners === 0) return;
-        setDirecao("esquerda");
-        setIndexAtual((prev) => (prev - 1 + BANNERS.length) % BANNERS.length)
-        setRodando(false)
-    }
-
+    
     return (
         <>
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
-                    <h1 className="leading-tight brightness-120 text-[7.5vw] md:text-5xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
+                    <h1 className="leading-tight brightness-120 text-[7vw] md:text-7xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
                     <Link className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white hover:text-black transition-colors" to="/projetos">Explorar Portfólio</Link>
                 </div>
 
-                <div className="w-full">
-                    {totalBanners > 0 ? (
-                        <div className="w-full h-100 overflow-hidden">
-                            <div key={indexAtual} className={indexAtual === 0 && direcao === "direita" && rodando ? "" : (direcao === "direita" ? "animacao-direita" : "animacao-esquerda")}>
-                                {ComponenteBanner && <ComponenteBanner />}
-                            </div>
-                        </div>
-                    ) : (
-                        null
-                    )}
-
-                    {totalBanners > 1 &&
-                        <div className="w-full flex justify-between items-center pt-2 px-4 select-none">
-                            <button title="Anterior" onClick={bannerAnterior} className="p-2 px-4 border-2 rounded-full cursor-pointer">❮</button>
-
-                            <div className="flex items-center gap-1">
-                                <div className="flex flex-wrap gap-1">
-                                    {BANNERS.map((_, index) => (
-                                        <div key={index} className={`h-0.5 w-7 rounded-full ${index === indexAtual ? " bg-[#2A446F]" : "bg-[#E5ECF1]"}`} />
-                                    ))}
-                                </div>
-
-                                <button title={rodando ? "Pausar" : "Play"} onClick={() => setRodando(!rodando)} className="border-2 rounded cursor-pointer px-1">
-                                    {rodando ? "❚❚" : "▶︎"}
-                                </button>
-                            </div>
-
-                            <button title="Avançar" onClick={proximoBanner} className="p-2 px-4 border-2 rounded-full cursor-pointer">❯</button>
-                        </div>
-                    }
-                </div>
+                <Banner banners={BANNERS} />
             </section>
 
             <section className="flex flex-col gap-8 p-6 max-w-6xl mx-auto w-full">
@@ -95,8 +28,6 @@ export default function TelaInicial() {
                             <h3 className="font-bold text-lg tracking-tight">Design e Front-end</h3>
                             <p className="tracking-tight text-[#888]">Criação de sites institucionais, landing pages e plataformas rápidas e responsivas.</p>
                         </div>
-
-                        <Link className="mt-1 py-2.5 px-5 border rounded-full text-sm font-medium hover:text-black hover:bg-white transition-colors border-slate-300" to={"/projetos?search=web"}>Ver Interfaces</Link>
                     </div>
 
                     <div className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
@@ -108,8 +39,6 @@ export default function TelaInicial() {
                             <h3 className="font-bold text-lg tracking-tight">APIs e Back-end</h3>
                             <p className="tracking-tight text-[#888]">Criação de APIs, autenticação, integrações ao bancos de dados para a suas necessidades.</p>
                         </div>
-
-                        <Link className="mt-1 py-2.5 px-5 border rounded-full text-sm font-medium hover:text-black hover:bg-white transition-colors border-slate-300" to={"/projetos?search=back"}>Ver Integrações</Link>
                     </div>
 
                     <div className="bg-slate-950 flex flex-col md:flex-row items-center justify-between w-full lg:col-span-3 rounded-2xl p-8 gap-6 text-white shadow-xl relative overflow-hidden mt-2">

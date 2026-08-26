@@ -8,7 +8,6 @@ import Erro404 from "./pages/404/404";
 
 const Projetos = lazy(() => import("./pages/projetos/projetos"));
 const Sobre = lazy(() => import("./pages/sobre/sobre"));
-const Solicitacao = lazy(() => import("./pages/solicitacao/solicitacao"));
 const Curriculo = lazy(() => import("./pages/curriculos/curriculo"));
 const DetalheProjeto = lazy(() => import("./pages/detalhe/detalhe"));
 
@@ -23,7 +22,6 @@ export default function App() {
               <Route path="projetos" element={<Projetos />} />
               <Route path="projetos/:id" element={<DetalheProjeto />} />
               <Route path="sobre" element={<Sobre />} />
-              <Route path="solicitacao" element={<Solicitacao />} />
               <Route path="curriculos" element={<Curriculo />} />
             </Route>
             <Route path="*" element={<Erro404 />} />

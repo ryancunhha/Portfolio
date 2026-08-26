@@ -1,45 +1,38 @@
 import { Link } from "react-router-dom";
 
 export function CardProjeto({ repo }) {
-    const letraInicial = repo.name ? repo.name.charAt(0).toUpperCase() : "</>";
-
     return (
-        <Link key={repo.id} to={`/projetos/${repo.id}`} className="hover:bg-[#999]/30 rounded-xl flex flex-col cursor-pointer">
-            <div className="aspect-video p-1">
-                <div className="brightness-150 relative overflow-hidden bg-linear-to-br from-[#1c1c1c] to-[#0a0a0a] border border-[#222] group-hover:border-[#555] w-full h-full rounded-xl p-4 flex flex-col justify-between">
-                    <div className="absolute -bottom-8 -right-4 text-[120px] font-black text-[#2a2a2a]/60 rotate-[-10deg] select-none">{letraInicial}</div>
+        <Link key={repo.id} to={`/projetos/${repo.id}`} className="block bg-[#050505] border border-[#1a1a1a]">
+            <div className="brightness-125 relative w-full min-h-50 bg-[#0c0c0c] p-6 flex flex-col justify-between overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
 
-                    <div className="flex justify-end h-6">
-                        {repo.language && (
-                            <span className="text-[11px] font-semibold px-2 py-0.5 bg-[#222] text-[#ccc] border border-[#444] rounded-md flex items-center">
-                                {repo.language}
-                            </span>
-                        )}
-                    </div>
+                <div className="flex justify-start">
+                    {repo.language && (
+                        <span className="text-[10px] font-mono font-bold px-3 py-2 bg-[#151515] text-[#999] border border-[#222] rounded uppercase tracking-widest">
+                            {repo.language}
+                        </span>
+                    )}
+                </div>
 
-                    <p className="text-[13px] text-[#aaa] line-clamp-3 my-2 leading-relaxed z-1">
-                        {repo.description || "Descrição indisponível."}
-                    </p>
+                <p className="text-2xl md:text-3xl font-black text-white/90 capitalize tracking-tight my-4">{repo.name.replace(/-/g, " ")}</p>
 
-                    <div className="flex flex-wrap gap-1.5 mt-auto h-5.5 overflow-hidden">
-                        {repo.topicos && repo.topicos.slice(0, 3).map((topico) => (
-                            <span key={topico} className="text-[10px] uppercase font-medium px-2 py-0.5 bg-[#222] text-[#888] border border-[#333] rounded-full flex items-center">
-                                {topico}
-                            </span>
-                        ))}
-
-                        {repo.topicos && repo.topicos.length > 3 && (
-                            <span className="text-[10px] text-[#666] pl-1 font-medium flex items-center">
-                                +{repo.topicos.length - 3}
-                            </span>
-                        )}
-                    </div>
+                <div className="flex flex-wrap justify-end gap-2">
+                    {repo.topicos && repo.topicos.slice(0, 3).map((topico) => (
+                        <span key={topico} className="text-[10px] uppercase font-bold px-3 py-1 bg-[#1a1a1a] text-[#777] rounded">
+                            {topico}
+                        </span>
+                    ))}
                 </div>
             </div>
 
-            <div className="mb-1.5 mx-2">
-                <p className="truncate font-bold text-lg first-letter:uppercase">{repo.name.replace(/-/g, " ")}</p>
-                <p className="text-[12px] font-semibold text-[#888]">{repo.data.ano} {repo.atualizado}</p>
+            <div className="p-6 flex gap-2 flex-col justify-between mb-4">
+                <p className="truncate font-bold text-white capitalize flex items-center gap-2">{repo.owner.replace(/-/g, " ")}</p>
+
+                <p className="text-[#999]">{repo.data.ano} {repo.atualizado}</p>
+
+                <p className="leading-relaxed font-medium">
+                    {repo.description || "Descrição indisponível"}
+                </p>
             </div>
         </Link>
     )

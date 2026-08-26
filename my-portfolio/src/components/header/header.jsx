@@ -1,99 +1,107 @@
-import { useState, useEffect } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown";
-import { rotasMenu, redes, email } from "../../config/config";
-import { notificar } from "../notificacao/notificacao";
-
-function Opcoes({ className, mostrarNotificacao, setMostrarNotificacao }) {
-    const [dropdownAberto, setDropdownAberto] = useState(false)
-
-    const copiarEmail = () => {
-        navigator.clipboard.writeText(email);
-        notificar({
-            texto: "✅ E-mail copiado!",
-            tipo: "sucesso",
-        });
-    };
-
-    useEffect(() => {
-        if (!mostrarNotificacao) return;
-        const timer = setTimeout(() => setMostrarNotificacao(false), 3500);
-        return () => clearTimeout(timer);
-    }, [mostrarNotificacao, setMostrarNotificacao]);
-
-    return (
-        <>
-            <div className={`flex flex-row items-center gap-4 ${className}`}>
-                <button type="button" onClick={copiarEmail} title="Copiar Email" className="cursor-pointer text-xl" aria-label="Copiar Email">📧</button>
-
-                <div className="mr-2 relative flex flex-row items-center">
-                    <button className="text-[#999] text-xl cursor-pointer" type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }}>
-                        {dropdownAberto ? "▴" : "▾"}
-                    </button>
-
-                    {dropdownAberto && <Dropdown items={redes} aoFechar={() => setDropdownAberto(false)} />}
-                </div>
-            </div>
-        </>
-    )
-}
+import { rotasMenu, redes } from "../../config/config";
 
 export default function MenuHamburguer() {
+    const ultimoScroll = useRef(0);
+    const menuRef = useRef(null);
+    const [dropdownAberto, setDropdownAberto] = useState(false)
+    const [visivel, setVisivel] = useState(true);
     const { pathname } = useLocation();
-    const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
     const [menuAberto, setMenuAberto] = useState(false)
 
-    const alterarMenu = () => setMenuAberto(!menuAberto);
-
     useEffect(() => {
-        const elementoMain = document.querySelector("main");
-
-        if (elementoMain) {
-            elementoMain.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-            });
-        }
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+        setMenuAberto(false);
+        setDropdownAberto(false);
     }, [pathname]);
 
+    useEffect(() => {
+        const onScroll = () => {
+            const atual = window.scrollY;
+            setVisivel(atual <= 60 || atual < ultimoScroll.current);
+            ultimoScroll.current = atual;
+            setMenuAberto(prev => prev ? false : prev);
+            setDropdownAberto(prev => prev ? false : prev);
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    useEffect(() => {
+        const clicarFora = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setMenuAberto(false);
+                setDropdownAberto(false);
+            }
+        };
+
+        if (menuAberto || dropdownAberto) document.addEventListener("mousedown", clicarFora);
+
+        return () => document.removeEventListener("mousedown", clicarFora);
+    }, [menuAberto, dropdownAberto]);
+
     return (
-        <>
-            <div className="md:hidden fixed top-0 left-0 w-full p-2 flex flex-row justify-between items-center z-2">
-                <button aria-label="Abrir menu" type="button" onClick={alterarMenu} className="p-3">
-                    <div className="flex flex-col gap-1 w-6">
-                        <span className="h-1 bg-[#8B8B94] w-[80%]" />
-                        <span className="h-1 bg-[#8B8B94] w-[80%]" />
-                    </div>
-                </button>
-
-                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} />
-            </div>
-
-            {menuAberto && <div onClick={alterarMenu} className="fixed inset-0 bg-black/50 z-4 md:hidden" />}
-
-            <header className={`bg-[#0A0A0A] fixed top-0 left-0 h-screen z-5 flex flex-col justify-between transition-transform duration-150 ease-in-out w-[calc(100%-8px)] max-w-74 ${menuAberto ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0`}>
-                <div>
-                    <div className="bg-[#18181B] pt-5 px-3 flex md:hidden">
-                        <button type="button" onClick={alterarMenu} className="text-3xl text-white p-3">×</button>
-                    </div>
-
-                    <div className="flex flex-row items-center m-4 p-3 rounded-lg bg-[#161616] text-white">
-                        <p className="flex items-center justify-center font-black border rounded-full border-[#232323] h-10 w-10">RC</p>
-                        <p className="ml-2 text-white font-semibold">Ryan Cunha <span>Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none">_</span></span></p>
-                    </div>
+        <header ref={menuRef} className={`sticky top-0 z-5 w-full bg-[#141414]/60 backdrop-blur-md transition-transform duration-300 ${visivel ? "translate-y-0" : "-translate-y-full"}`}>
+            <div className="mx-auto flex h-19 items-center justify-between px-4 md:px-6">
+                <div className="flex items-center gap-2 md:hidden">
+                    <button type="button" onClick={() => setMenuAberto(prev => !prev)} className="p-2 text-[#8B8B94]" aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}>
+                        <div className="flex flex-col gap-1 w-6 pointer-events-none">
+                            <span className="h-1 bg-current w-[90%]" />
+                            <span className={`h-1 bg-current transition-all duration-200 ease-in-out ${menuAberto ? "-translate-y-2.5 opacity-0 w-[90%]" : "w-[80%]"}`} />
+                        </div>
+                    </button>
                 </div>
 
-                <Opcoes mostrarNotificacao={mostrarNotificacao} setMostrarNotificacao={setMostrarNotificacao} className="hidden md:flex flex-wrap p-8" />
+                <div className="flex items-center gap-3">
+                    <img fetchPriority="high" className="w-9 h-9 border border-[#202020] rounded-full" src="https://github.com/ryancunhha.png?size=40" alt="Perfil GitHub" />
+                    <p className="text-white font-semibold hidden md:block">
+                        Ryan Cunha <span>Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none">_</span></span>
+                    </p>
+                </div>
 
-                <nav className="flex-1 overflow-y-auto px-4 space-y-2 py-2 scrollbar-thumb-[#9F9F9F]">
+                <nav className="hidden md:flex flex-row items-center gap-2">
                     {rotasMenu.map((link, index) => (
-                        <NavLink key={index} to={link.path} onClick={() => setMenuAberto(false)} className={({ isActive }) => `flex p-4 rounded-md ${isActive ? "text-white bg-[#161616] border-l-8 border-white" : "text-[#999] hover:text-white hover:bg-[#161616] border-l-8 border-transparent"}`}>
+                        <NavLink key={index} to={link.path} className="px-4 py-2 rounded-full text-sm text-white font-medium hover:bg-white/10">
                             {link.nome}
                         </NavLink>
                     ))}
                 </nav>
-            </header>
-        </>
+
+                <div className="flex items-center">
+                    <div className={`flex flex-row items-center gap-4`}>
+                        <div className="relative flex flex-row items-center">
+                            <button className="text-white text-2xl cursor-pointer hover:bg-white/10 py-0.5 px-2 rounded-full" type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }}>
+                                {dropdownAberto ? "▴" : "▾"}
+                            </button>
+
+                            {dropdownAberto && <Dropdown items={redes} aoFechar={() => setDropdownAberto(false)} />}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {menuAberto && (
+                <div className={`absolute top-full left-0 w-full bg-[#141414] py-3 md:hidden`}>
+                    <nav className="flex flex-col space-y-2">
+                        {rotasMenu.map((link, index) => (
+                            <NavLink key={index} to={link.path} onClick={() => setMenuAberto(false)}
+                                className={({ isActive }) =>
+                                    `py-4 px-3 ${isActive ? "text-white bg-[#181818] border-l-8 border-white" : "text-[#999] hover:text-white hover:bg-[#202020] border-l-8 border-transparent"}`
+                                }
+                            >
+                                {link.nome}
+                            </NavLink>
+                        ))}
+                    </nav>
+                </div>
+            )}
+        </header>
     )
 }

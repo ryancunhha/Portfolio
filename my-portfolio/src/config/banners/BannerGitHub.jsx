@@ -1,58 +1,14 @@
-import { useState, useEffect } from "react";
+import { useProjetos } from "../../contexts/ProjetosContext";
 import { Link } from "react-router-dom";
-import { obterProjetosGithubPessoal, obterProjetosGithubOrganizacao } from "../../services/repoGitHub";
 
 export default function BannerGithub() {
-    const [projeto, setProjeto] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const { projetos, carregando } = useProjetos()
 
-    useEffect(() => {
-        const controller = new AbortController();
+    if (carregando) return <div className="flex flex-col h-100 w-full bg-white animate-pulse" />;
 
-        async function buscarUltimoProjeto() {
-            try {
-                const [projetosPessoais, projetosOrg] = await Promise.all([
-                    obterProjetosGithubPessoal(controller.signal),
-                    obterProjetosGithubOrganizacao(controller.signal)
-                ]);
+    if (!projetos || projetos.length === 0) return null;
 
-                const todosProjetos = [...(projetosPessoais || []), ...(projetosOrg || [])];
-
-                if (todosProjetos.length > 0) {
-                    const extrairTimestamp = (proj) => {
-                        if (proj.data?.ano && proj.data?.mes) {
-                            const ano = Number(proj.data.ano);
-                            const mes = Number(proj.data.mes) - 1;
-                            const dia = Number(proj.data.dia || 1);
-                            return new Date(ano, mes, dia).getTime();
-                        }
-                        
-                        const dataIso = proj.pushed_at || proj.updated_at || proj.created_at;
-                        return dataIso ? new Date(dataIso).getTime() : 0;
-                    };
-
-                    const projetosOrdenados = todosProjetos.sort((a, b) => extrairTimestamp(b) - extrairTimestamp(a));
-
-                    setProjeto(projetosOrdenados[0]);
-                }
-            } catch (error) {
-                if (error.name !== "AbortError") {
-                    console.error("Erro no Banner Github:", error);
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        buscarUltimoProjeto();
-        return () => controller.abort();
-    }, []);
-
-    if (loading) {
-        return <div className="flex flex-col h-100 w-full bg-white animate-pulse" />;
-    }
-
-    if (!projeto) return null;
+    const projeto = projetos[0];
 
     return (
         <div className="w-full flex flex-col md:flex-row h-100">

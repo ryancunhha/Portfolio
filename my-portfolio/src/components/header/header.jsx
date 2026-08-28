@@ -48,7 +48,7 @@ export default function MenuHamburguer() {
     }, [menuAberto, dropdownAberto]);
 
     return (
-        <header ref={menuRef} className={`sticky top-0 z-5 w-full bg-[#121212] transition-transform duration-300 ${visivel ? "translate-y-0" : "-translate-y-full"}`}>
+        <header ref={menuRef} className={`sticky top-0 z-5 w-full bg-(--background-color) transition-transform duration-300 ${visivel ? "translate-y-0" : "-translate-y-full"}`}>
             <div className="mx-auto flex h-19 items-center justify-between px-4 md:px-6">
                 <div className="flex items-center gap-2 md:hidden">
                     <button type="button" onClick={() => setMenuAberto(prev => !prev)} className="p-2 text-[#8B8B94]" aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}>

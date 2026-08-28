@@ -1,9 +1,40 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
+import { obterReadmeDoProjeto } from "../../services/repoGitHub";
 
-export default function ReadmeConteudo({ markdown, usuario = "ryancunhha", repositorio = "", branch = "main" }) {
+export default function ReadmeConteudo({ usuario = "ryancunhha", repositorio = "", branch = "main" }) {
     const contentRef = useRef(null);
+    const [markdown, setMarkdown] = useState("");
+    const [carregando, setCarregando] = useState(true);
+
+    useEffect(() => {
+        let montado = true;
+        const controller = new AbortController();
+
+        async function carregarReadme() {
+            if (!repositorio) return;
+
+            try {
+                setCarregando(true);
+                const texto = await obterReadmeDoProjeto(repositorio, controller.signal);
+                if (montado) setMarkdown(texto || "");
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    console.error("Erro ao buscar o README:", error);
+                }
+            } finally {
+                if (montado) setCarregando(false);
+            }
+        }
+
+        carregarReadme();
+
+        return () => {
+            montado = false;
+            controller.abort();
+        };
+    }, [repositorio]);
 
     const htmlLimpoESeguro = useMemo(() => {
         if (!markdown) return "";
@@ -83,6 +114,16 @@ export default function ReadmeConteudo({ markdown, usuario = "ryancunhha", repos
             });
         };
     }, [htmlLimpoESeguro]);
+
+    if (carregando) {
+        return (
+            <div className="w-full mx-auto max-w-4xl animate-pulse h-screen">
+                <div className="mt-2 h-5 aspect-video w-full bg-gray-400 rounded-md" />
+                <div className="mt-2 h-5 aspect-video w-[80%] bg-gray-400 rounded-md" />
+                <div className="mt-2 h-5 aspect-video w-[70%] bg-gray-400 rounded-md" />
+            </div>
+        )
+    }
 
     if (!htmlLimpoESeguro) return null;
 

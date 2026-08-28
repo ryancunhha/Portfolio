@@ -1,58 +1,26 @@
-import { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { obterReadmeDoProjeto, obterUnicoProjeto } from "../../services/repoGitHub";
-import DetalheEsqueleto from "./detalheEsqueleto";
 import ReadmeConteudo from "../../components/readme/readme";
+import { useProjetos } from "../../contexts/ProjetosContext";
 
 export default function DetalhePagina() {
     const { id } = useParams();
-    const [projeto, setProjeto] = useState(null);
-    const [readmeMarkdown, setReadmeMarkdown] = useState("");
-    const [loading, setLoading] = useState(true);
+    const { projetos, carregando } = useProjetos()
 
-    useEffect(() => {
-        let montado = true
-        const controller = new AbortController()
+    if (carregando) return (
+        <div className="w-full mx-auto max-w-4xl animate-pulse h-screen">
+            <div className="mt-2 aspect-video w-full h-80 bg-gray-400 rounded-lg" />
 
-        async function carregarDetalhes() {
-            try {
-                if (montado) setLoading(true);
+            <div className="w-full mx-auto max-w-4xl animate-pulse">
+                <div className="mt-2 h-5 aspect-video w-full bg-gray-400 rounded-md" />
+                <div className="mt-2 h-5 aspect-video w-[80%] bg-gray-400 rounded-md" />
+                <div className="mt-2 h-5 aspect-video w-[70%] bg-gray-400 rounded-md" />
+            </div>
+        </div>
+    )
 
-                const cachePessoal = JSON.parse(sessionStorage.getItem("repos_cache_pessoal") || "[]");
-                const cacheOrg = JSON.parse(sessionStorage.getItem("repos_cache_org") || "[]");
-                const todosEmCache = [...cachePessoal, ...cacheOrg];
+    const projeto = projetos.find(p => p.id.toString() === id.toString())
 
-                let textoMarkdown = "";
-                let projetoEncontrado = todosEmCache.find(p => p.id.toString() === id.toString());
-
-                if (!projetoEncontrado) projetoEncontrado = await obterUnicoProjeto(id, controller.signal);
-
-                if (projetoEncontrado && montado) {
-                    textoMarkdown = await obterReadmeDoProjeto(projetoEncontrado.name, controller.signal);
-
-                    setProjeto(projetoEncontrado);
-                    setReadmeMarkdown(textoMarkdown);
-                } else if (montado) {
-                    setProjeto(null);
-                }
-            } catch (error) {
-                if (error.name !== "AbortError") console.error("Erro ao carregar a página:", error);
-            } finally {
-                if (montado) setLoading(false)
-            }
-        }
-
-        carregarDetalhes();
-
-        return () => {
-            montado = false;
-            controller.abort();
-            window.speechSynthesis.cancel();
-        };
-    }, [id]);
-
-    if (loading) return <DetalheEsqueleto />;
-    if (!projeto) return <Navigate to="/404" replace />;
+    if (!projeto) return <Navigate to="/404" replace />
 
     return (
         <div className="flex flex-col gap-3 mx-auto max-w-4xl p-4">
@@ -126,7 +94,7 @@ export default function DetalhePagina() {
                 </div>
             </div>
 
-            <ReadmeConteudo markdown={readmeMarkdown} usuario={projeto.owner} repositorio={projeto.name} branch={projeto.branch} />
+            <ReadmeConteudo usuario={projeto.owner} repositorio={projeto.name} branch={projeto.branch} />
         </div>
     )
 }

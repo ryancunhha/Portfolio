@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorLimite from "./components/error/errorLimite";
+import { ProjetosProvider } from "./contexts/ProjetosContext";
 
 import LayoutPrincipal from "./layouts/LayoutPrincipal";
 import TelaInicial from "./pages/inicial/inicial";
@@ -13,21 +14,23 @@ const DetalheProjeto = lazy(() => import("./pages/detalhe/detalhe"));
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ErrorLimite>
-        <Suspense fallback={<div className="bg-[#18181B] h-screen w-screen" />}>
-          <Routes>
-            <Route path="/" element={<LayoutPrincipal />}>
-              <Route index element={<TelaInicial />} />
-              <Route path="projetos" element={<Projetos />} />
-              <Route path="projetos/:id" element={<DetalheProjeto />} />
-              <Route path="sobre" element={<Sobre />} />
-              <Route path="curriculos" element={<Curriculo />} />
-            </Route>
-            <Route path="*" element={<Erro404 />} />
-          </Routes>
-        </Suspense>
-      </ErrorLimite>
-    </BrowserRouter>
+    <ProjetosProvider>
+      <BrowserRouter>
+        <ErrorLimite>
+          <Suspense fallback={<div className="bg-[#18181B] h-screen w-screen" />}>
+            <Routes>
+              <Route path="/" element={<LayoutPrincipal />}>
+                <Route index element={<TelaInicial />} />
+                <Route path="projetos" element={<Projetos />} />
+                <Route path="projetos/:id" element={<DetalheProjeto />} />
+                <Route path="sobre" element={<Sobre />} />
+                <Route path="curriculos" element={<Curriculo />} />
+              </Route>
+              <Route path="*" element={<Erro404 />} />
+            </Routes>
+          </Suspense>
+        </ErrorLimite>
+      </BrowserRouter>
+    </ProjetosProvider>
   )
 }

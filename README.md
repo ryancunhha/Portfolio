@@ -19,3 +19,4 @@ Acredito que simplicidade, organização e automação são fundamentais para ma
 - Currículo
 - Formas de contato
 - Repositórios públicos
+

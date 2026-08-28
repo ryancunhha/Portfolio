@@ -48,7 +48,7 @@ export default function MenuHamburguer() {
     }, [menuAberto, dropdownAberto]);
 
     return (
-        <header ref={menuRef} className={`sticky top-0 z-5 w-full bg-[#141414]/60 backdrop-blur-md transition-transform duration-300 ${visivel ? "translate-y-0" : "-translate-y-full"}`}>
+        <header ref={menuRef} className={`sticky top-0 z-5 w-full bg-[#121212] transition-transform duration-300 ${visivel ? "translate-y-0" : "-translate-y-full"}`}>
             <div className="mx-auto flex h-19 items-center justify-between px-4 md:px-6">
                 <div className="flex items-center gap-2 md:hidden">
                     <button type="button" onClick={() => setMenuAberto(prev => !prev)} className="p-2 text-[#8B8B94]" aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}>
@@ -60,7 +60,7 @@ export default function MenuHamburguer() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <img fetchPriority="high" className="w-9 h-9 border border-[#202020] rounded-full" src="https://github.com/ryancunhha.png?size=40" alt="Perfil GitHub" />
+                    <img fetchPriority="high" className="w-9 h-9 rounded-full" src="https://github.com/ryancunhha.png?size=40" alt="Perfil GitHub" />
                     <p className="text-white font-semibold hidden md:block">
                         Ryan Cunha <span>Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none">_</span></span>
                     </p>
@@ -77,8 +77,8 @@ export default function MenuHamburguer() {
                 <div className="flex items-center">
                     <div className={`flex flex-row items-center gap-4`}>
                         <div className="relative flex flex-row items-center">
-                            <button className="text-white text-2xl cursor-pointer hover:bg-white/10 py-0.5 px-2 rounded-full" type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }}>
-                                {dropdownAberto ? "▴" : "▾"}
+                            <button className="w-10 text-white text-2xl cursor-pointer hover:bg-white/10 py-1 px-2.5 rounded-full" type="button" onPointerDown={(e) => { e.stopPropagation(); setDropdownAberto(anterior => !anterior); }}>
+                                {dropdownAberto ? "-" : "+"}
                             </button>
 
                             {dropdownAberto && <Dropdown items={redes} aoFechar={() => setDropdownAberto(false)} />}

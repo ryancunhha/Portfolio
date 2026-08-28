@@ -10,7 +10,6 @@ export default function DetalhePagina() {
     const [readmeMarkdown, setReadmeMarkdown] = useState("");
     const [loading, setLoading] = useState(true);
 
-    // DADOS
     useEffect(() => {
         let montado = true
         const controller = new AbortController()
@@ -55,20 +54,16 @@ export default function DetalhePagina() {
     if (loading) return <DetalheEsqueleto />;
     if (!projeto) return <Navigate to="/404" replace />;
 
-    const donoDoRepo = projeto.organizacao || (projeto.clone_url ? projeto.clone_url.split("/")[3] : "ryancunhha");
-
     return (
         <div className="flex flex-col gap-3 mx-auto max-w-4xl p-4">
             <div className="flex flex-col gap-4 bg-[#111] border border-[#222] p-6 rounded-lg relative overflow-hidden">
                 <div className="absolute -bottom-10 -right-6 text-[180px] font-black text-[#2a2a2a]/30 rotate-[-10deg] select-none">{projeto.name ? projeto.name.charAt(0).toUpperCase() : "</>"}</div>
 
-                <div className="relative flex flex-col gap-4">
-                    <div className="flex flex-wrap items-center gap-2 w-full text-base">
-                        <Link className="group flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors" to="/projetos">
-                            <span>←</span>
-                            <span className="group-hover:underline">Projetos</span>
-                        </Link>
-                    </div>
+                <div className="relative flex flex-col gap-3">
+                    <Link className="group flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors" to="/projetos">
+                        <span>←</span>
+                        <span className="group-hover:underline">Projetos</span>
+                    </Link>
 
                     <div className="flex flex-col gap-2 mt-2">
                         <div className="flex items-center gap-3 flex-wrap">
@@ -89,9 +84,9 @@ export default function DetalhePagina() {
 
                         <div className="flex items-center gap-2 mt-2 text-xs text-gray-400 font-medium">
                             <p className="capitalize">{projeto.owner.replace(/-/g, " ")}</p>
-                            
+
                             <p>Criado em {projeto.data?.mes}/{projeto.data?.ano}</p>
-                            
+
                             {projeto.atualizado && (
                                 <p className="flex items-center gap-1.5">
                                     {projeto.atualizado}
@@ -103,12 +98,12 @@ export default function DetalhePagina() {
                     <div className="flex flex-row flex-wrap items-center gap-3 pt-4 border-t border-[#333]">
                         {projeto.homepage && (
                             <a title="Visitar o site" href={projeto.homepage} target="_blank" rel="noreferrer">
-                                <img loading="lazy" className="rounded-full" height="38" width="38" src="https://img.icons8.com/ios-filled/50/FFFFFF/domain.png" alt="Site" />
+                                <img loading="lazy" className="rounded-full bg-white" height="38" width="38" src="https://img.icons8.com/ios-filled/50/domain.png" alt="Site" />
                             </a>
                         )}
 
-                        <a title="Link do repositório" href={`https://github.com/${donoDoRepo}/${projeto.name}`} target="_blank" rel="noreferrer">
-                            <img loading="eager" className="rounded-full" height="38" width="38" src="https://img.icons8.com/ios-filled/64/FFFFFF/github.png" alt="GitHub" />
+                        <a title="Link do repositório" href={`https://github.com/${projeto.owner}/${projeto.name}`} target="_blank" rel="noreferrer">
+                            <img loading="eager" className="rounded-full bg-white" height="38" width="38" src="https://img.icons8.com/ios-filled/64/github.png" alt="GitHub" />
                         </a>
 
                         {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
@@ -120,18 +115,18 @@ export default function DetalhePagina() {
                                         url: window.location.href
                                     }).catch(() => { });
                                 }} className="cursor-pointer">
-                                <img loading="lazy" className="rounded-full" height="38" width="38" src="https://img.icons8.com/flat-round/64/link--v1.png" alt="Compartilhar" />
+                                <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/ios-glyphs/30/forward-arrow.png" alt="Compartilhar" />
                             </button>
                         )}
 
-                        <a title="Reportar bug ou sugestão" href={`https://github.com/${donoDoRepo}/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
+                        <a title="Reportar bug ou sugestão" href={`https://github.com/${projeto.owner}/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
                             <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/pastel-glyph/64/speaker--v1.png" alt="Reportar" />
                         </a>
                     </div>
                 </div>
             </div>
 
-            <ReadmeConteudo markdown={readmeMarkdown} />
+            <ReadmeConteudo markdown={readmeMarkdown} usuario={projeto.owner} repositorio={projeto.name} branch={projeto.branch} />
         </div>
     )
 }

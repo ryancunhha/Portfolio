@@ -6,7 +6,7 @@
         
 - [Início](https://ryancunha.vercel.app/)
 - [Projetos](https://ryancunha.vercel.app/projetos)
-- [Sobre Mim](https://ryancunha.vercel.app/sobre)
+- [Sobre](https://ryancunha.vercel.app/sobre)
 - [Curriculos / CV](https://ryancunha.vercel.app/curriculos)
         
 ## Projetos
@@ -138,3 +138,11 @@
 - Tags: typescript
 - GitHub: https://github.com/estudos-ryan/ExcelMerge
 - [Página do projeto](https://ryancunha.vercel.app/projetos/1328174793)
+
+### YoutubeDownloader 
+
+- Tecnologia: JavaScript
+- Descrição: Download de vídeos e músicas do YouTube
+- Tags: Nenhuma
+- GitHub: https://github.com/estudos-ryan/YoutubeDownloader
+- [Página do projeto](https://ryancunha.vercel.app/projetos/1344231493)

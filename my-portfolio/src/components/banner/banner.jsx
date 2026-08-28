@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-const TEMPO_CARROSSEL_MS = 7500;
+const TEMPO_CARROSSEL_MS = 8000;
 
 export default function Banner({ banners = [] }) {
     const [indexAtual, setIndexAtual] = useState(0);

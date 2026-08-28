@@ -3,7 +3,6 @@ import { BANNERS } from "../../config/config";
 import Banner from "../../components/banner/banner";
 
 export default function TelaInicial() {
-    
     return (
         <>
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
@@ -41,16 +40,18 @@ export default function TelaInicial() {
                         </div>
                     </div>
 
-                    <div className="bg-slate-950 flex flex-col md:flex-row items-center justify-between w-full lg:col-span-3 rounded-2xl p-8 gap-6 text-white shadow-xl relative overflow-hidden mt-2">
+                    <div className="bg-slate-950 flex flex-col md:flex-row items-center justify-between w-full lg:col-span-2 rounded-2xl p-8 gap-6 text-white shadow-xl relative overflow-hidden mt-2">
                         <div className="flex flex-col items-start gap-3 max-w-xl">
                             <span className="text-sm font-semibold tracking-wider text-blue-400 uppercase">Mais Visto</span>
                             <h3 className="font-bold text-3xl tracking-tight">Desenvolvimento Full-Stack (Front & Back)</h3>
-                            <p className="tracking-tight text-[#888]">Sistemas completos. Do design, performance, segurança até a arquitetura do sistema.</p>
-                            <Link className="mt-2 p-2.5 px-5 rounded-full bg-white text-slate-950 hover:bg-slate-200 transition-colors text-sm font-semibold" to={"/projetos"}>Ver Projetos Completos</Link>
+                            <p className="tracking-tight text-slate-300">Sistemas completos. Do design, performance e segurança até a arquitetura do sistema.</p>
+                            <Link className="mt-2 p-2.5 px-5 rounded-full bg-white text-slate-950 hover:bg-slate-200 transition-colors text-sm font-semibold" to="/projetos">
+                                Ver Projetos Completos
+                            </Link>
                         </div>
 
                         <div className="flex items-center justify-center relative w-32 h-32 md:w-40 md:h-40">
-                            <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React" width="40" height="40" className="w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(97,218,251,0.3)] animate-[spin_20s_linear_infinite]" loading="lazy" fetchPriority="auto" />
+                            <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/90/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="React" width="40" height="40" className="w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(97,218,251,0.3)] animate-[spin_20s_linear_infinite]" loading="lazy" />
                         </div>
                     </div>
                 </div>

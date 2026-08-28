@@ -9,7 +9,6 @@ const CACHE_TIME_ORG = "cache_time_org";
 
 const agora = Date.now();
 
-// DADO LEVES
 export async function obterProjetosGithubPessoal(signal) {
     try {
         const cache = sessionStorage.getItem(CACHE_KEY_PESSOAL);
@@ -23,7 +22,6 @@ export async function obterProjetosGithubPessoal(signal) {
 
         const dados = [...await responsePerfil.json()];
 
-        // DADOS
         const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, language, homepage, default_branch, description, clone_url, owner }) => {
             return {
                 id,
@@ -68,7 +66,6 @@ export async function obterProjetosGithubOrganizacao(signal) {
 
         const dados = [...await responseOrgs.json()]
 
-        // DADOS
         const meusProjetos = await Promise.all(dados.filter(repo => !repo.fork && !ignorarRepo.includes(repo.name)).map(async ({ id, name, topics = [], created_at, pushed_at, language, homepage, default_branch, description, clone_url, owner }) => {
             return {
                 id,
@@ -76,6 +73,7 @@ export async function obterProjetosGithubOrganizacao(signal) {
                 topicos: topics,
                 owner: owner.login,
                 data: {
+                    dia: String(new Date(created_at).getDate()).padStart(2, "0"),
                     ano: new Date(created_at).getFullYear(),
                     mes: String(new Date(created_at).getMonth() + 1).padStart(2, "0"),
                 },
@@ -100,7 +98,6 @@ export async function obterProjetosGithubOrganizacao(signal) {
     }
 }
 
-// Dados Leves unicos
 export async function obterUnicoProjeto(idRepo, signal) {
     try {
         const response = await fetch(`https://api.github.com/repositories/${idRepo}`, { signal });
@@ -114,10 +111,10 @@ export async function obterUnicoProjeto(idRepo, signal) {
         return {
             id: dados.id,
             name: dados.name,
-            organizacao: dados.owner.login,
             topicos: dados.topics || [],
             owner: dados.owner.login,
             data: {
+                dia: String(new Date(created_at).getDate()).padStart(2, "0"),
                 ano: new Date(dados.created_at).getFullYear(),
                 mes: String(new Date(dados.created_at).getMonth() + 1).padStart(2, "0"),
             },
@@ -135,26 +132,22 @@ export async function obterUnicoProjeto(idRepo, signal) {
     }
 }
 
-// README
 export async function obterReadmeDoProjeto(idProjeto, signal) {
     try {
-        const repoName = typeof idProjeto === 'string' ? idProjeto : idProjeto.name;
-        const dono = idProjeto?.organizacao || idProjeto?.clone_url?.split('/')[3] || "ryancunhha";
-        const branch = idProjeto?.branch || "main";
-        const baseUrl = "https://raw.githubusercontent.com";
+        let dono = "estudos-ryan";
+        let response = await fetch(`https://raw.githubusercontent.com/${dono}/${idProjeto}/main/README.md`, { signal });
 
-        let response = await fetch(`${baseUrl}/${dono}/${repoName}/${branch}/README.md`, { signal });
-
-        if (!response.ok && dono === "ryancunhha") {
-            response = await fetch(`${baseUrl}/estudos-ryan/${repoName}/${branch}/README.md`, { signal });
+        if (!response.ok) {
+            dono = "ryancunhha"
+            response = await fetch(`https://raw.githubusercontent.com/${dono}/${idProjeto}/main/README.md`, { signal });
         }
 
-        if (!response.ok) return "O README deste projeto não estar disponível no momento.";
+        if (!response.ok) return "O README deste pode não estar disponível no momento.";
 
         return await response.text();
     } catch (error) {
         if (error.name === "AbortError") return "";
-        console.error("Erro ao buscar o conteúdo do README:", error);
+        console.error("Erro ao buscar o README:", error);
         return "Algo deu errado ao carregar o README.";
     }
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function CardProjeto({ repo }) {
     return (
         <Link key={repo.id} to={`/projetos/${repo.id}`} className="block bg-[#050505] border border-[#1a1a1a]">
-            <div className="brightness-125 relative w-full min-h-50 bg-[#0c0c0c] p-6 flex flex-col justify-between overflow-hidden">
+            <div className="relative w-full min-h-50 bg-[#0c0c0c] p-6 flex flex-col justify-between overflow-hidden">
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
 
                 <div className="flex justify-start">

@@ -1,148 +1,149 @@
 # Ryan Cunha
         
-> Portfólio pessoal de Ryan Cunha, desenvolvedor de Web Full-Stack.
-        
-## Páginas principais
-        
+> Portfólio pessoal de Ryan Cunha, desenvolvedor de Web Full-Stack, apresenta projetos, experiências, habilidades técnicas e tecnologias utilizadas no desenvolvimento em diversas áreas.
+
+## Páginas principais do portfólio
+
 - [Início](https://ryancunha.vercel.app/)
 - [Projetos](https://ryancunha.vercel.app/projetos)
 - [Sobre](https://ryancunha.vercel.app/sobre)
 - [Curriculos / CV](https://ryancunha.vercel.app/curriculos)
-        
+
 ## Projetos
 
 ### InterfoneDigital 
 
-- Tecnologia: CSS
-- Descrição: Não informada
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/InterfoneDigital
-- [Página do projeto](https://ryancunha.vercel.app/projetos/989296158)
+- Linguagem: CSS
+- Descrição: Descrição indisponível
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/InterfoneDigital
+- Página do projeto: https://ryancunha.vercel.app/projetos/989296158
 
 ### Caca-niqueis 
 
-- Tecnologia: CSS
-- Descrição: Não informada
-- Tags: web
-- GitHub: https://github.com/estudos-ryan/Caca-niqueis
-- [Página do projeto](https://ryancunha.vercel.app/projetos/993068547)
+- Linguagem: CSS
+- Descrição: Descrição indisponível
+- Topicos: web
+- Link do repositório no GitHub: https://github.com/estudos-ryan/Caca-niqueis
+- Página do projeto: https://ryancunha.vercel.app/projetos/993068547
 
 ### Moeda 
 
-- Tecnologia: HTML
+- Linguagem: HTML
 - Descrição: Conversora de moeda
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/Moeda
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1036192501)
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/Moeda
+- Página do projeto: https://ryancunha.vercel.app/projetos/1036192501
 
 ### VerificarCartao 
 
-- Tecnologia: CSS
+- Linguagem: CSS
 - Descrição: Veja se seu cartão vazou na internet [MEME]
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/VerificarCartao
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1047512956)
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/VerificarCartao
+- Página do projeto: https://ryancunha.vercel.app/projetos/1047512956
 
 ### Gerador-De-Bordas 
 
-- Tecnologia: HTML
+- Linguagem: HTML
 - Descrição: Geração de bordas para CSS
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/Gerador-De-Bordas
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1056367357)
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/Gerador-De-Bordas
+- Página do projeto: https://ryancunha.vercel.app/projetos/1056367357
 
 ### Calculadora-JurosCompostos 
 
-- Tecnologia: HTML
+- Linguagem: HTML
 - Descrição: Calculadora de juros compostos
-- Tags: web
-- GitHub: https://github.com/estudos-ryan/Calculadora-JurosCompostos
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1056410400)
+- Topicos: web
+- Link do repositório no GitHub: https://github.com/estudos-ryan/Calculadora-JurosCompostos
+- Página do projeto: https://ryancunha.vercel.app/projetos/1056410400
 
 ### CRUD 
 
-- Tecnologia: JavaScript
+- Linguagem: JavaScript
 - Descrição: CRUD - (CRIAR, LER, ATUALIZAR e DELETAR)
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/CRUD
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1056842235)
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/CRUD
+- Página do projeto: https://ryancunha.vercel.app/projetos/1056842235
 
 ### Guitar-Hero 
 
-- Tecnologia: JavaScript
+- Linguagem: JavaScript
 - Descrição: Simulador de Guitar Hero
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/Guitar-Hero
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1061382034)
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/Guitar-Hero
+- Página do projeto: https://ryancunha.vercel.app/projetos/1061382034
 
 ### TO-DO-LIST 
 
-- Tecnologia: CSS
-- Descrição: Não informada
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/TO-DO-LIST
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1062658554)
+- Linguagem: CSS
+- Descrição: Descrição indisponível
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/TO-DO-LIST
+- Página do projeto: https://ryancunha.vercel.app/projetos/1062658554
 
 ### delivery-api 
 
-- Tecnologia: Java
-- Descrição: Não informada
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/delivery-api
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1106768683)
+- Linguagem: Java
+- Descrição: Descrição indisponível
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/delivery-api
+- Página do projeto: https://ryancunha.vercel.app/projetos/1106768683
 
 ### app-notas 
 
-- Tecnologia: JavaScript
+- Linguagem: JavaScript
 - Descrição: O app-notas é um aplicativo móvel em React Native (Expo) para gerenciar notas e estoque pessoal com armazenamento local no dispositivo.
-- Tags: mobile
-- GitHub: https://github.com/estudos-ryan/app-notas
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1159582389)
+- Topicos: mobile
+- Link do repositório no GitHub: https://github.com/estudos-ryan/app-notas
+- Página do projeto: https://ryancunha.vercel.app/projetos/1159582389
 
 ### EncurtadorLocal 
 
-- Tecnologia: HTML
-- Descrição: Encurtador de Links Base62
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/EncurtadorLocal
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1300992462)
+- Linguagem: JavaScript
+- Descrição: Encurtador de Links com Temporarizador
+- Topicos: api, express-js
+- Link do repositório no GitHub: https://github.com/estudos-ryan/EncurtadorLocal
+- Página do projeto: https://ryancunha.vercel.app/projetos/1300992462
 
 ### LocalTempMail 
 
-- Tecnologia: HTML
-- Descrição: Não informada
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/LocalTempMail
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1301054078)
+- Linguagem: HTML
+- Descrição: Descrição indisponível
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/LocalTempMail
+- Página do projeto: https://ryancunha.vercel.app/projetos/1301054078
 
 ### WebScraper 
 
-- Tecnologia: JavaScript
-- Descrição: Não informada
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/WebScraper
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1304432475)
+- Linguagem: JavaScript
+- Descrição: Descrição indisponível
+- Topicos: Nenhuma informada
+- Link do repositório no GitHub: https://github.com/estudos-ryan/WebScraper
+- Página do projeto: https://ryancunha.vercel.app/projetos/1304432475
 
 ### MP3Player 
 
-- Tecnologia: Java
-- Descrição: MP3 Player criado com Java e JavaFX via maven
-- Tags: java, javafx
-- GitHub: https://github.com/estudos-ryan/MP3Player
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1304590505)
+- Linguagem: Java
+- Descrição: MP3 Player criado com Java
+- Topicos: java, javafx
+- Link do repositório no GitHub: https://github.com/estudos-ryan/MP3Player
+- Página do projeto: https://ryancunha.vercel.app/projetos/1304590505
 
 ### ExcelMerge 
 
-- Tecnologia: TypeScript
+- Linguagem: TypeScript
 - Descrição: Uma ferramenta que diretamente no navegador, permite importar múltiplas planilhas
-- Tags: typescript
-- GitHub: https://github.com/estudos-ryan/ExcelMerge
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1328174793)
+- Topicos: excel, typescript
+- Link do repositório no GitHub: https://github.com/estudos-ryan/ExcelMerge
+- Página do projeto: https://ryancunha.vercel.app/projetos/1328174793
 
 ### YoutubeDownloader 
 
-- Tecnologia: JavaScript
+- Linguagem: JavaScript
 - Descrição: Download de vídeos e músicas do YouTube
-- Tags: Nenhuma
-- GitHub: https://github.com/estudos-ryan/YoutubeDownloader
-- [Página do projeto](https://ryancunha.vercel.app/projetos/1344231493)
+- Topicos: api, express, youtube-downloader
+- Link do repositório no GitHub: https://github.com/estudos-ryan/YoutubeDownloader
+- Página do projeto: https://ryancunha.vercel.app/projetos/1344231493
+

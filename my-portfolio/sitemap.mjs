@@ -41,7 +41,7 @@ async function generateLLM() {
 - Descrição: ${repo.description || "Descrição indisponível"}
 - Topicos: ${repo.topics?.join(", ") || "Nenhuma informada"}
 - Link do repositório no GitHub: ${repo.html_url}
-- Página do projeto: https://ryancunha.vercel.app/projetos/${repo.id})
+- Página do projeto: https://ryancunha.vercel.app/projetos/${repo.id}
 `).join("\n");
 
         const paginas = rotasMenu.map(rota => `- [${rota.nome}](https://ryancunha.vercel.app${rota.path})`).join("\n")

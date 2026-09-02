@@ -7,7 +7,7 @@ export default function DetalhePagina() {
     const { projetos, carregando } = useProjetos()
 
     if (carregando) return (
-        <div className="w-full mx-auto max-w-4xl animate-pulse h-screen">
+        <div className="w-full mx-auto max-w-4xl animate-pulse h-screen p-5">
             <div className="mt-2 aspect-video w-full h-80 bg-gray-400 rounded-lg" />
 
             <div className="w-full mx-auto max-w-4xl animate-pulse">
@@ -35,7 +35,7 @@ export default function DetalhePagina() {
 
                     <div className="flex flex-col gap-2 mt-2">
                         <div className="flex items-center gap-3 flex-wrap">
-                            <h1 className="text-4xl font-extrabold tracking-tight capitalize text-white">{projeto.name.replace(/-/g, " ")}</h1>
+                            <h1 className="text-4xl font-extrabold tracking-tight capitalize truncate text-white">{projeto.name.replace(/-/g, " ")}</h1>
 
                             {projeto.language && (
                                 <span className="text-xs font-bold px-2.5 py-1 bg-[#222] text-[#ccc] border border-[#333] rounded-md">
@@ -50,7 +50,7 @@ export default function DetalhePagina() {
                             </p>
                         )}
 
-                        <div className="flex items-center gap-2 mt-2 text-sm text-gray-400 font-medium">
+                        <div className="flex flex-wrap items-center gap-2 mt-2 md:text-sm text-gray-400 font-medium">
                             {projeto.avatar_url && <img loading="lazy" fetchPriority="auto" className="rounded-full w-6 h-6" src={projeto.avatar_url} alt="Perfil" />}
                             <p className="capitalize">{projeto.owner.replace(/-/g, " ")}</p>
 
@@ -64,32 +64,36 @@ export default function DetalhePagina() {
                         </div>
                     </div>
 
-                    <div className="flex flex-row flex-wrap items-center gap-3 pt-4 border-t border-[#333]">
-                        {projeto.homepage && (
-                            <a title="Visitar o site" href={projeto.homepage} target="_blank" rel="noreferrer">
-                                <img loading="lazy" className="rounded-full bg-white" height="38" width="38" src="https://img.icons8.com/ios-filled/50/domain.png" alt="Site" />
+                    <div className="flex flex-row flex-wrap items-center gap-3 border-t border-[#333] pt-4 font-semibold">
+                        {true && (
+                            <a href={projeto.homepage} target="_blank" rel="noopener noreferrer" title="Visitar o site" className="flex items-center gap-2 rounded-full bg-white p-0.5 pr-3 text-black">
+                                <img loading="lazy" width="38" height="38" src="https://img.icons8.com/ios-filled/50/domain.png" alt="Site" className="h-8 w-8 rounded-full" />
+                                <span>Site</span>
                             </a>
                         )}
 
-                        <a title="Link do repositório" href={`https://github.com/${projeto.owner}/${projeto.name}`} target="_blank" rel="noreferrer">
-                            <img loading="eager" className="rounded-full bg-white" height="38" width="38" src="https://img.icons8.com/ios-filled/64/github.png" alt="GitHub" />
+                        <a href={`https://github.com/${projeto.owner}/${projeto.name}`} target="_blank" rel="noopener noreferrer" title="Link do repositório" className="flex items-center gap-2 rounded-full bg-white p-0.5 pr-3 text-black">
+                            <img loading="lazy" width="38" height="38" src="https://img.icons8.com/ios-filled/64/github.png" alt="GitHub" className="h-8 w-8 rounded-full" />
+                            <span>GitHub</span>
                         </a>
 
-                        {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
-                            <button type="button" title="Compartilhar projeto"
-                                onClick={() => {
+                        {typeof navigator !== "undefined" &&
+                            typeof navigator.share === "function" && (
+                                <button type="button" title="Compartilhar projeto" onClick={() => {
                                     navigator.share({
                                         title: projeto.name.replace(/-/g, " "),
                                         text: `Confira o projeto ${projeto.name.replace(/-/g, " ")}:`,
-                                        url: window.location.href
+                                        url: window.location.href,
                                     }).catch(() => { });
-                                }} className="cursor-pointer">
-                                <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/ios-glyphs/30/forward-arrow.png" alt="Compartilhar" />
-                            </button>
-                        )}
+                                }} className="flex cursor-pointer items-center gap-2 rounded-full bg-white p-0.5 pr-3 text-black">
+                                    <img loading="lazy" width="38" height="38" src="https://img.icons8.com/ios-filled/50/share-2.png" alt="Compartilhar" className="h-8 w-8 p-1" />
+                                    <span>Compartilhar</span>
+                                </button>
+                            )}
 
-                        <a title="Reportar bug ou sugestão" href={`https://github.com/${projeto.owner}/${projeto.name}/issues/new`} target="_blank" rel="noreferrer">
-                            <img loading="lazy" className="rounded-full bg-white p-1" height="38" width="38" src="https://img.icons8.com/pastel-glyph/64/speaker--v1.png" alt="Reportar" />
+                        <a href={`https://github.com/${projeto.owner}/${projeto.name}/issues/new`} target="_blank" rel="noopener noreferrer" title="Reportar bug ou sugestão" className="flex items-center gap-2 rounded-full bg-white p-0.5 pr-3 text-black">
+                            <img loading="lazy" width="38" height="38" src="https://img.icons8.com/ios-glyphs/30/bug--v1.png" alt="Reportar" className="h-8 w-8 rounded-full p-1" />
+                            <span>Reportar</span>
                         </a>
                     </div>
                 </div>

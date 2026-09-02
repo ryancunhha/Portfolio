@@ -65,7 +65,7 @@ export default function DetalhePagina() {
                     </div>
 
                     <div className="flex flex-row flex-wrap items-center gap-3 border-t border-[#333] pt-4 font-semibold">
-                        {true && (
+                        {projeto.homepage && (
                             <a href={projeto.homepage} target="_blank" rel="noopener noreferrer" title="Visitar o site" className="flex items-center gap-2 rounded-full bg-white p-0.5 pr-3 text-black">
                                 <img loading="lazy" width="38" height="38" src="https://img.icons8.com/ios-filled/50/domain.png" alt="Site" className="h-8 w-8 rounded-full" />
                                 <span>Site</span>

@@ -28,7 +28,7 @@ export default function DetalhePagina() {
                 <div className="absolute -bottom-10 -right-6 text-[180px] font-black text-[#2a2a2a]/30 rotate-[-10deg] select-none">{projeto.name ? projeto.name.charAt(0).toUpperCase() : "</>"}</div>
 
                 <div className="relative flex flex-col gap-3">
-                    <Link className="group flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors" to="/projetos">
+                    <Link className="w-max group flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors" to="/projetos">
                         <span>←</span>
                         <span className="group-hover:underline">Projetos</span>
                     </Link>
@@ -50,10 +50,11 @@ export default function DetalhePagina() {
                             </p>
                         )}
 
-                        <div className="flex items-center gap-2 mt-2 text-xs text-gray-400 font-medium">
+                        <div className="flex items-center gap-2 mt-2 text-sm text-gray-400 font-medium">
+                            {projeto.avatar_url && <img loading="lazy" fetchPriority="auto" className="rounded-full w-6 h-6" src={projeto.avatar_url} alt="Perfil" />}
                             <p className="capitalize">{projeto.owner.replace(/-/g, " ")}</p>
 
-                            <p>Criado em {projeto.data?.mes}/{projeto.data?.ano}</p>
+                            <p>• Criado em {projeto.data?.mes}/{projeto.data?.ano}</p>
 
                             {projeto.atualizado && (
                                 <p className="flex items-center gap-1.5">
@@ -95,6 +96,14 @@ export default function DetalhePagina() {
             </div>
 
             <ReadmeConteudo usuario={projeto.owner} repositorio={projeto.name} branch={projeto.branch} />
+
+            <div className="flex flex-wrap justify-center gap-2">
+                {projeto.topicos.map((topico) => (
+                    <span key={topico} className="text-[10px] uppercase font-bold px-3 py-1 bg-[#1a1a1a] text-[#777] rounded">
+                        {topico}
+                    </span>
+                ))}
+            </div>
         </div>
     )
 }

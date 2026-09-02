@@ -1,22 +1,10 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
 import { obterProjetosGithubPessoal, obterProjetosGithubOrganizacao } from "../services/repoGitHub";
 
-const ProjetosContext = createContext();
+const ProjetosContext = createContext(null);
 
 const ordenarMaisRecentes = (lista) => {
-    const extrairTimestamp = (repo) => {
-        if (repo.data?.ano && repo.data?.mes) {
-            const ano = Number(repo.data.ano)
-            const mes = Number(repo.data.mes) - 1
-            const dia = Number(repo.data.dia || 1)
-            return new Date(ano, mes, dia).getTime()
-        }
-
-        const dataIso = repo.pushed_at || repo.updated_at || repo.created_at;
-        return dataIso ? new Date(dataIso).getTime() : 0;
-    };
-
-    return [...lista].sort((a, b) => extrairTimestamp(b) - extrairTimestamp(a))
+    return [...lista].sort((a, b) => new Date(b.dataAtualizacao).getTime() - new Date(a.dataAtualizacao).getTime())
 }
 
 export function ProjetosProvider({ children }) {
@@ -66,7 +54,7 @@ export function ProjetosProvider({ children }) {
 export function useProjetos() {
     const context = useContext(ProjetosContext);
 
-    if (!context)  throw new Error("useProjetos deve ser usado dentro de um ProjetosProvider");
-    
+    if (!context) throw new Error("useProjetos deve ser usado dentro de um ProjetosProvider");
+
     return context;
 }

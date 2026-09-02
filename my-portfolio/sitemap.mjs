@@ -37,26 +37,27 @@ async function generateLLM() {
 
         const texto = dados.map(repo => `### ${repo.name} 
 
-- Tecnologia: ${repo.language || "Não informada"}
-- Descrição: ${repo.description || "Não informada"}
-- Tags: ${repo.topics?.join(", ") || "Nenhuma"}
-- GitHub: ${repo.html_url}
-- [Página do projeto](https://ryancunha.vercel.app/projetos/${repo.id})
+- Linguagem: ${repo.language || "Não informada"}
+- Descrição: ${repo.description || "Descrição indisponível"}
+- Topicos: ${repo.topics?.join(", ") || "Nenhuma informada"}
+- Link do repositório no GitHub: ${repo.html_url}
+- Página do projeto: https://ryancunha.vercel.app/projetos/${repo.id})
 `).join("\n");
 
         const paginas = rotasMenu.map(rota => `- [${rota.nome}](https://ryancunha.vercel.app${rota.path})`).join("\n")
 
         const llmTXT = `# Ryan Cunha
         
-> Portfólio pessoal de Ryan Cunha, desenvolvedor de Web Full-Stack.
-        
-## Páginas principais
-        
+> Portfólio pessoal de Ryan Cunha, desenvolvedor de Web Full-Stack, apresenta projetos, experiências, habilidades técnicas e tecnologias utilizadas no desenvolvimento em diversas áreas.
+
+## Páginas principais do portfólio
+
 ${paginas}
-        
+
 ## Projetos
 
-${texto}`
+${texto}
+`
 
         fs.mkdirSync("./public", { recursive: true });
         fs.writeFileSync("./public/llms.txt", llmTXT, "utf8");

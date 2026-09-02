@@ -39,5 +39,5 @@ jobs:
       - name: Commit and Push sitemap.xml
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "Chore: update sitemap.xml [CI/CD]"
+          commit_message: "Tarefa: atualização semanal no sitemap.xml e llm.txt [CI/CD]"
           file_pattern: "my-portfolio/public/sitemap.xml"

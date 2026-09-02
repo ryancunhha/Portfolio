@@ -128,7 +128,7 @@ export default function ReadmeConteudo({ usuario = "ryancunhha", repositorio = "
     if (!htmlLimpoESeguro) return null;
 
     return (
-        <div ref={contentRef} className="wrap-break-word leading-relaxed 
+        <div ref={contentRef} className="wrap-break-word leading-[1.75] md:text-[17px]
         [&_pre]:overflow-x-auto 
         [&_pre]:w-full 
         [&_p]:mb-4

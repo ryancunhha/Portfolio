@@ -68,7 +68,7 @@ export default function MenuHamburguer() {
 
                 <nav className="hidden md:flex flex-row items-center gap-2">
                     {rotasMenu.map((link, index) => (
-                        <NavLink key={index} to={link.path} className="px-4 py-2 rounded-full text-sm text-white font-medium hover:bg-white/10">
+                        <NavLink key={index} to={link.path} className="px-4 py-2 rounded-full text-sm text-white font-semibold hover:bg-white/10">
                             {link.nome}
                         </NavLink>
                     ))}

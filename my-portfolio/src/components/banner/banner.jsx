@@ -4,7 +4,7 @@ const TEMPO_CARROSSEL_MS = 8000;
 export default function Banner({ banners = [] }) {
     const [indexAtual, setIndexAtual] = useState(0);
     const [rodando, setRodando] = useState(true);
-    const [direcao, setDirecao] = useState("direita");
+    const [direcao, setDirecao] = useState(null);
     const totalBanners = banners.length;
     const ComponenteBanner = (totalBanners > 0 && banners[indexAtual]) ? banners[indexAtual] : null;
 
@@ -41,7 +41,7 @@ export default function Banner({ banners = [] }) {
     return (
         <div className="w-full">
             <div className="w-full h-100 overflow-hidden">
-                <div key={indexAtual} className={indexAtual === 0 && direcao === "direita" && rodando ? "" : (direcao === "direita" ? "animacao-direita" : "animacao-esquerda")}>
+                <div key={indexAtual} className={direcao === "direita" ? "animacao-direita" : direcao === "esquerda" ? "animacao-esquerda" : ""}>
                     {ComponenteBanner && <ComponenteBanner />}
                 </div>
             </div>
@@ -57,7 +57,7 @@ export default function Banner({ banners = [] }) {
                             ))}
                         </div>
 
-                        <button title={rodando ? "Pausar" : "Play"} onClick={() => setRodando(!rodando)} className="border-2 rounded cursor-pointer px-1">
+                        <button title={rodando ? "Pausar" : "Play"} onClick={() => setRodando((prev) => !prev)} className="w-7 border-2 rounded cursor-pointer px-1">
                             {rodando ? "❚❚" : "▶︎"}
                         </button>
                     </div>

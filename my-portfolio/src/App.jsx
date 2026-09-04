@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorLimite from "./components/error/errorLimite";
 import { ProjetosProvider } from "./contexts/ProjetosContext";
+import SEO from "./components/SEO/SEO";
 
 import LayoutPrincipal from "./layouts/LayoutPrincipal";
 import TelaInicial from "./pages/inicial/inicial";
@@ -16,6 +17,8 @@ export default function App() {
   return (
     <ProjetosProvider>
       <BrowserRouter>
+        <SEO />
+
         <ErrorLimite>
           <Suspense fallback={<div className="bg-[#18181B] h-screen w-screen" />}>
             <Routes>

@@ -82,7 +82,6 @@ export default function DetalhePagina() {
                                 <button type="button" title="Compartilhar projeto" onClick={() => {
                                     navigator.share({
                                         title: projeto.name.replace(/-/g, " "),
-                                        text: `Confira o projeto ${projeto.name.replace(/-/g, " ")}:`,
                                         url: window.location.href,
                                     }).catch(() => { });
                                 }} className="flex cursor-pointer items-center gap-2 rounded-full bg-white p-0.5 pr-3 text-black">

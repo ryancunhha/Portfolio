@@ -4,7 +4,7 @@ import ReadmeConteudo from "../../components/readme/readme";
 export default function Sobre() {
     return (
         <div className="flex flex-col items-center gap-6 mx-auto p-6 max-w-4xl">
-            <div className="flex flex-col md:flex-row items-center gap-8 w-full border border-[#232323] p-6 rounded-2xl">
+            <div data-aos="fade-down" className="flex flex-col md:flex-row items-center gap-8 w-full border border-[#232323] p-6 rounded-2xl">
                 <img loading="lazy" fetchPriority="auto" height="192" width="192" src="https://github.com/ryancunhha.png?size=40" alt="Foto de Perfil GitHub de Ryan Cunha" className="w-40 h-40 rounded-xl" />
 
                 <div className="flex flex-col items-center md:items-start justify-center flex-1 gap-5 w-full text-center md:text-left">

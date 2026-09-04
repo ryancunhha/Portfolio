@@ -27,7 +27,7 @@ export async function obterProjetosGithubPessoal(signal) {
                 id,
                 name,
                 topicos: topics,
-                owner: owner.login,                
+                owner: owner.login,
                 avatar_url: owner.avatar_url,
                 data: {
                     dia: String(new Date(created_at).getDate()).padStart(2, "0"),
@@ -140,18 +140,16 @@ export async function obterUnicoProjeto(idRepo, signal) {
 }
 
 export async function obterReadmeDoProjeto(idProjeto, signal) {
-    try {
-        let dono = "estudos-ryan";
-        let response = await fetch(`https://raw.githubusercontent.com/${dono}/${idProjeto}/main/README.md`, { signal });
+    const donos = ["estudos-ryan", "ryancunhha"];
 
-        if (!response.ok) {
-            dono = "ryancunhha"
-            response = await fetch(`https://raw.githubusercontent.com/${dono}/${idProjeto}/main/README.md`, { signal });
+    try {
+        for (const dono of donos) {
+            const response = await fetch(`https://raw.githubusercontent.com/${dono}/${idProjeto}/main/README.md`, { signal })
+
+            if (response.ok) return await response.text();
         }
 
-        if (!response.ok) return "O README deste pode não estar disponível no momento.";
-
-        return await response.text();
+        return "O README deste projeto não estar disponível no momento.";
     } catch (error) {
         if (error.name === "AbortError") return "";
         console.error("Erro ao buscar o README:", error);

@@ -58,17 +58,3 @@
 .animacao-esquerda {
   animation: entrarDaEsquerda 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
-
-@keyframes scroll-infinito {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animar-scroll {
-  animation: scroll-infinito 32s linear infinite;
-}

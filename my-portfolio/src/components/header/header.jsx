@@ -15,7 +15,7 @@ export default function MenuHamburguer() {
         window.scrollTo({
             top: 0,
             left: 0,
-            behavior: "smooth",
+            behavior: "instant",
         });
         setMenuAberto(false);
         setDropdownAberto(false);
@@ -60,7 +60,7 @@ export default function MenuHamburguer() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <img fetchPriority="high" className="w-9 h-9 rounded-full" src="https://github.com/ryancunhha.png?size=40" alt="Perfil GitHub" />
+                    <img loading="eager" fetchPriority="high" className="w-9 h-9 rounded-full" src="https://github.com/ryancunhha.png?size=40" alt="Perfil GitHub" />
                     <p className="text-white font-semibold hidden md:block">
                         Ryan Cunha <span>Dev<span className="animate-[pulse_0.8s_steps(1,start)_infinite] text-green-800 select-none">_</span></span>
                     </p>

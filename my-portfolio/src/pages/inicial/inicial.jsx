@@ -7,18 +7,21 @@ export default function TelaInicial() {
         <>
             <section className="flex flex-col items-center px-4 pt-8 justify-center">
                 <div className="flex flex-col items-center gap-3 mb-3 max-w-3xl text-center">
-                    <h1 className="leading-tight brightness-120 text-[7vw] md:text-7xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
-                    <Link className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white hover:text-black transition-colors" to="/projetos">Explorar Portfólio</Link>
+                    <span data-aos="fade-up" data-aos-delay="100" className="text-blue-400 text-sm md:text-base font-semibold tracking-widest uppercase mb-2">Ryan • Desenvolvedor Full-Stack</span>
+
+                    <h1 data-aos="fade-up" data-aos-delay="200" className="leading-tight text-[7vw] md:text-7xl font-extrabold tracking-tight uppercase bg-linear-to-r from-slate-400 via-slate-600 to-slate-700 bg-clip-text text-transparent">Transformando Ideias em Sistemas</h1>
+
+                    <Link data-aos="fade-up" data-aos-delay="300" className="mt-2 py-2 px-8 border-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white hover:text-black transition-colors" to="/projetos">Explorar Portfólio</Link>
                 </div>
 
                 <Banner banners={BANNERS} />
             </section>
 
             <section className="flex flex-col gap-8 p-6 max-w-6xl mx-auto w-full">
-                <h2 className="text-center font-bold text-2xl tracking-tight">Como posso te ajudar?</h2>
+                <h2 data-aos="fade-down" className="text-center font-bold text-2xl tracking-tight">Como posso te ajudar?</h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
+                    <div data-aos="fade-right" data-aos-delay="200" className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
                         <div className="bg-[#FFDE57]/20 p-3 rounded-xl">
                             <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="javascript" className="object-contain h-8 w-8" width="40" height="40" loading="lazy" fetchPriority="auto" />
                         </div>
@@ -29,7 +32,7 @@ export default function TelaInicial() {
                         </div>
                     </div>
 
-                    <div className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
+                    <div data-aos="fade-left" data-aos-delay="400" className="flex gap-4 border-t border-slate-300 flex-col items-start justify-between w-full p-6">
                         <div className="bg-[#28b071]/20 p-3 rounded-xl">
                             <img src="https://img.icons8.com/color/48/nodejs.png" width="40" height="40" alt="Node" className="object-contain h-8 w-8" loading="lazy" fetchPriority="auto" />
                         </div>
@@ -57,26 +60,26 @@ export default function TelaInicial() {
                 </div>
             </section>
 
-            <section className="p-4 max-w-6xl mx-auto w-full">
+            <section className="p-4 max-w-6xl mx-auto w-full overflow-y-hidden">
                 <h2 className="text-center font-bold text-2xl mb-6 tracking-tight">Por que construir seu projeto comigo?</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
-                    <div className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
+                    <div data-aos="fade-up" data-aos-delay="100" className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
                         <img width="40" height="40" className="object-contain" src="https://img.icons8.com/isometric/50/box.png" alt="" loading="lazy" decoding="async" />
                         <p className="font-bold tracking-tight text-sm">Entrega no prazo</p>
                     </div>
 
-                    <div className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
+                    <div data-aos="fade-up" data-aos-delay="200" className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
                         <img width="40" height="40" className="object-contain" src="https://img.icons8.com/external-kmg-design-flat-kmg-design/50/external-shield-protection-and-security-kmg-design-flat-kmg-design.png" alt="" loading="lazy" decoding="async" />
                         <p className="font-bold tracking-tight text-sm">Sistemas Seguros</p>
                     </div>
 
-                    <div className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
+                    <div data-aos="fade-up" data-aos-delay="300" className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
                         <img width="40" height="40" className="object-contain" src="https://img.icons8.com/fluency/48/group-task.png" alt="" loading="lazy" decoding="async" />
                         <p className="font-bold tracking-tight text-sm">Suporte após a entrega</p>
                     </div>
 
-                    <div className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
+                    <div data-aos="fade-up" data-aos-delay="400" className="p-4 py-6 flex flex-col gap-3 justify-center items-center rounded-2xl bg-black/10 text-center h-full">
                         <img width="40" height="40" className="object-contain" src="https://img.icons8.com/color/48/speed.png" alt="" loading="lazy" decoding="async" />
                         <p className="font-bold tracking-tight text-sm">Performance otimizada</p>
                     </div>

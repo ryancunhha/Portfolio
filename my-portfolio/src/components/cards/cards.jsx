@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function CardProjeto({ repo }) {
     return (
-        <Link key={repo.id} to={`/projetos/${repo.id}`} className="block bg-black border border-[#1a1a1a]">
+        <Link data-aos="fade-zoom-in" key={repo.id} to={`/projetos/${repo.id}`} className="block bg-black border border-[#1a1a1a]">
             <div className="w-full min-h-50 bg-[#0c0c0c] p-6 flex flex-col justify-between overflow-hidden">
                 <div className="flex justify-start">
                     {repo.language && (
